@@ -3,6 +3,8 @@ __pycache__/
 *.py[cod]
 *$py.class
 .idea
+settings.py
+JustCloud/settings.py
 # C extensions
 *.so
 
@@ -112,6 +114,3 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
-
-settings.py
-JustCloud/settings.py
