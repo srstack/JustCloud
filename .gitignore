@@ -6,6 +6,8 @@ __pycache__/
 # C extensions
 *.so
 
+settings.py
+
 # Distribution / packaging
 .Python
 build/
@@ -113,4 +115,3 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-settings.py
