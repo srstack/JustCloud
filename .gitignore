@@ -114,3 +114,4 @@ dmypy.json
 .pyre/
 
 setting.py
+JustCloud/settings.py
