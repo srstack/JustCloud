@@ -113,5 +113,5 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-setting.py
+settings.py
 JustCloud/settings.py
