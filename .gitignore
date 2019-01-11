@@ -6,8 +6,6 @@ __pycache__/
 # C extensions
 *.so
 
-*settings.py
-
 # Distribution / packaging
 .Python
 build/
@@ -115,3 +113,4 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
+JustCloud/settings.py~66283c6dc6e0013f780d0a93227ec2580c0192c6
