@@ -91,9 +91,9 @@ DATABASES = {
 
         'USER': 'root',   #你的数据库用户名
 
-        'PASSWORD': '123456', #你的数据库密码
+        'PASSWORD': '!QAZ2wsx', #你的数据库密码
 
-        'HOST': '', #你的数据库主机，留空默认为localhost
+        'HOST': '47.100.221.192', #你的数据库主机，留空默认为localhost
 
         'PORT': '3306', #你的数据库端口
 
