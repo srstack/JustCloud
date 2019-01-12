@@ -507,3 +507,81 @@ ol, ul {
 .footer>a{
     height: 20px;
 }
+.modal-dialog {
+    width: 540px;
+    margin: 56px auto;
+}
+.modal-header{
+    padding: 20px;
+}
+.login-title{
+    text-align: center;
+    margin: 0 auto;
+    color: #393E4C;
+    font-size: 18px;
+}
+.login-title img{
+    width: 32px;
+    margin: -5px 6px 0 0;
+    display: inline-block;
+}
+.modal-content{
+    border-radius: 2px;
+    border: 1px solid #fff;
+}
+.modal-body form .form-group{
+    padding: 10px 0;
+    position: relative;
+    text-align: center;
+}
+.modal-body form .form-group input{
+    padding-left: 40px;
+    width: 380px;
+    height: 48px;
+    border-radius: 0;
+}
+.modal-body form .form-group .waring{
+    background-color: red;
+    opacity: 0.4;
+    color: black;
+    border: 0;
+}
+.modal-body form .form-group span{
+    left: 80px;
+    position: absolute;
+    line-height: 40px;
+    top: 15px;
+    font-size: 15px;
+    color: #C6CACE;
+}
+.modal-body form .form-group input:focus~span {
+    color: #19bbff;
+}
+.modal-body form .form-group input:focus{
+    outline: none;
+    border: 1px solid #00c0f1;
+}
+.modal-body .form-group .login-button{
+    font-size: 14px;
+    width: 380px;
+    height: 48px;
+    cursor: pointer;
+    font-family: "Microsoft YaHei",sans-serif;
+    font-weight: 400;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    background-color: #00c0f1;
+    color: #fff;
+    border-width: 0;
+    padding: 16px 25px;
+    line-height: 1em;
+    transition: all .2s ease-in;
+}
+.modal-body .form-group .login-button:hover{
+    background-color: #49d9ff;
+}
+.modal-body .form-group .login-button:focus{
+    background-color: #17a6f1;
+    border: 0;
+}

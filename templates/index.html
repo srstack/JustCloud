@@ -8,6 +8,7 @@
     <script src="/static/plugins/bootstrap/js/bootstrap.min.js"></script>
     <link rel="shortcut icon" href="/static/img/favicon.ico" type="image/x-icon">
     <link href="/static/css/index1.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="/static/plugins/font-awesome/css/font-awesome.min.css">
 </head>
 <body style="position: relative">
 <div class="header" id="top">
@@ -498,6 +499,36 @@
 </div>
 <div class="suspension">
     <a href="#top"><span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></a>
+</div>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <div class="login-title "><img src="/static/img/index/login.png">登陆</div>
+      </div>
+      <div class="modal-body">
+        <form>
+            {%csrf_token%}
+            <div class="form-group">
+                <input type="text" name="domain" id="domain" required="" value="" placeholder="请输入域名" onclick="reWaring(this);">
+                <span class="fa fa-superpowers"></span>
+            </div>
+            <div class="form-group">
+                <input type="text" name="username" id="username" required="" value="" placeholder="请输入用户名" onclick="reWaring(this);">
+                <span class="fa fa-user-o"></span>
+            </div>
+            <div class="form-group">
+                <input type="password" name="password" id="password" required="" value="" placeholder="请输入密码" onclick="reWaring(this);">
+                <span class="fa fa-minus-square-o"></span>
+            </div>
+            <div class="form-group">
+                <button type="button" class="login-button" onclick="login();">登陆</button>
+            </div>
+        </form>
+      </div>
+    </div>
+    </div>
 </div>
 <script src="/static/js/index.js"></script>
 </body>

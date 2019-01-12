@@ -34,3 +34,24 @@ window.onload = function() {
 window.onscroll = function () {
     showReposBtn();
 };
+function login() {
+    var login_value = $('.modal-body form').serializeArray();
+    $.each(login_value,function (i,val){
+        if (login_value[i].value === "") {
+            $('.modal-body form .form-group #' + login_value[i].name).addClass('waring');
+            return false;
+        }
+    });
+    $.ajax({
+        url: 'login',
+         type: 'POST',
+         data: $(".modal-body form").serialize(),
+         success: function (data) {
+         }
+         })
+}
+function reWaring(that) {
+    if (that.classList.contains('waring')){
+        that.classList.remove('waring')
+    }
+};
