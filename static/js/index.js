@@ -35,23 +35,26 @@ window.onscroll = function () {
     showReposBtn();
 };
 function login() {
+    var Status = true;
     var login_value = $('.modal-body form').serializeArray();
     $.each(login_value,function (i,val){
         if (login_value[i].value === "") {
             $('.modal-body form .form-group #' + login_value[i].name).addClass('waring');
-            return false;
+            Status = false;
         }
     });
-    $.ajax({
-        url: 'login',
-         type: 'POST',
-         data: $(".modal-body form").serialize(),
-         success: function (data) {
-            if (data === 'success'){
-                window.location.href="/keystone"
-            }
-         }
-         })
+    if (Status === true){
+            $.ajax({
+                url: 'login',
+                type: 'POST',
+                data: $(".modal-body form").serialize(),
+                success: function (data) {
+                    if (data === 'success'){
+                        window.location.href="/keystone"
+                    }
+                 }
+                 })
+    }
 }
 function reWaring(that) {
     if (that.classList.contains('waring')){
