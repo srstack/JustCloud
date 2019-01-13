@@ -47,6 +47,9 @@ function login() {
          type: 'POST',
          data: $(".modal-body form").serialize(),
          success: function (data) {
+            if (data === 'success'){
+                window.location.href="/keystone"
+            }
          }
          })
 }
