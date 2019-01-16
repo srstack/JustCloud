@@ -23,9 +23,9 @@ from Parquer import views as parquer
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('dome',dashboard.dome),#测试cssjs效果页面....
+    path('dome', dashboard.dome),  # 测试效果页面....
     path('', dashboard.index),
     path('register', keystone.register),
-    path('keystone', keystone.admin),
+    path('admin', keystone.admin),
     path('login', keystone.login),
 ]
