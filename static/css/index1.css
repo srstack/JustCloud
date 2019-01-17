@@ -577,7 +577,8 @@ ol, ul {
 }
 
 .suspension a span {
-    line-height: 28px;
+    color: white;
+    line-height: 25px;
 }
 
 .suspension a {
@@ -587,15 +588,18 @@ ol, ul {
 .footer {
     bottom: 0;
     width: 100%;
-    height: 70px;
+    height: 124px;
     background-color: #25272e;
     text-align: center;
 }
-
 .footer > a {
     height: 20px;
+    padding-top: 25px;
+    display: inline-block;
 }
-
+.footer > p{
+    padding-top: 12px;
+}
 .modal-dialog {
     width: 540px;
     margin: 56px auto;

@@ -23,10 +23,9 @@ $(".wrapper-base .wrapper-index .w-banner .banner-sliders").hover(function () {
 });
 
 function showReposBtn() {
-    var clientHeight = $(window).height();
-    var scrollTop = $(document).scrollTop();
-    var maxScroll = $(document).height() - clientHeight;
-    if (scrollTop > clientHeight) {
+    var clientHeight = $(window).height()/2;
+    var scroll = $(document).scrollTop();
+    if (scroll > clientHeight) {
         $('.suspension').show();
     } else {
         $('.suspension').hide();

@@ -3,53 +3,118 @@
 <head>
     <meta charset="UTF-8">
     <title>JustCloud-注册</title>
-    <script src = "/static/js/jquery-3.3.1.min.js"></script>
+    <script src="/static/js/jquery-3.3.1.min.js"></script>
     <link href="/static/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <script src="/static/plugins/bootstrap/js/bootstrap.min.js"></script>
     <link rel="shortcut icon" href="/static/img/favicon.ico" type="image/x-icon">
-    <link href="/static/css/index1.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/css/register.css" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="/static/plugins/font-awesome/css/font-awesome.min.css">
-    <style>
-        a{
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: none;
-        }
-        .header{
-             background-color: #161C27;
-        }
-    </style>
 </head>
 <body>
-<div class="header">
-    <div class="header-body">
-        <a href="/" class="header-logo"></a>
-        <div class="header-menu">
-            <ul class="header-menu-ul">
-                <li class="header-menu-ul-li ">
-                    <a href="/#Jinger" class="header-menu-a" >Jinger系统</a>
-                </li>
-                                <li class="header-menu-ul-li ">
-                    <a href="/#Detritus" class="header-menu-a">Detritus系统</a>
-                </li>
-                                <li class="header-menu-ul-li ">
-                    <a href="/#Lumiere" class="header-menu-a">Lumiere系统</a>
-                </li>
-                                <li class="header-menu-ul-li ">
-                    <a href="/#Parquer" class="header-menu-a">Parquer系统</a>
-                </li>
-            </ul>
+<div class="header-wrap">
+    <div class="header" id="top">
+        <a class="logo-wrapper" href="/">
+            <span class="logo"></span>
+        </a>
+        <span class="logo-text">注册</span>
+    </div>
+</div>
+<div class="main-content">
+    <div class="title">欢迎来到JustCloud智慧城市平台！</div>
+    <div class="content-wrapper">
+        <div class="content">
+            <form>
+                {% csrf_token %}
+                <div class="content-item">
+                    <div class="item-label">域名</div>
+                    <input class="item-body" type="text" id="domain" name="domain" placeholder="请输入自定义域名，不能超过20个字符">
+                </div>
+                <div class="content-item">
+                    <div class="item-label">国家</div>
+                    <input class="item-body" type="text" placeholder="请输入所属国家" id="country" name="country" value="中国"
+                           readonly="readonly">
+                </div>
+                <div class="content-item">
+                    <div class="item-label">省份</div>
+                    <select class="item-body" id="province" name="province" onchange="select_province(this);"></select>
+                </div>
+                <div class="content-item">
+                    <div class="item-label">城市</div>
+                    <select class="item-body" name="city" id="city"></select>
+                </div>
+                <div class="content-item">
+                    <div class="item-label">管理员账号</div>
+                    <input class="item-body" type="text" id="username" name='username'
+                           placeholder="管理员账号由字母、数字和符号组成，长度至少为6位">
+                </div>
+                <div class="content-item">
+                    <div class="item-label">管理员用户名</div>
+                    <input class="item-body" type="text" id="name" name="name" placeholder="请输入自定义管理员用户名，不能超过20个字符">
+                </div>
+
+                <div class="content-item">
+                    <div class="item-label">设置密码</div>
+                    <input class="item-body " type="password" name="password" id="password" data-parsley-trigger="blur"
+                           required=""
+                           pattern="(?!^(\d+|[a-zA-Z]+|[\u&quot;~!@#$%^&amp;\*\(\)_\+\{\}|:\<\>\?\`\-\=\[\]\\\;\'\,\./]+)$)^[\w\u&quot;~!@#$%^&amp;\*\(\)_\+\{\}|:\<\>\?\`\-\=\[\]\\\;\'\,\./]{8,20}$"
+                           data-parsley-pattern-message="密码需包含字母、数字和符号中的至少2种，长度至少为8位"
+                           placeholder="密码需包含字母、数字和符号中的至少2种，长度至少为8位" data-parsley-id="6">
+                </div>
+                <div class="content-item">
+                    <div class="item-label">确认密码</div>
+                    <input type="password" class="item-body parsley-error" required="" data-parsley-trigger="blur"
+                           data-parsley-equalto="#password" data-parsley-equalto-message="两次密码不一致" placeholder="请再次输入密码"
+                           data-parsley-id="8">
+                </div>
+                <div class="content-item">
+                    <div class="item-label">手机号</div>
+                    <input type="text" name="tel" class="j_phone item-body" pattern="^(13|16|15|17|18|14|19)[0-9]{9}$"
+                           required="" data-parsley-pattern-message="手机号码格式错误" data-parsley-trigger="input"
+                           placeholder="请输入管理员手机号" data-parsley-id="10">
+                </div>
+                <div class="content-item">
+                    <div class="item-label">邮箱</div>
+                    <input class="item-body" type="text" id="domain" name="domain" placeholder="请输入管理员邮箱">
+                </div>
+                <div class="content-item">
+                    <div class="item-body">
+                        <button type="button" class="button" onclick="register()">立即注册</button>
+                    </div>
+                </div>
+                <div class="content-item to-login">
+                    <span>已经有账号，现在去登录，</span>
+                    <a href="/login">前去登录</a>
+                </div>
+
+            </form>
         </div>
-        <div class="header-user">
-            <div class="header-develop">
-                <a target="_blank" href="/keystone" data-hmt-type="header_19" class="header-developer-a">
-                    <div class="header-developer-icon"></div>
-                    智慧城市管理中心
-                </a>
+        <div class="j_finish finish-wrapper hide">
+            <div class="last-wrapper">
+                <span class="icon-done finish"></span>
+                <div class="text-wrapper">
+                    <h3>注册成功</h3>
+                    <p>3秒后跳转到首页，请稍等…</p>
+                </div>
             </div>
         </div>
     </div>
+
 </div>
+
+<footer>
+    <div class="lang-change-wrap">
+    </div>
+    <a target="_blank" href="https://www.google.com/"><img
+            src="https://cdn.jsdelivr.net/gh/moezx/cdn@3.0.8/img/logo/Google.svg" style="width: 70px;"></a>
+    <p >联系我们：QQ-732616469/QQ-980830593</p>
+    <p >Copyright©2019 JustCloud 版权所有 蜀ICP备17013721号</p>
+</footer>
+
+
+<div class="suspension">
+    <a href="#top"><span class="fa fa-paper-plane" aria-hidden="true"></span></a>
+</div>
+
+<script src="/static/js/register.js"></script>
 </body>
 </html>
