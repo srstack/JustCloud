@@ -230,6 +230,47 @@ body {
     bottom: -92px;
 }
 
+.content-wrapper .finish-wrapper {
+    width: 510px;
+    height: 400px;
+    padding-top: 150px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.content-wrapper .finish-wrapper .fa {
+    background: #49d9ff;
+    color: #fff;
+}
+
+.content-wrapper .finish-wrapper span {
+    display: inline-block;
+    width: 80px;
+    height: 80px;
+    line-height: 80px;
+    border-radius: 80px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(51, 51, 51, .2);
+    font-size: 30px;
+}
+
+.content-wrapper .finish-wrapper .text-wrapper {
+    display: inline-block;
+    margin: -8px 30px;
+    vertical-align: bottom;
+    text-align: left;
+}
+
+.content-wrapper .finish-wrapper .text-wrapper h3 {
+    font-size: 20px;
+    color: #333;
+}
+
+.content-wrapper .finish-wrapper .text-wrapper p {
+    line-height: 35px;
+    font-size: 14px;
+}
+
 footer {
     width: 1200px;
     font-size: 12px;
@@ -254,4 +295,24 @@ footer > a {
 footer > p {
     padding-top: 12px;
     margin: 0;
+}
+
+.content .content-item > label {
+    display: none !important;
+}
+
+.content .content-item .waring::-webkit-input-placeholder {
+    color: white;
+}
+
+.content .content-item .waring::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: white;
+}
+
+.content .content-item .waring:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color: white;
+}
+
+.content .content-item .waring:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: white;
 }
