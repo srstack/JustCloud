@@ -23,7 +23,7 @@ $(".wrapper-base .wrapper-index .w-banner .banner-sliders").hover(function () {
 });
 
 function showReposBtn() {
-    var clientHeight = $(window).height()/2;
+    var clientHeight = $(window).height() / 2;
     var scroll = $(document).scrollTop();
     if (scroll > clientHeight) {
         $('.suspension').show();
@@ -40,12 +40,12 @@ window.onscroll = function () {
 };
 
 function login() {
-    var to_hanzi = {'domain':'域名','username':'用户名','password':'密码'}
+    var to_hanzi = {'domain': '域名', 'username': '用户名', 'password': '密码'}
     var Status = true;
     var login_value = $('.modal-body form').serializeArray();
     $.each(login_value, function (i, val) {
         if (login_value[i].value === "") {
-            $('.modal-body form .form-group #' + login_value[i].name).addClass('waring').attr('placeholder',to_hanzi[login_value[i].name]+'不能为空，请输入');
+            $('.modal-body form .form-group #' + login_value[i].name).addClass('waring').attr('placeholder', to_hanzi[login_value[i].name] + '不能为空，请输入');
             Status = false;
         }
     });
@@ -58,14 +58,14 @@ function login() {
                 if (data === '666') {
                     window.location.href = "/keystone"
                 }
-                else if (data === '555'){
-                    $('.modal-body form .form-group #password').addClass('waring').attr('placeholder','密码错误，请重新输入').val('');
+                else if (data === '555') {
+                    $('.modal-body form .form-group #password').addClass('waring').attr('placeholder', '密码错误，请重新输入').val('');
                 }
-                else if (data === '444'){
-                    $('.modal-body form .form-group #username').addClass('waring').attr('placeholder','用户名错误或不存在，请重新输入').val('');
+                else if (data === '444') {
+                    $('.modal-body form .form-group #username').addClass('waring').attr('placeholder', '用户名错误或不存在，请重新输入').val('');
                 }
-                else if (data === '333'){
-                    $('.modal-body form .form-group #domain').addClass('waring').attr('placeholder','域名错误或不存在，请重新输入').val('');
+                else if (data === '333') {
+                    $('.modal-body form .form-group #domain').addClass('waring').attr('placeholder', '域名错误或不存在，请重新输入').val('');
                 }
             }
         })

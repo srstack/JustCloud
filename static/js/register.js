@@ -139,18 +139,46 @@ function select_province(obj) {
         ddlCity.appendChild(option);
     }
 }
+
 function showReposBtn() {
-    var clientHeight = ($(window).height()/3)*2;
+    var clientHeight = ($(window).height() / 3) * 2;
     var scroll = $(document).scrollTop();
     if (scroll > clientHeight) {
         $('.suspension').show();
     } else {
         $('.suspension').hide();
-    };
+    }
+    ;
 };
-window.onload = function() {
+window.onload = function () {
     showReposBtn();
 };
 window.onscroll = function () {
     showReposBtn();
 };
+
+function register() {
+    var Status = true;
+    var reg_value = $('.content-wrapper .content form').serializeArray();
+    $.each(reg_value, function (i, val) {
+        if (reg_value[i].value === "") {
+            $('.content-wrapper .content form #' + reg_value[i].name).addClass('waring');
+            Status = false;
+        }
+    });
+    if (Status === true) {
+        $.ajax({
+            url: '/register',
+            type: 'POST',
+            data: $('.content-wrapper .content form').serialize(),
+            success: function (data) {
+
+            }
+        })
+    }
+}
+function reWaring(that) {
+    if (that.classList.contains('waring')) {
+        that.classList.remove('waring');
+    }
+}

@@ -592,14 +592,17 @@ ol, ul {
     background-color: #25272e;
     text-align: center;
 }
+
 .footer > a {
     height: 20px;
     padding-top: 25px;
     display: inline-block;
 }
-.footer > p{
+
+.footer > p {
     padding-top: 12px;
 }
+
 .modal-dialog {
     width: 540px;
     margin: 56px auto;
