@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>JustCloud-智慧城市云平台</title>
-    <script src = "/static/js/jquery-3.3.1.min.js"></script>
+    <script src="/static/js/jquery-3.3.1.min.js"></script>
     <link href="/static/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <script src="/static/plugins/bootstrap/js/bootstrap.min.js"></script>
     <link rel="shortcut icon" href="/static/img/favicon.ico" type="image/x-icon">
     <link href="/static/css/index1.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="/static/plugins/font-awesome/css/font-awesome.min.css">
 </head>
 <body style="position: relative">
 <div class="header" id="top">
@@ -16,57 +17,57 @@
         <div class="header-menu">
             <ul class="header-menu-ul">
                 <li class="header-menu-ul-li ">
-                    <a href="#Jinger" class="header-menu-a" >Jinger系统</a>
+                    <a href="#Jinger" class="header-menu-a">Jinger系统</a>
                 </li>
-                                <li class="header-menu-ul-li ">
+                <li class="header-menu-ul-li ">
                     <a href="#Detritus" class="header-menu-a">Detritus系统</a>
                 </li>
-                                <li class="header-menu-ul-li ">
+                <li class="header-menu-ul-li ">
                     <a href="#Lumiere" class="header-menu-a">Lumiere系统</a>
                 </li>
-                                <li class="header-menu-ul-li ">
+                <li class="header-menu-ul-li ">
                     <a href="#Parquer" class="header-menu-a">Parquer系统</a>
                 </li>
             </ul>
         </div>
         <div class="header-user">
             <div class="header-develop">
-                <a target="_blank" href="/keystone" data-hmt-type="header_19" class="header-developer-a">
+                <a target="_blank" href="/admin" data-hmt-type="header_19" class="header-developer-a">
                     <div class="header-developer-icon">
                     </div>
                     智慧城市管理中心
                 </a>
             </div>
-        {{ login|safe }}
+            {{ login|safe }}
         </div>
     </div>
 </div>
 <div class="wrapper-base">
     <div class="wrapper-index">
-    <div class="w-banner">
-        <div class="banner-sliders">
-            <ul class="img">
-                <li><a href="#Parquer"><img src="/static/img/index/Parquer.jpg" alt="Parquer"></a></li>
-                <li><a href="#Lumiere"><img src="/static/img/index/Lumiere.jpg" alt="Lumiere" ></a></li>
-                <li><a href="#Detritus"><img src="/static/img/index/Detritus.jpg" alt="Detritus" ></a></li>
-                <li><a href="#Jinger"><img src="/static/img/index/Jinger.jpg" alt="Jinger" ></a></li>
-                <li><a href="/"><img src="/static/img/index/index1.jpg" alt="JustCloud" ></a></li>
-            </ul>
-            <ul class="num">
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
+        <div class="w-banner">
+            <div class="banner-sliders">
+                <ul class="img">
+                    <li><a href="#Parquer"><img src="/static/img/index/Parquer.jpg" alt="Parquer"></a></li>
+                    <li><a href="#Lumiere"><img src="/static/img/index/Lumiere.jpg" alt="Lumiere"></a></li>
+                    <li><a href="#Detritus"><img src="/static/img/index/Detritus.jpg" alt="Detritus"></a></li>
+                    <li><a href="#Jinger"><img src="/static/img/index/Jinger.jpg" alt="Jinger"></a></li>
+                    <li><a href="/"><img src="/static/img/index/index1.jpg" alt="JustCloud"></a></li>
+                </ul>
+                <ul class="num">
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                </ul>
+            </div>
         </div>
-    </div>
         <div class="w-news">
             <div class="grid">
                 <ul>
-                    <li><a  href="https://cloud.baidu.com" target="_blank">技术支持 | 百度云平台</a></li>
-                    <li><a  href="https://www.aliyun.com" target="_blank">技术支持 | 阿里云平台</a></li>
-                    <li><a  href="https://cloud.tencent.com" target="_blank">技术支持 | 腾讯云平台</a></li>
+                    <li><a href="https://cloud.baidu.com" target="_blank">技术支持 | 百度云平台</a></li>
+                    <li><a href="https://www.aliyun.com" target="_blank">技术支持 | 阿里云平台</a></li>
+                    <li><a href="https://cloud.tencent.com" target="_blank">技术支持 | 腾讯云平台</a></li>
                 </ul>
             </div>
         </div>
@@ -78,13 +79,15 @@
                         <em>MORE 设备</em>
                         <p>支持海量NB-IoT设备接入，建立低功耗、可休眠、周期性CoAP链接</p>
                     </div>
-                </li><li>
+                </li>
+                <li>
                     <img src="/static/img/index/body2.png" alt="">
                     <div class="w-function-right">
                         <em>BIG 数据</em>
                         <p>整合云端资源，提供数据持久化存储、数据分析、数据可视化等服务能力</p>
                     </div>
-                </li><li class="last">
+                </li>
+                <li class="last">
                     <img src="/static/img/index/body3.png" alt="">
                     <div class="w-function-right">
                         <em>Fore 系统</em>
@@ -95,34 +98,40 @@
         </div>
         <div class="w-solution">
             <div class="grid">
-                <p class="solution-title"><img  src="/static/img/index/server.png">解决方案</p>
+                <p class="solution-title"><img src="/static/img/index/server.png">解决方案</p>
                 <div id="Jinger" class="project">
                     <div class="w-schema">
                         <div class="images"><img src="/static/img/index/jinger-body.jpg"></div>
                         <div class="title">智能井盖解决方案</div>
-                        <p>        基于传感器、GIS、计算机网络及无线通信等物联网优势技术，推出智能井盖解决方案，解决管控手段落后、运维成本高、安全隐患大等问题。</p>
+                        <p> 基于传感器、GIS、计算机网络及无线通信等物联网优势技术，推出智能井盖解决方案，解决管控手段落后、运维成本高、安全隐患大等问题。</p>
                     </div>
                     <div class="page-avg">
-                            <ul  class="nav nav-tabs" role="tablist">
-                                <li role="presentation" class="active"><a href="#jinger-des" aria-controls="home" role="tab" data-toggle="tab">方案概述</a></li>
-                                <li role="presentation"><a href="#jinger-sign" aria-controls="home" role="tab" data-toggle="tab">方案设计</a></li>
-                                <li role="presentation"><a href="#jinger-value" aria-controls="home" role="tab" data-toggle="tab">方案价值</a></li>
-                            </ul>
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active"><a href="#jinger-des" aria-controls="home" role="tab"
+                                                                      data-toggle="tab">方案概述</a></li>
+                            <li role="presentation"><a href="#jinger-sign" aria-controls="home" role="tab"
+                                                       data-toggle="tab">方案设计</a></li>
+                            <li role="presentation"><a href="#jinger-value" aria-controls="home" role="tab"
+                                                       data-toggle="tab">方案价值</a></li>
+                        </ul>
                     </div>
                     <div class="tab-content">
                         <div role="tabpanel" class="tab-pane active" id="jinger-des">
                             <div class="description grid">
                                 <h1>方案概述</h1>
-                                <p>        目前，全国范围内已有井盖约50亿个以上，全国每年新增、更换井盖1500万个以上。随着我国随着城镇化进程的加快，原有城市规划与建设已经远远跟不上城市的大规模扩张与发展，由于井盖设施的损毁遗失导致的交通车辆和行人的安全风险；因为燃气管道的泄露进入其他管道有可能导致的爆炸重大安全事故风险；城市因暴雨而导致的内涝和车辆和驾驶员安全风险等，这些问题已成为迫切需要有效治理和解决的城市顽疾。</p>
-                                <p>        智能井盖解决方案依靠现有的通讯，电子和互联网信息技术，构建井盖智能管理系统，把普通窨井盖“升级”成为“物联网”管理系统的智能井盖，并可接入城市信息化和大数据平台，才能够对如此众多的窨井盖进行长期有效的管理。</p>
+                                <p>
+                                    目前，全国范围内已有井盖约50亿个以上，全国每年新增、更换井盖1500万个以上。随着我国随着城镇化进程的加快，原有城市规划与建设已经远远跟不上城市的大规模扩张与发展，由于井盖设施的损毁遗失导致的交通车辆和行人的安全风险；因为燃气管道的泄露进入其他管道有可能导致的爆炸重大安全事故风险；城市因暴雨而导致的内涝和车辆和驾驶员安全风险等，这些问题已成为迫切需要有效治理和解决的城市顽疾。</p>
+                                <p>
+                                    智能井盖解决方案依靠现有的通讯，电子和互联网信息技术，构建井盖智能管理系统，把普通窨井盖“升级”成为“物联网”管理系统的智能井盖，并可接入城市信息化和大数据平台，才能够对如此众多的窨井盖进行长期有效的管理。</p>
                             </div>
                         </div>
                         <div role="tabpanel" class="tab-pane" id="jinger-sign">
                             <div class="sign grid">
                                 <h1>方案设计</h1>
                                 <img src="/static/img/index/jinger-sign.jpg">
-                                <p>        基于传感器、GIS、计算机网络及无线通信等物联网优势技术，解决管控手段落后、运维成本高、安全隐患大等问题。</p>
-                                <p>        井盖监控器通过螺丝固定在智能井盖内侧，安装方便，适应路面绝大部分的井盖的智能化改造，支持JustCloud智慧城市管理平台接入。通过监测井盖的翻转倾角和运动轨迹分析来判断井盖是否为异常打开，一旦判断异常，马上发送告警信息到后台。</p>
+                                <p> 基于传感器、GIS、计算机网络及无线通信等物联网优势技术，解决管控手段落后、运维成本高、安全隐患大等问题。</p>
+                                <p>
+                                    井盖监控器通过螺丝固定在智能井盖内侧，安装方便，适应路面绝大部分的井盖的智能化改造，支持JustCloud智慧城市管理平台接入。通过监测井盖的翻转倾角和运动轨迹分析来判断井盖是否为异常打开，一旦判断异常，马上发送告警信息到后台。</p>
                             </div>
                         </div>
                         <div role="tabpanel" class="tab-pane" id="jinger-value">
@@ -168,28 +177,33 @@
                     <div class="w-schema">
                         <div class="images"><img src="/static/img/index/detritus-body.jpg"></div>
                         <div class="title">智能垃圾处理解决方案</div>
-                        <p>        通过与物联网结合，垃圾桶装上红外线感应装置，进行大数据分析建模，计算出垃圾车优化的清运路线，主动提醒特殊时期垃圾额外清运，提高垃圾处理的质量和效率。</p>
+                        <p> 通过与物联网结合，垃圾桶装上红外线感应装置，进行大数据分析建模，计算出垃圾车优化的清运路线，主动提醒特殊时期垃圾额外清运，提高垃圾处理的质量和效率。</p>
                     </div>
                     <div class="page-avg">
-                            <ul  class="nav nav-tabs" role="tablist">
-                                <li role="presentation" class="active"><a href="#Detritus-des" aria-controls="home" role="tab" data-toggle="tab">方案概述</a></li>
-                                <li role="presentation"><a href="#Detritus-sign" aria-controls="home" role="tab" data-toggle="tab">方案设计</a></li>
-                                <li role="presentation"><a href="#Detritus-value" aria-controls="home" role="tab" data-toggle="tab">方案价值</a></li>
-                            </ul>
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active"><a href="#Detritus-des" aria-controls="home"
+                                                                      role="tab" data-toggle="tab">方案概述</a></li>
+                            <li role="presentation"><a href="#Detritus-sign" aria-controls="home" role="tab"
+                                                       data-toggle="tab">方案设计</a></li>
+                            <li role="presentation"><a href="#Detritus-value" aria-controls="home" role="tab"
+                                                       data-toggle="tab">方案价值</a></li>
+                        </ul>
                     </div>
                     <div class="tab-content">
                         <div role="tabpanel" class="tab-pane active" id="Detritus-des">
                             <div class="description grid">
                                 <h1>方案概述</h1>
-                                <p>        对于人口密集的城市来说，垃圾清运是必要的服务，在许多城市，是垃圾车沿固定路线清空各处垃圾桶，但这却不是有效率的方法，因为沿路上可能有许多垃圾桶还剩很多空间，仍可装很多垃圾，不必来清运，导致垃圾车清运过程中不必要的耗油。而城市边远地区，许多垃圾桶，不加遮盖，并且不及时清运，严重影响周围环境。有数据表明，混合垃圾中仅有机挥发气体就有100多种。这些垃圾桶往往是臭气冲天，蚊蝇孳生，病菌大量繁殖，路人远而避之。这种清运频率不匹配的现象，在大多数城市都已成为一个不得不引起重视的问题。</p>
-                                <p>        通过与物联网结合，垃圾桶装上红外线感应装置，进行大数据分析建模，计算出垃圾车优化的清运路线，主动提醒特殊时期垃圾额外清运，提高垃圾处理的质量和效率。</p>
+                                <p>
+                                    对于人口密集的城市来说，垃圾清运是必要的服务，在许多城市，是垃圾车沿固定路线清空各处垃圾桶，但这却不是有效率的方法，因为沿路上可能有许多垃圾桶还剩很多空间，仍可装很多垃圾，不必来清运，导致垃圾车清运过程中不必要的耗油。而城市边远地区，许多垃圾桶，不加遮盖，并且不及时清运，严重影响周围环境。有数据表明，混合垃圾中仅有机挥发气体就有100多种。这些垃圾桶往往是臭气冲天，蚊蝇孳生，病菌大量繁殖，路人远而避之。这种清运频率不匹配的现象，在大多数城市都已成为一个不得不引起重视的问题。</p>
+                                <p> 通过与物联网结合，垃圾桶装上红外线感应装置，进行大数据分析建模，计算出垃圾车优化的清运路线，主动提醒特殊时期垃圾额外清运，提高垃圾处理的质量和效率。</p>
                             </div>
                         </div>
                         <div role="tabpanel" class="tab-pane" id="Detritus-sign">
                             <div class="sign grid">
                                 <h1>方案设计</h1>
                                 <img src="/static/img/index/detritus-sign.jpg">
-                               <p>         智能垃圾处理提供的智能垃圾清运方案，与物联网结合，垃圾桶装上感应装置，并能侦测桶内垃圾满到什么程度，也可感应桶内温度及垃圾堆积的倾斜度，搭配对应的传讯装置，将城市各处垃圾桶的状况传送至中央管理程序，以进行分析建模评估与管理，进一步计算出垃圾车优化的清运路线，提高垃圾处理的质量和效率。并且可以通过垃圾生产频率分析小区居民住房空置率等。</p>
+                                <p>
+                                    智能垃圾处理提供的智能垃圾清运方案，与物联网结合，垃圾桶装上感应装置，并能侦测桶内垃圾满到什么程度，也可感应桶内温度及垃圾堆积的倾斜度，搭配对应的传讯装置，将城市各处垃圾桶的状况传送至中央管理程序，以进行分析建模评估与管理，进一步计算出垃圾车优化的清运路线，提高垃圾处理的质量和效率。并且可以通过垃圾生产频率分析小区居民住房空置率等。</p>
                             </div>
                         </div>
                         <div role="tabpanel" class="tab-pane" id="Detritus-value">
@@ -235,29 +249,38 @@
                     <div class="w-schema">
                         <div class="images"><img src="/static/img/index/Lumiere-body.jpg"></div>
                         <div class="title">智能路灯解决方案</div>
-                        <p>        通过NB-IoT技术、物联网和云计算等技术，利用云端控制，实现对路灯的远程集中控制与管理，提升公共照明管理水平，节省电力资源，降低运维成本，增加附加收益。</p>
+                        <p> 通过NB-IoT技术、物联网和云计算等技术，利用云端控制，实现对路灯的远程集中控制与管理，提升公共照明管理水平，节省电力资源，降低运维成本，增加附加收益。</p>
                     </div>
                     <div class="page-avg">
-                            <ul  class="nav nav-tabs" role="tablist">
-                                <li role="presentation" class="active"><a href="#Lumiere-des" aria-controls="home" role="tab" data-toggle="tab">方案概述</a></li>
-                                <li role="presentation"><a href="#Lumiere-sign" aria-controls="home" role="tab" data-toggle="tab">方案设计</a></li>
-                                <li role="presentation"><a href="#Lumiere-value" aria-controls="home" role="tab" data-toggle="tab">方案价值</a></li>
-                            </ul>
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active"><a href="#Lumiere-des" aria-controls="home"
+                                                                      role="tab" data-toggle="tab">方案概述</a></li>
+                            <li role="presentation"><a href="#Lumiere-sign" aria-controls="home" role="tab"
+                                                       data-toggle="tab">方案设计</a></li>
+                            <li role="presentation"><a href="#Lumiere-value" aria-controls="home" role="tab"
+                                                       data-toggle="tab">方案价值</a></li>
+                        </ul>
                     </div>
                     <div class="tab-content">
                         <div role="tabpanel" class="tab-pane active" id="Lumiere-des">
                             <div class="description grid">
                                 <h1>方案概述</h1>
-                                <p>        据统计，当前我国路灯照明耗电量约占全部照明用电的35%，约占全社会耗电总量的13%，位居各领域照明用电量之首。面对如何之大的能耗，传统钠灯已完全不能满足国家倡导的“绿色、节能、减排”的要求，即使采用LED节能灯也只是实现一次节能的目的，无法做到真正意义上的“智慧节能” ，如何实现路灯更好节能、二次节能、进行更高效、更安全、更智能化管理，已经成为管理部门亟待解决的难题。</p>
-                                <p>        通过NB-IoT技术、物联网和云计算等技术，利用云端，实现对路灯的远程集中控制与管理，提升公共照明管理水平，节省电力资源，降低运维成本，增加附加收益。路灯控制器为智慧路灯系统基础组成部分，可接收路灯管理平台的控制信号，执行开、关、调光命令，并监控路灯的工作状态，上报路灯电流、电压、功率、故障信息、状态信息等功能。</p>
+                                <p>
+                                    据统计，当前我国路灯照明耗电量约占全部照明用电的35%，约占全社会耗电总量的13%，位居各领域照明用电量之首。面对如何之大的能耗，传统钠灯已完全不能满足国家倡导的“绿色、节能、减排”的要求，即使采用LED节能灯也只是实现一次节能的目的，无法做到真正意义上的“智慧节能”
+                                    ，如何实现路灯更好节能、二次节能、进行更高效、更安全、更智能化管理，已经成为管理部门亟待解决的难题。</p>
+                                <p>
+                                    通过NB-IoT技术、物联网和云计算等技术，利用云端，实现对路灯的远程集中控制与管理，提升公共照明管理水平，节省电力资源，降低运维成本，增加附加收益。路灯控制器为智慧路灯系统基础组成部分，可接收路灯管理平台的控制信号，执行开、关、调光命令，并监控路灯的工作状态，上报路灯电流、电压、功率、故障信息、状态信息等功能。</p>
                             </div>
                         </div>
                         <div role="tabpanel" class="tab-pane" id="Lumiere-sign">
                             <div class="sign grid">
                                 <h1>方案设计</h1>
                                 <img src="/static/img/index/Lumiere-sign.jpg">
-                                <p>        实现对路灯的远程集中控制与管理，具有自动调节亮度、故障主动报警、灯具线缆防盗、可视化远程控制等功能，帮助路灯管理部门大幅提升公共照明管理水平，节省电力资源，降低运维成本，增加附加收益。</p>
-                                <p>        采用物联网、云计算、大数据和地理信息等技术，搭建城市智慧 照明云平台，对城市照明进行“点、线、面”综合监控管理，提供城市照明设施资源管理、智能集中监控、单灯节能管理、电缆被 盗监测和生产管理等应用，推动城市照明管理与节能双发展。</p>
+                                <p>
+                                    实现对路灯的远程集中控制与管理，具有自动调节亮度、故障主动报警、灯具线缆防盗、可视化远程控制等功能，帮助路灯管理部门大幅提升公共照明管理水平，节省电力资源，降低运维成本，增加附加收益。</p>
+                                <p> 采用物联网、云计算、大数据和地理信息等技术，搭建城市智慧
+                                    照明云平台，对城市照明进行“点、线、面”综合监控管理，提供城市照明设施资源管理、智能集中监控、单灯节能管理、电缆被
+                                    盗监测和生产管理等应用，推动城市照明管理与节能双发展。</p>
                             </div>
                         </div>
                         <div role="tabpanel" class="tab-pane" id="Lumiere-value">
@@ -274,7 +297,7 @@
                                         <h2>优化路灯资源</h2>
                                         <p>通过大数据分析，合理调配现有路灯资源，有效缓解路灯资源浪费，实现城市路灯最大化利用。</p>
                                     </il>
-                                     <il class="item">
+                                    <il class="item">
                                         <div class="icon"></div>
                                         <h2>分析天气</h2>
                                         <p>多维度归集天气状况信息，进行大数据挖掘，形成分析报表，为气象分析提供数据支撑。</p>
@@ -303,29 +326,35 @@
                     <div class="w-schema">
                         <div class="images"><img src="/static/img/index/parquer-body.jpg"></div>
                         <div class="title">智能停车解决方案</div>
-                        <p>        针对传统停车应用场景，利用智能停车业务管理平台、大数据分析平台，结合物联网技术优势，推出智能停车解决方案。</p>
+                        <p> 针对传统停车应用场景，利用智能停车业务管理平台、大数据分析平台，结合物联网技术优势，推出智能停车解决方案。</p>
                     </div>
                     <div class="page-avg">
-                            <ul  class="nav nav-tabs" role="tablist">
-                                <li role="presentation" class="active"><a href="#parquer-des" aria-controls="home" role="tab" data-toggle="tab">方案概述</a></li>
-                                <li role="presentation"><a href="#parquer-sign" aria-controls="home" role="tab" data-toggle="tab">方案设计</a></li>
-                                <li role="presentation"><a href="#parquer-value" aria-controls="home" role="tab" data-toggle="tab">方案价值</a></li>
-                            </ul>
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active"><a href="#parquer-des" aria-controls="home"
+                                                                      role="tab" data-toggle="tab">方案概述</a></li>
+                            <li role="presentation"><a href="#parquer-sign" aria-controls="home" role="tab"
+                                                       data-toggle="tab">方案设计</a></li>
+                            <li role="presentation"><a href="#parquer-value" aria-controls="home" role="tab"
+                                                       data-toggle="tab">方案价值</a></li>
+                        </ul>
                     </div>
                     <div class="tab-content">
                         <div role="tabpanel" class="tab-pane active" id="parquer-des">
                             <div class="description grid">
                                 <h1>方案概述</h1>
-                                <p>        我国汽车保有量持续、快速增长，截止2017年底，全国汽车保有量已超过2亿辆，并且以年增长率10%的速度激增；然而停车位、停车智能化等设施建设却严重滞后，据测算，目前全国停车位缺口达到1亿个，公共停车位紧缺、停车系统信息化建设落后带来的交通拥堵、停车不便等已经成为社会难题。</p>
-                                <p>        智慧停车解决方案通过先进的信息化手段实现车位及时准确发布、车主快速寻找空车位、准确的停车，简单高效的管理辅助政府进行车位的精确收费，智能管理，简化运营，节省整体成本，同时提升停车业主的满意度，缓解城市停车压力，助力城市智慧化建设。</p>
+                                <p>
+                                    我国汽车保有量持续、快速增长，截止2017年底，全国汽车保有量已超过2亿辆，并且以年增长率10%的速度激增；然而停车位、停车智能化等设施建设却严重滞后，据测算，目前全国停车位缺口达到1亿个，公共停车位紧缺、停车系统信息化建设落后带来的交通拥堵、停车不便等已经成为社会难题。</p>
+                                <p>
+                                    智慧停车解决方案通过先进的信息化手段实现车位及时准确发布、车主快速寻找空车位、准确的停车，简单高效的管理辅助政府进行车位的精确收费，智能管理，简化运营，节省整体成本，同时提升停车业主的满意度，缓解城市停车压力，助力城市智慧化建设。</p>
                             </div>
                         </div>
                         <div role="tabpanel" class="tab-pane" id="parquer-sign">
                             <div class="sign grid">
                                 <h1>方案设计</h1>
                                 <img src="/static/img/index/parquer-sign.jpg">
-                                <p>        针对传统停车应用场景，利用智慧停车业务管理平台、大数据分析建模平台，结合物联网技术优势，打造智能停车解决方案。</p>
-                                <p>        采用地磁车位感应终端，当有车停在车位上时，引起地磁周围磁场变化，地磁感知有车的存在，采用NB-IoT技术将车位状态信息通过基站上传到智慧停车管理云平台，进行数据处理之后，上传到管理终端和用户终端。通过先进的信息化手段实现车位及时准确发布、车主快速寻找空车位、准确的停车，简单高效的管理辅助政府进行车位的精确收费，智能管理，简化运营，节省整体成本。</p>
+                                <p> 针对传统停车应用场景，利用智慧停车业务管理平台、大数据分析建模平台，结合物联网技术优势，打造智能停车解决方案。</p>
+                                <p>
+                                    采用地磁车位感应终端，当有车停在车位上时，引起地磁周围磁场变化，地磁感知有车的存在，采用NB-IoT技术将车位状态信息通过基站上传到智慧停车管理云平台，进行数据处理之后，上传到管理终端和用户终端。通过先进的信息化手段实现车位及时准确发布、车主快速寻找空车位、准确的停车，简单高效的管理辅助政府进行车位的精确收费，智能管理，简化运营，节省整体成本。</p>
                             </div>
                         </div>
                         <div role="tabpanel" class="tab-pane" id="parquer-value">
@@ -371,133 +400,179 @@
         </div>
         <div class="w-product">
             <div class="grid">
-                <p class="w-product-title"><img class="title-img" src="/static/img/index/cloud1.png" >云服务</p>
+                <p class="w-product-title"><img class="title-img" src="/static/img/index/cloud1.png">云服务</p>
                 <div class="w-product-bottom">
                     <div class="bottom-product">
-                            <ul>
-                                <li>
-                                    <a href="https://www.docker.com" target="_blank">
-                                        <img src="/static/img/index/docker.png">
-                                        <div>
-                                            <em>Docker容器</em>
-                                            <p>云原生  |  容器化  |  自动化</p>
-                                            <p>可移植  |  敏捷化  |  简开发</p>
-                                        </div>
-                                    </a>
-                                </li><li>
-                                    <a href="https://kubernetes.io/" target="_blank">
-                                        <img src="/static/img/index/kubernetes.png">
-                                        <div>
-                                            <em>kubernetes云平台</em>
-                                            <p>微服务  |  分布式  |  易部署</p>
-                                            <p>资源监控  |  容器编排</p>
-                                        </div>
-                                    </a>
-                                </li><li>
-                                    <a href="https://www.mysql.com" target="_blank">
-                                        <img src="/static/img/index/mysql.png">
-                                        <div>
-                                            <em>MySQL数据库</em>
-                                            <p>高性能  |  易扩展  |  开放式</p>
-                                            <p>小巧灵活  |  异步复制  |  良好兼容</p>
-                                        </div>
-                                    </a>
-                                </li><li>
-                                    <a href="https://redis.io" target="_blank">
-                                        <img src="/static/img/index/redis.png">
-                                        <div>
-                                            <em>Redis数据库</em>
-                                            <p>快速查找  |  支持事务  |  众多特性</p>
-                                            <p>持久化数据  |  丰富数据类型</p>
-                                        </div>
-                                    </a>
-                                </li><li>
-                                    <a href="https://docs.ansible.com/" target="_blank">
-                                        <img src="/static/img/index/ansible.png">
-                                        <div>
-                                            <em>Ansible部署</em>
-                                            <p>一键部署  |  批量配置  |  YAML格式</p>
-                                            <p>模块化  |  自动化  |  智能化  |流程化</p>
-                                        </div>
-                                    </a>
-                                </li><li >
-                                    <a href="https://map.qq.com/" target="_blank">
-                                        <img src="/static/img/index/txdt.png">
-                                        <div>
-                                            <em>LBS定位服务</em>
-                                            <p>腾讯地图  |  API接口  |  自由开发</p>
-                                            <p>定位准确  |  高效安全</p>
-                                        </div>
-                                    </a>
-                                </li><li>
+                        <ul>
+                            <li>
+                                <a href="https://www.docker.com" target="_blank">
+                                    <img src="/static/img/index/docker.png">
+                                    <div>
+                                        <em>Docker容器</em>
+                                        <p>云原生 | 容器化 | 自动化</p>
+                                        <p>可移植 | 敏捷化 | 简开发</p>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://kubernetes.io/" target="_blank">
+                                    <img src="/static/img/index/kubernetes.png">
+                                    <div>
+                                        <em>kubernetes云平台</em>
+                                        <p>微服务 | 分布式 | 易部署</p>
+                                        <p>资源监控 | 容器编排</p>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.mysql.com" target="_blank">
+                                    <img src="/static/img/index/mysql.png">
+                                    <div>
+                                        <em>MySQL数据库</em>
+                                        <p>高性能 | 易扩展 | 开放式</p>
+                                        <p>小巧灵活 | 异步复制 | 良好兼容</p>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://redis.io" target="_blank">
+                                    <img src="/static/img/index/redis.png">
+                                    <div>
+                                        <em>Redis数据库</em>
+                                        <p>快速查找 | 支持事务 | 众多特性</p>
+                                        <p>持久化数据 | 丰富数据类型</p>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://docs.ansible.com/" target="_blank">
+                                    <img src="/static/img/index/ansible.png">
+                                    <div>
+                                        <em>Ansible部署</em>
+                                        <p>一键部署 | 批量配置 | YAML格式</p>
+                                        <p>模块化 | 自动化 | 智能化 |流程化</p>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://map.qq.com/" target="_blank">
+                                    <img src="/static/img/index/txdt.png">
+                                    <div>
+                                        <em>LBS定位服务</em>
+                                        <p>腾讯地图 | API接口 | 自由开发</p>
+                                        <p>定位准确 | 高效安全</p>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
                                 <a href="https://github.com/Meituan-Dianping/DBProxy" target="_blank">
-                                        <img src="/static/img/index/dbproxy.png">
-                                        <div>
-                                            <em>DBProxy</em>
-                                            <p>SQL分析  |  负载均衡  |  读写分离</p>
-                                            <p>过滤请求  |  分库分表 |  IP黑名单</p>
-                                        </div>
-                                    </a>
-                                </li><li>
-                                    <a href="https://matplotlib.org/" target="_blank">
-                                        <img src="/static/img/index/matplotlib.png">
-                                        <div>
-                                            <em>数据分析</em>
-                                            <p>预处理  |  数据分析  |  建立模型</p>
-                                            <p>分析可视化  |  定制化算法</p>
-                                        </div>
-                                    </a>
-                                </li><li>
-                                    <a href="https://www.qiniu.com" target="_blank">
-                                        <img src="/static/img/index/qi.png">
-                                        <div>
-                                            <em>融合CDN</em>
-                                            <p>七牛云  |  内容加速  |  智能调用</p>
-                                            <p>稳定快速  |  视频点播  |  连续流量</p>
-                                        </div>
-                                    </a>
-                                </li><li>
-                                    <a href="https://www.hikvision.com/cn/" target="_blank">
-                                        <img src="/static/img/index/hik.png">
-                                        <div>
-                                            <em>海康威视</em>
-                                            <p>智能硬件  |  开放平台  |  基础设施</p>
-                                            <p>数据资源  |  AI分析 |  开发接口</p>
-                                        </div>
-                                    </a>
-                                </li><li>
-                                    <a href="https://www.yunaq.com" target="_blank">
-                                        <img src="/static/img/index/zhidao.png">
-                                        <div>
-                                            <em>知道创业云安全</em>
-                                            <p>流量清洗  |  云端监控  |  漏洞扫描</p>
-                                            <p>DDoS攻击防护  |  CC攻击防护  |  DNS海啸攻击</p>
-                                        </div>
-                                    </a>
-                                </li><li>
-                                    <a href="http://nginx.org/" target="_blank">
-                                        <img src="/static/img/index/nginx.png">
-                                        <div>
-                                            <em>Nginx服务</em>
-                                            <p>事件驱动  |  反向代理  |  REST架构</p>
-                                            <p>轻量级  |  高并发  |  模块化</p>
-                                        </div>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
+                                    <img src="/static/img/index/dbproxy.png">
+                                    <div>
+                                        <em>DBProxy</em>
+                                        <p>SQL分析 | 负载均衡 | 读写分离</p>
+                                        <p>过滤请求 | 分库分表 | IP黑名单</p>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://matplotlib.org/" target="_blank">
+                                    <img src="/static/img/index/matplotlib.png">
+                                    <div>
+                                        <em>数据分析</em>
+                                        <p>预处理 | 数据分析 | 建立模型</p>
+                                        <p>分析可视化 | 定制化算法</p>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.qiniu.com" target="_blank">
+                                    <img src="/static/img/index/qi.png">
+                                    <div>
+                                        <em>融合CDN</em>
+                                        <p>七牛云 | 内容加速 | 智能调用</p>
+                                        <p>稳定快速 | 视频点播 | 连续流量</p>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.hikvision.com/cn/" target="_blank">
+                                    <img src="/static/img/index/hik.png">
+                                    <div>
+                                        <em>海康威视</em>
+                                        <p>智能硬件 | 开放平台 | 基础设施</p>
+                                        <p>数据资源 | AI分析 | 开发接口</p>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.yunaq.com" target="_blank">
+                                    <img src="/static/img/index/zhidao.png">
+                                    <div>
+                                        <em>知道创业云安全</em>
+                                        <p>流量清洗 | 云端监控 | 漏洞扫描</p>
+                                        <p>DDoS攻击防护 | CC攻击防护 | DNS海啸攻击</p>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="http://nginx.org/" target="_blank">
+                                    <img src="/static/img/index/nginx.png">
+                                    <div>
+                                        <em>Nginx服务</em>
+                                        <p>事件驱动 | 反向代理 | REST架构</p>
+                                        <p>轻量级 | 高并发 | 模块化</p>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
             <div class="footer">
-    <a target="_blank" href="https://www.google.com/"><img src="https://cdn.jsdelivr.net/gh/moezx/cdn@3.0.8/img/logo/Google.svg" style="width: 70px;"></a>
-    <p style="color: white; padding-top: 2px; margin: 0">联系我们：QQ-732616469/QQ-980830593</p>
-    <p style="color: white; margin: 0">Copyright©2019 JustCloud 版权所有 蜀ICP备17013721号</p>
-</div>
+                <a target="_blank" href="https://www.google.com/"><img
+                        src="https://cdn.jsdelivr.net/gh/moezx/cdn@3.0.8/img/logo/Google.svg" style="width: 70px;"></a>
+                <p style="color: white; margin: 0">联系我们：QQ-732616469/QQ-980830593</p>
+                <p style="color: white; margin: 0">Copyright©2019 JustCloud 版权所有 蜀ICP备17013721号</p>
+            </div>
         </div>
     </div>
 </div>
 <div class="suspension">
-    <a href="#top"><span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></a>
+    <a href="#top"><span class="fa fa-paper-plane" aria-hidden="true"></span></a>
+</div>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <div class="login-title "><img src="/static/img/index/login.png">登陆</div>
+            </div>
+            <div class="modal-body">
+                <form>
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <input type="text" name="domain" id="domain" required="" value="" placeholder="请输入域名"
+                               onclick="reWaring(this);">
+                        <span class="fa fa-superpowers"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="username" id="username" required="" value="" placeholder="请输入用户名"
+                               onclick="reWaring(this);">
+                        <span class="fa fa-user-o"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" name="password" id="password" required="" value="" placeholder="请输入密码"
+                               onclick="reWaring(this);">
+                        <span class="fa fa-minus-square-o"></span>
+                    </div>
+                    <div class="form-group">
+                        <button type="button" class="login-button" onclick="login();">登陆</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 <script src="/static/js/index.js"></script>
 </body>
