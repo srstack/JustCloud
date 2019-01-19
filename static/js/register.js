@@ -180,13 +180,16 @@ function register() {
                     },3000);
                 }
                 else if (data === '555') {
-                    $('.content-wrapper .content form .form-group #code').addClass('waring').attr('placeholder', '激活码无效，请重新输入').val('');
+                    $('.content-wrapper .content form .content-item #code').addClass('waring').attr('placeholder', '激活码无效，请重新输入').val('');
+                    window.location.href="#code";
                 }
                 else if (data === '444') {
-                    $('.content-wrapper .content form .form-group #username').addClass('waring').attr('placeholder', '用户名已存在，请重新输入').val('');
+                    $('.content-wrapper .content form .content-item #username').addClass('waring').attr('placeholder', '用户名已存在，请重新输入').val('');
+                    window.location.href="#username";
                 }
                 else if (data === '333') {
-                    $('.content-wrapper .content form .form-group #domain').addClass('waring').attr('placeholder', '域名存在，请重新输入').val('');
+                    $('.content-wrapper .content form .content-item #domain').addClass('waring').attr('placeholder', '域名存在，请重新输入').val('');
+                    window.location.href="#domain";
                 }
             }
         })
@@ -212,7 +215,7 @@ $().ready(function () {
             },
             username: {
                 required: true,
-                minlength: 6
+                minlength: 4
             },
             name: {
                 required: true,
@@ -249,7 +252,7 @@ $().ready(function () {
             },
             username: {
                 required: '管理员账号不能为空！请输入！',
-                minlength: '管理员账号最少6位，请重新输入！'
+                minlength: '管理员账号最少4位，请重新输入！'
             },
             name: {
                 required: '管理员用户名不能为空！请输入！',

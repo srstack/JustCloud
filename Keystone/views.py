@@ -31,10 +31,11 @@ def login(request):
             # 判断密码
             user_pwd = Users.objects.filter(username=username, domain_id=domain_id).values('password')
             if user_pwd:
-                if user_pwd[0].password == password:
+                if user_pwd[0].get('password') == password:
                     request.session['IS_LOGIN'] = True
                     request.session['USERNAME'] = username
                     request.session['DOMAIN_ID'] = domain_id
+
                     return HttpResponse('666')
                     # 登陆成功
                 else:
@@ -67,7 +68,7 @@ def register(request):
         reg_tel = request.POST.get('tel')
         reg_email = request.POST.get('email')
         domain = Domain.objects.filter(name=reg_domain)
-        if reg_code in []:
+        if reg_code in ['qsrnbqsrnb', 'chmnbchmnb']:
             if domain:
                 # 域存在
                 return HttpResponse('333')
@@ -82,9 +83,12 @@ def register(request):
                     domain_obj = Domain.objects.get(name=reg_domain)
                     Users.objects.create(username=reg_username, password=password, name=reg_name, domain=domain_obj,
                                          phone=reg_tel, email=reg_email)
+                    user_obj = Users.objects.get(username=reg_username)
                     request.session['IS_LOGIN'] = True
                     request.session['USERNAME'] = reg_username
                     request.session['DOMAIN_ID'] = domain_obj.id
+                    Operation.objects.create(code=101, user=user_obj)
+                    Login.objects.create(user=user_obj, IP=request.META['REMOTE_ADDR'])
                     return HttpResponse('666')
         else:
             # 激活码错误

@@ -62,7 +62,7 @@ class Data(models.Model):
 
 
 class Login(models.Model):
-    name = models.ForeignKey("Users", verbose_name="登陆用户", on_delete='CASCADE', related_name="login")
+    user = models.ForeignKey("Users", verbose_name="登陆用户", on_delete='CASCADE', related_name="login")
     IP = models.GenericIPAddressField(verbose_name="登陆IP")
     date = models.DateTimeField(verbose_name="登陆时间", auto_now_add=True)
 
