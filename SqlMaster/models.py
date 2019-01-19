@@ -62,9 +62,10 @@ class Data(models.Model):
 
 
 class Login(models.Model):
-    user = models.ForeignKey("Users", verbose_name="登陆用户", on_delete='CASCADE', related_name="login")
-    IP = models.GenericIPAddressField(verbose_name="登陆IP")
-    date = models.DateTimeField(verbose_name="登陆时间", auto_now_add=True)
+    user = models.ForeignKey("Users", verbose_name="用户", on_delete='CASCADE', related_name="login")
+    IP = models.GenericIPAddressField(verbose_name="IP")
+    operation = models.CharField(max_length=3, verbose_name="操作", null=False, default='IN')
+    date = models.DateTimeField(verbose_name="时间", auto_now_add=True)
 
     def __str__(self):
         return self.name
@@ -79,7 +80,7 @@ class Operation(models.Model):
         return self.code
 
     '''
-    opeiation_code = {
+    operation_code = {
     101:"创建用户",
     102:"删除用户",
     103:"修改用户",
