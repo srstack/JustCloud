@@ -172,13 +172,126 @@ function register() {
             type: 'POST',
             data: $('.content-wrapper .content form').serialize(),
             success: function (data) {
-
+                if (data === '666') {
+                     $('.content-wrapper .content').remove();
+                    $('.content-wrapper .finish-wrapper').removeClass("hide");
+                    setTimeout(function () {
+                        window.location.href = "/admin";
+                    },3000);
+                }
+                else if (data === '555') {
+                    $('.content-wrapper .content form .content-item #code').addClass('waring').attr('placeholder', '激活码无效，请重新输入').val('');
+                    window.location.href="#code";
+                }
+                else if (data === '444') {
+                    $('.content-wrapper .content form .content-item #username').addClass('waring').attr('placeholder', '用户名已存在，请重新输入').val('');
+                    window.location.href="#username";
+                }
+                else if (data === '333') {
+                    $('.content-wrapper .content form .content-item #domain').addClass('waring').attr('placeholder', '域名存在，请重新输入').val('');
+                    window.location.href="#domain";
+                }
             }
         })
     }
 }
+
 function reWaring(that) {
     if (that.classList.contains('waring')) {
         that.classList.remove('waring');
+        that.innerHTML = '';
     }
 }
+
+$().ready(function () {
+    $('.content-wrapper .content form').validate({
+        rules: {
+            code: {
+                required: true
+            },
+            domain: {
+                required: true,
+                maxlength: 20
+            },
+            username: {
+                required: true,
+                minlength: 4
+            },
+            name: {
+                required: true,
+                maxlength: 20
+            },
+            password: {
+                required: true,
+                minlength: 8
+            },
+            pwd_s: {
+                required: true,
+                minlength: 8,
+                equalTo: "#password"
+            },
+            tel: {
+                required: true,
+                digits: true,
+                minlength: 11,
+                maxlength: 11,
+                number: true
+            },
+            email: {
+                required: true,
+                email: true
+            },
+        },
+        messages: {
+            code: {
+                required: '请输入激活码，若无激活码联系管理员-QQ2697021834'
+            },
+            domain: {
+                required: "域名不能为空，请输入域名！",
+                maxlength: "域名长度应小于二十位！"
+            },
+            username: {
+                required: '管理员账号不能为空！请输入！',
+                minlength: '管理员账号最少4位，请重新输入！'
+            },
+            name: {
+                required: '管理员用户名不能为空！请输入！',
+                maxlength: '管理员用户名最多20位，请重新输入！'
+            },
+            password: {
+                required: '密码不能为空，请输入',
+                minlength: '密码长度不能小于8位，请重新输入',
+            },
+            pwd_s: {
+                required: '请再次输入密码',
+                minlength: '密码长度不能小于8位，请重新输入',
+                equalTo: "两次密码需一致，请确认后再次输入"
+            },
+            tel: {
+                required: '管理员手机号不能为空，请输入',
+                digits: '手机号格式错误，请重新输入',
+                minlength: '手机号格式错误，请重新输入',
+                maxlength: '手机号格式错误，请重新输入',
+                number: '手机号格式错误，请重新输入'
+            },
+            email: {
+                required: '管理员邮箱不能为空，请输入',
+                email: '邮箱格式错误，请重新输入'
+            },
+        }
+    })
+});
+
+function get_error(that) {
+    if (that.classList.contains('error')) {
+        that.classList.remove('error');
+        that.classList.add('waring');
+        var label = that.nextSibling;
+        that.value = '';
+        that.setAttribute('placeholder', label.innerHTML)
+    }
+    ;
+};
+
+
+

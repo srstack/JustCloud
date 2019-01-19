@@ -650,6 +650,22 @@ ol, ul {
     border: 0;
 }
 
+.modal-body form .form-group .waring::-webkit-input-placeholder {
+    color: white;
+}
+
+.modal-body form .form-group .waring::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: white;
+}
+
+.modal-body form .form-group .waring:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color: white;
+}
+
+.modal-body form .form-group .waring:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: white;
+}
+
 .modal-body form .form-group span {
     left: 80px;
     position: absolute;

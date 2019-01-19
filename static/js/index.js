@@ -56,7 +56,7 @@ function login() {
             data: $(".modal-body form").serialize(),
             success: function (data) {
                 if (data === '666') {
-                    window.location.href = "/keystone"
+                    window.location.href = "/admin"
                 }
                 else if (data === '555') {
                     $('.modal-body form .form-group #password').addClass('waring').attr('placeholder', '密码错误，请重新输入').val('');
