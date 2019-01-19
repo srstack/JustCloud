@@ -28,4 +28,5 @@ urlpatterns = [
     path('register', keystone.register),
     path('admin', keystone.admin),
     path('login', keystone.login),
+    path('logout', keystone.logout),
 ]

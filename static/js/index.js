@@ -77,3 +77,15 @@ function reWaring(that) {
         that.classList.remove('waring');
     }
 }
+
+function adminList() {
+    if ($('.header .header-body .header-user .login-ul .h-u-h-c-b').hasClass('hide')){
+        $('.header .header-body .header-user .login-ul .h-u-h-c-b').addClass('show').removeClass('hide');
+    }
+    else {
+        $('.header .header-body .header-user .login-ul .h-u-h-c-b').addClass('hide').removeClass('show');
+    }
+}
+function reList() {
+    $('.header .header-body .header-user .login-ul .h-u-h-c-b').addClass('hide').removeClass('show')
+}

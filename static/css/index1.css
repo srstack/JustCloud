@@ -133,8 +133,113 @@ ol, ul {
     color: #fff;
 }
 
-.header .header-body .header-user .login-ul .no-login-li:hover, .header .header-body .header-user .login-ul .no-login-li a:hover {
+.header .header-body .header-user .login-ul .no-login-li:hover, .header .header-body .header-user .login-ul .no-login-li a:hover, .header .header-body .header-user .login-ul .login-li a:hover {
     color: #58BDEB;
+}
+
+.header .header-body .header-user .login-ul .login-li {
+    float: left;
+}
+
+.header .header-body .header-user .login-ul .login-li a {
+    float: left;
+    margin-left: 15px;
+    position: relative;
+    cursor: pointer;
+    color: #fff;
+}
+
+.header .header-body .header-user .login-ul .login-li span {
+    float: left;
+    margin: 20px 0 20px 15px;
+    position: relative;
+    cursor: pointer;
+    display: inline-block;
+    width: 30px;
+    font-size: 16px;
+    height: 30px;
+    line-height: 30px;
+    border-radius: 30px;
+    text-align: center;
+    background: #17a6f1;
+    color: white;
+    border: 1px solid;
+}
+
+.header .header-body .header-user .login-ul .login-li span:hover {
+    border: 1px solid #49a6fd;
+}
+
+.header .header-body .header-user .login-ul .h-u-h-c-b.show {
+    height: 210px;
+    z-index: 99;
+}
+
+.header .header-body .header-user .login-ul .h-u-h-c-b {
+    position: absolute;
+    overflow: hidden;
+    transition: height .3s;
+    width: 100px;
+    top: 58px;
+    left: 14px;
+    cursor: default;
+}
+
+.header .header-body .header-user .login-ul .h-u-h-c-b .header-user-head-content {
+    background-color: #25272e;
+    border-top: 1px solid #19bbff;
+    font-size: 12px;
+    margin-top: 10px;
+}
+
+.header .header-body .header-user .login-ul .h-u-h-c-b .header-user-head-content .h-u-h-c-username {
+    height: 36px;
+    text-align: center;
+    color: #fff;
+    line-height: 36px;
+    margin-top: 10px;
+    border-bottom: 1px solid #5a6169;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.header .header-body .header-user .login-ul .h-u-h-c-b .header-user-head-content .h-u-h-c-setting {
+    margin-top: 4px;
+}
+
+.header .header-body .header-user .login-ul .h-u-h-c-b .header-user-head-content .h-u-h-c-setting li {
+    height: 36px;
+    line-height: 36px;
+    text-align: center;
+}
+
+.header .header-body .header-user .login-ul .h-u-h-c-b .header-user-head-content::before {
+    content: "";
+    display: block;
+    position: relative;
+    margin: -10px auto;
+    border-left: 5px;
+    border-right: 5px;
+    border-bottom: 6px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-color: transparent transparent #19bbff;
+}
+.header .header-body .header-user .login-ul .h-u-h-c-b .header-user-head-content .h-u-h-c-setting li a {
+    font-size: 12px;
+    text-decoration: none;
+    transition: all .2s;
+    color: #c6cace;
+}
+
+.header .header-body .header-user .login-ul .h-u-h-c-b .header-user-head-content .h-u-h-c-setting li a:hover {
+    color: white;
+}
+.header .header-body .header-user .login-ul .h-u-h-c-b .header-user-head-content .h-u-h-c-setting li a i {
+    font-size: 12px;
+    margin-right: 8px;
 }
 
 .wrapper-base {

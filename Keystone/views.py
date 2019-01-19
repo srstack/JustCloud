@@ -49,8 +49,7 @@ def login(request):
             # 域名错误
 
     if request.method == 'GET':
-        login = '<ul class="login-ul"><li class="no-login-li" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">登陆</li><li class="no-login-li"><a target="_blank" href="/register" data-hmt-type="header_19" >注册</a></li></ul>'
-        return render(request, 'index.html', locals())
+        return render(request, 'index.html')
 
 
 def register(request):
@@ -93,3 +92,10 @@ def register(request):
         else:
             # 激活码错误
             return HttpResponse('555')
+
+
+def logout(request):
+    request.session['IS_LOGIN'] = False
+    del request.session['USERNAME']
+    del request.session['DOMAIN_ID']
+    return render(request, 'index.html')

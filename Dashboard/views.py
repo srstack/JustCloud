@@ -7,11 +7,18 @@ from SqlMaster.models import *
 def index(request):
     user = request.META["OS"]
     print(request.META["OS"])
-    login = '<ul class="login-ul"><li class="no-login-li" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">登陆</li><li class="no-login-li"><a target="_blank" href="/register" data-hmt-type="header_19" >注册</a></li></ul>'
-    if str(user).startswith("Windows_NT"):
-        return render(request, 'index.html', locals())
+    is_login = request.session.get('IS_LOGIN', False)
+    if is_login:
+        username = request.session.get('USERNAME')
+        print(username)
+        user_name = Users.objects.filter(username=username).values('name')[0].get('name')
+        first_name = user_name[0]
+        return render(request, 'index_login.html', locals())
     else:
-        return HttpResponse("尽情期待")
+        if str(user).startswith("Windows_NT"):
+            return render(request, 'index.html')
+        else:
+            return HttpResponse("尽情期待")
 
 
 def dome(request):

@@ -39,8 +39,18 @@
                 </a>
             </div>
             <ul class="login-ul">
-                <li class="no-login-li" data-toggle="modal" data-target="#exampleModal" >登陆</li>
-                <li class="no-login-li"><a target="_blank" href="/register">注册</a></li>
+                <li class="login-li"><a href="/admin/{{ username }}">{{ user_name }}</a></li>
+                <li class="login-li" onclick="adminList()" onblur="reList()"><span >{{ first_name }}</span></li>
+                <div class="h-u-h-c-b hide">
+                    <div class="header-user-head-content">
+                        <p class="h-u-h-c-username">{{ user_name }}</p>
+                        <ul class="h-u-h-c-setting">
+                            <li><a href="/admin/{{ username }}" target="_blank"><i class="fa fa-cog"></i>管理中心</a>
+                            </li>
+                            <li><a href="/logout"><i class="fa fa-times"></i>退出帐号</a></li>
+                        </ul>
+                    </div>
+                </div>
             </ul>
         </div>
     </div>
