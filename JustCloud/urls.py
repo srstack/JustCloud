@@ -31,6 +31,6 @@ urlpatterns = [
     path('logout', dashboard.logout, name='logout'),
     path('home', keystone.home_no, name='home_no'),
     path('admin/<username>', keystone.mainAdmin, name='mainAdmin'),
-    path('home/<username>', keystone.mainHome, name='mianHome'),
+    path('home/<username>', keystone.mainHome, name='mainHome'),
 
 ]
