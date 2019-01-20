@@ -25,8 +25,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('dome', dashboard.dome),  # 测试效果页面....
     path('', dashboard.index),
-    path('register', keystone.register),
+    path('register', dashboard.register),
     path('admin', keystone.admin),
-    path('login', keystone.login),
-    path('logout', keystone.logout),
+    path('login', dashboard.login),
+    path('logout', dashboard.logout),
+    path('home', keystone.home),
 ]

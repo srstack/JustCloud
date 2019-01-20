@@ -32,7 +32,7 @@
         </div>
         <div class="header-user">
             <div class="header-develop">
-                <a target="_blank" href="/admin" data-hmt-type="header_19" class="header-developer-a">
+                <a target="_blank" href="/admin" class="header-developer-a">
                     <div class="header-developer-icon">
                     </div>
                     智慧城市管理中心
@@ -40,14 +40,14 @@
             </div>
             <ul class="login-ul">
                 <li class="login-li"><a href="/admin/{{ username }}">{{ user_name }}</a></li>
-                <li class="login-li" onclick="adminList()" onblur="reList()"><span >{{ first_name }}</span></li>
+                <li class="login-li" onclick="adminList()" onblur="reList()"><span>{{ first_name }}</span></li>
                 <div class="h-u-h-c-b hide">
                     <div class="header-user-head-content">
                         <p class="h-u-h-c-username">{{ user_name }}</p>
                         <ul class="h-u-h-c-setting">
-                            <li><a href="/admin/{{ username }}" target="_blank"><i class="fa fa-cog"></i>管理中心</a>
+                            <li><a href="/home/{{ username }}" target="_blank"><i class="fa fa-user-o"></i>个人中心</a>
                             </li>
-                            <li><a href="/logout"><i class="fa fa-times"></i>退出帐号</a></li>
+                            <li><a href="/logout"><i class="fa fa-circle-o-notch"></i>退出帐号</a></li>
                         </ul>
                     </div>
                 </div>
