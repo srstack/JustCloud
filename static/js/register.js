@@ -176,7 +176,7 @@ function register() {
                      $('.content-wrapper .content').remove();
                     $('.content-wrapper .finish-wrapper').removeClass("hide");
                     setTimeout(function () {
-                        window.location.href = "/admin";
+                        window.location.href = "/";
                     },3000);
                 }
                 else if (data === '555') {

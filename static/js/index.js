@@ -56,7 +56,7 @@ function login() {
             data: $(".modal-body form").serialize(),
             success: function (data) {
                 if (data === '666') {
-                    window.location.href = "/admin"
+                    window.location.href = "/"
                 }
                 else if (data === '555') {
                     $('.modal-body form .form-group #password').addClass('waring').attr('placeholder', '密码错误，请重新输入').val('');
@@ -76,4 +76,16 @@ function reWaring(that) {
     if (that.classList.contains('waring')) {
         that.classList.remove('waring');
     }
+}
+
+function adminList() {
+    if ($('.header .header-body .header-user .login-ul .h-u-h-c-b').hasClass('hide')){
+        $('.header .header-body .header-user .login-ul .h-u-h-c-b').addClass('show').removeClass('hide');
+    }
+    else {
+        $('.header .header-body .header-user .login-ul .h-u-h-c-b').addClass('hide').removeClass('show');
+    }
+}
+function reList() {
+    $('.header .header-body .header-user .login-ul .h-u-h-c-b').addClass('hide').removeClass('show')
 }

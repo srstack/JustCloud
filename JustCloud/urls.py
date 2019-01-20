@@ -24,8 +24,13 @@ from Parquer import views as parquer
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('dome', dashboard.dome),  # 测试效果页面....
-    path('', dashboard.index),
-    path('register', keystone.register),
-    path('admin', keystone.admin),
-    path('login', keystone.login),
+    path('', dashboard.index, name='index'),
+    path('register', dashboard.register, name="register"),
+    path('admin', keystone.admin_no, name='admin_on'),
+    path('login', dashboard.login, name='login'),
+    path('logout', dashboard.logout, name='logout'),
+    path('home', keystone.home_no, name='home_no'),
+    path('admin/<username>', keystone.mainAdmin, name='mainAdmin'),
+    path('home/<username>', keystone.mainHome, name='mianHome'),
+
 ]

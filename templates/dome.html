@@ -1,24 +1,34 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <script src = "/static/js/jquery-3.3.1.min.js"></script>
+    <script src="/static/js/jquery-3.3.1.min.js"></script>
     <link href="/static/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <script src="/static/plugins/bootstrap/js/bootstrap.min.js"></script>
     <link rel="shortcut icon" href="/static/img/favicon.ico" type="image/x-icon">
     <link href="/static/css/index1.css" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="/static/plugins/font-awesome/css/font-awesome.min.css">
 </head>
-
-
+data-trigger="focus"
 
 <body>
-<div class="alert alert-danger alert-dismissible" role="alert">
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-  <strong>警告!</strong> 域名或用户名错误，请重新输入；
+
+
+<div class="h-u-h-c-b show">
+    <div class="header-user-head-content">
+        <p class="h-u-h-c-username">srstack</p>
+        <ul class="h-u-h-c-setting">
+            <li><a href="/passport/profile" target="_blank"><i class="icon iconfont icon-user"></i>管理中心</a></li>
+            <li><a href="/logout"><i class="icon iconfont icon-logout"></i>退出帐号</a></li>
+        </ul>
+    </div>
 </div>
 
+<script>
+    $(function () {
+        $('[data-toggle="popover"]').popover()
+    })
+</script>
 
 <script src="/static/js/index.js"></script>
 </body>

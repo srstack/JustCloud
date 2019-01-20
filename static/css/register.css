@@ -95,13 +95,12 @@ body {
 }
 
 .header-wrap .logo-text {
-    margin-left: 20px;
     display: inline-block;
     height: 70px;
     line-height: 70px;
     vertical-align: top;
     font-size: 22px;
-    color: #393E4C;
+    color: #17a6f1;
 }
 
 .main-content {
@@ -111,11 +110,10 @@ body {
 }
 
 .title {
-    font-size: 16px;
+    font-size: 19px;
     text-align: center;
     margin-top: 55px;
     margin-bottom: 22px;
-    color: #8F959B;
 }
 
 .content-wrapper {
@@ -232,8 +230,8 @@ body {
 
 .content-wrapper .finish-wrapper {
     width: 510px;
-    height: 400px;
-    padding-top: 150px;
+    height: 324px;
+    padding-top: 108px;
     margin: 0 auto;
     text-align: center;
 }
@@ -245,19 +243,20 @@ body {
 
 .content-wrapper .finish-wrapper span {
     display: inline-block;
-    width: 80px;
-    height: 80px;
-    line-height: 80px;
-    border-radius: 80px;
+    width: 108px;
+    height: 108px;
+    line-height: 108px;
+    border-radius: 108px;
     text-align: center;
     box-shadow: 0 0 10px rgba(51, 51, 51, .2);
-    font-size: 30px;
+    font-size: 54px;
+    margin-right: 16px;
+    border: 2px solid #24bdfd;
 }
 
 .content-wrapper .finish-wrapper .text-wrapper {
     display: inline-block;
-    margin: -8px 30px;
-    vertical-align: bottom;
+    margin: -8px 36px;
     text-align: left;
 }
 
