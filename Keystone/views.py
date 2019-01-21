@@ -47,9 +47,11 @@ def mainHome(request, username):
         # 浩民加油！！！
         if request.session.get('USERNAME') == username:
             # 判断是否为此用户
-
-            # 浩民加油
-            return HttpResponse(username + '的家')
+            user_obj = Users.objects.filter(username=username)[0]
+            user_name = user_obj.name
+            first_name = user_name[0]
+            user_center_chose = 'active'
+            return render(request, 'home.html', locals())
         else:
             return redirect('/home/' + request.session.get('USERNAME'))
     else:

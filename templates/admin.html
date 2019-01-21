@@ -15,9 +15,9 @@
 <body style="position: relative">
 <div class="header" id="top">
     <div class="header-body">
-        <a href="/" class="header-logo"></a>
+        <a href="/" class="header-logo" onclick="loadingIn()"></a>
         <div class="header-develop">
-            <a href="/admin" class="header-developer-a">
+            <a href="/admin" class="header-developer-a" onclick="loadingIn()">
                 <div class="header-developer-icon">
                 </div>
                 智慧城市管理中心
@@ -26,12 +26,12 @@
         <div class="header-menu">
             <ul>
                 <li  onclick="chosed(this)">
-                    <a href="/admin" class={{ plat_admin_chose }}><span class="fa fa-ravelry"></span>平台管理</a>
+                    <a href="/admin" onclick="loadingIn()" class={{ plat_admin_chose }}><span class="fa fa-ravelry"></span>平台管理</a>
                 </li>
             </ul>
             <ul>
                 <li onclick="chosed(this)">
-                    <a href="/home" onclick="return false" class={{ user_center_chose }}><span class="fa fa-street-view"></span>个人中心</a>
+                    <a href="/home" onclick="loadingIn()" class={{ user_center_chose }}><span class="fa fa-street-view"></span>个人中心</a>
                 </li>
             </ul>
         </div>
@@ -43,9 +43,9 @@
                     <div class="header-user-head-content">
                         <p class="h-u-h-c-username">{{ user_name }}</p>
                         <ul class="h-u-h-c-setting">
-                            <li><a href="/home/{{ username }}" target="_blank"><i class="fa fa-user-o"></i>个人中心</a>
+                            <li><a href="/home/{{ username }}" onclick="loadingIn()"><i class="fa fa-user-o"></i>个人中心</a>
                             </li>
-                            <li><a href="/logout"><i class="fa fa-circle-o-notch"></i>退出帐号</a></li>
+                            <li><a href="/logout" onclick="loadingIn()"><i class="fa fa-circle-o-notch"></i>退出帐号</a></li>
                         </ul>
                     </div>
                 </div>
@@ -53,12 +53,10 @@
         </div>
     </div>
 </div>
-
-
+{% include 'type/loading.html' %}
 <div class="suspension">
     <a href="#top"><span class="fa fa-paper-plane" aria-hidden="true"></span></a>
 </div>
 <script src="/static/js/admin.js"></script>
 </body>
-
 </html>

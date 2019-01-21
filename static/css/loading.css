@@ -1,0 +1,25 @@
+.loading{
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 2040;
+    opacity: .5;
+    display: none;
+}
+
+.loading .loading-img>img{
+    opacity: 1;
+    overflow-x: hidden;
+    overflow-y: auto;
+    position: fixed;
+    top: 40%;
+    right: 47%;
+    left: 47%;
+    width: 5%;
+    z-index: 2050;
+    display: block;
+    -webkit-overflow-scrolling: touch;
+    outline: 0;
+}

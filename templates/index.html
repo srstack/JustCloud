@@ -13,7 +13,7 @@
 <body style="position: relative">
 <div class="header" id="top">
     <div class="header-body">
-        <a href="/" class="header-logo"></a>
+        <a href="/" class="header-logo" onclick="loadingIn()"></a>
         <div class="header-menu">
             <ul class="header-menu-ul">
                 <li class="header-menu-ul-li ">
@@ -577,6 +577,9 @@
         </div>
     </div>
 </div>
+
+{% include 'type/loading.html' %}
+
 <script src="/static/js/index.js"></script>
 </body>
 </html>

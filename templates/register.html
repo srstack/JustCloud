@@ -97,7 +97,7 @@
                 </div>
                 <div class="content-item to-login">
                     <span>已经有账号，现在去登录，</span>
-                    <a href="/login">前去登录</a>
+                    <a href="/login" onclick="loadingIn()">前去登录</a>
                 </div>
 
             </form>
@@ -124,6 +124,7 @@
     <p>Copyright©2019 JustCloud 版权所有 蜀ICP备17013721号</p>
 </footer>
 
+{% include 'type/loading.html' %}
 
 <div class="suspension">
     <a href="#top"><span class="fa fa-paper-plane" aria-hidden="true"></span></a>

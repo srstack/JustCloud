@@ -50,21 +50,26 @@ function login() {
         }
     });
     if (Status === true) {
+        loadingIn()
         $.ajax({
             url: 'login',
             type: 'POST',
             data: $(".modal-body form").serialize(),
             success: function (data) {
                 if (data === '666') {
+                    loadingOut()
                     window.location.href = "/"
                 }
                 else if (data === '555') {
+                    loadingOut()
                     $('.modal-body form .form-group #password').addClass('waring').attr('placeholder', '密码错误，请重新输入').val('');
                 }
                 else if (data === '444') {
+                    loadingOut()
                     $('.modal-body form .form-group #username').addClass('waring').attr('placeholder', '用户名错误或不存在，请重新输入').val('');
                 }
                 else if (data === '333') {
+                    loadingOut()
                     $('.modal-body form .form-group #domain').addClass('waring').attr('placeholder', '域名错误或不存在，请重新输入').val('');
                 }
             }
