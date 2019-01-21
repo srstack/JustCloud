@@ -17,8 +17,7 @@ function showReposBtn() {
         $('.suspension').show();
     } else {
         $('.suspension').hide();
-    }
-    ;
+    };
 };
 window.onload = function () {
     showReposBtn();
@@ -29,4 +28,5 @@ window.onscroll = function () {
 
 function chosed(that) {
     that.firstElementChild.classList.add('active');
+    $(that).parent().siblings().children('li').children('a.active').removeClass('active');
 }
