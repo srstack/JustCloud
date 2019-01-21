@@ -3,45 +3,62 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>JustCloud-智慧城市云平台</title>
+    <title>智慧城市管理中心</title>
     <script src="/static/js/jquery-3.3.1.min.js"></script>
     <link href="/static/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <script src="/static/plugins/bootstrap/js/bootstrap.min.js"></script>
     <link rel="shortcut icon" href="/static/img/favicon.ico" type="image/x-icon">
-    <link href="/static/css/admin.css" rel="stylesheet" type="text/css" />
+    <link href="/static/css/admin.css" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="/static/plugins/font-awesome/css/font-awesome.min.css">
 </head>
 
 <body style="position: relative">
-    <div class="header" id="top">
-        <div class="header-body">
-            <div class="header-develop">
-                <a target="_blank" href="/admin" class="header-developer-a">
-                    <div class="header-developer-icon">
+<div class="header" id="top">
+    <div class="header-body">
+        <a href="/" class="header-logo"></a>
+        <div class="header-develop">
+            <a href="/admin" class="header-developer-a">
+                <div class="header-developer-icon">
+                </div>
+                智慧城市管理中心
+            </a>
+        </div>
+        <div class="header-menu">
+            <ul>
+                <li onclick="chosed(this)">
+                    <a><span class="fa fa-ravelry"></span>平台管理</a>
+                </li>
+            </ul>
+            <ul>
+                <li onclick="chosed(this)">
+                    <a><span class="fa fa-street-view"></span>个人中心</a>
+                </li>
+            </ul>
+        </div>
+        <div class="header-user">
+            <ul class="login-ul">
+                <li class="login-li" onclick="adminList()" onblur="reList()"><a>{{ user_name }}</a></li>
+                <li class="login-li" onclick="adminList()" onblur="reList()"><span>{{ first_name }}</span></li>
+                <div class="h-u-h-c-b">
+                    <div class="header-user-head-content">
+                        <p class="h-u-h-c-username">{{ user_name }}</p>
+                        <ul class="h-u-h-c-setting">
+                            <li><a href="/home/{{ username }}" target="_blank"><i class="fa fa-user-o"></i>个人中心</a>
+                            </li>
+                            <li><a href="/logout"><i class="fa fa-circle-o-notch"></i>退出帐号</a></li>
+                        </ul>
                     </div>
-                    智慧城市管理中心
-                </a>
-            </div>
-            <a href="/" class="header-logo"></a>
-            <div class="header-user">
-                <ul class="login-ul">
-                    <li class="login-li" onclick="adminList()" onblur="reList()"><span>{{ first_name }}</span></li>
-                    <div class="h-u-h-c-b">
-                        <div class="header-user-head-content">
-                            <p class="h-u-h-c-username">{{ user_name }}</p>
-                            <ul class="h-u-h-c-setting">
-                                <li><a href="/home/{{ username }}" target="_blank"><i class="fa fa-user-o"></i>个人中心</a>
-                                </li>
-                                <li><a href="/logout"><i class="fa fa-circle-o-notch"></i>退出帐号</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </ul>
-            </div>
+                </div>
+            </ul>
         </div>
     </div>
+</div>
 
-    <script src="/static/js/admin.js"></script>
+
+<div class="suspension">
+    <a href="#top"><span class="fa fa-paper-plane" aria-hidden="true"></span></a>
+</div>
+<script src="/static/js/admin.js"></script>
 </body>
 
 </html>

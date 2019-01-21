@@ -181,7 +181,7 @@ ol, ul {
     transition: height .3s;
     width: 100px;
     top: 58px;
-    left: 14px;
+    left: 34px;
     cursor: default;
 }
 
@@ -227,6 +227,7 @@ ol, ul {
     border-style: solid;
     border-color: transparent transparent #19bbff;
 }
+
 .header .header-body .header-user .login-ul .h-u-h-c-b .header-user-head-content .h-u-h-c-setting li a {
     font-size: 12px;
     text-decoration: none;
@@ -237,6 +238,7 @@ ol, ul {
 .header .header-body .header-user .login-ul .h-u-h-c-b .header-user-head-content .h-u-h-c-setting li a:hover {
     color: white;
 }
+
 .header .header-body .header-user .login-ul .h-u-h-c-b .header-user-head-content .h-u-h-c-setting li a i {
     font-size: 12px;
     margin-right: 8px;

@@ -29,10 +29,11 @@ def mainAdmin(request, username):
     if is_login:
         if request.session.get('USERNAME') == username:
             # 判断是否为此用户
-
-            user_name=username
-            first_name=user_name[0]
-            return render(request,'admin.html',locals())
+            # 拿到用户ORM对象
+            user_obj = Users.objects.filter(username=username)[0]
+            user_name = user_obj.name
+            first_name = user_name[0]
+            return render(request, 'admin.html', locals())
         else:
             return redirect('/admin/' + request.session.get('USERNAME'))
     else:
@@ -47,7 +48,7 @@ def mainHome(request, username):
             # 判断是否为此用户
 
             # 浩民加油
-            return HttpResponse(username+'的家')
+            return HttpResponse(username + '的家')
         else:
             return redirect('/home/' + request.session.get('USERNAME'))
     else:

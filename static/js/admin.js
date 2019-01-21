@@ -9,3 +9,24 @@ function adminList() {
 function reList() {
     $('.header .header-body .header-user .login-ul .h-u-h-c-b').removeClass('show')
 }
+
+function showReposBtn() {
+    var clientHeight = $(window).height() / 2;
+    var scroll = $(document).scrollTop();
+    if (scroll > clientHeight) {
+        $('.suspension').show();
+    } else {
+        $('.suspension').hide();
+    }
+    ;
+};
+window.onload = function () {
+    showReposBtn();
+};
+window.onscroll = function () {
+    showReposBtn();
+};
+
+function chosed(that) {
+    that.firstElementChild.classList.add('active');
+}
