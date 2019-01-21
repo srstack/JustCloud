@@ -33,7 +33,6 @@ def mainAdmin(request, username):
             user_obj = Users.objects.filter(username=username)[0]
             user_name = user_obj.name
             first_name = user_name[0]
-            plat_admin_chose = 'active'
             return render(request, 'admin.html', locals())
         else:
             return redirect('/admin/' + request.session.get('USERNAME'))
