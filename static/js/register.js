@@ -175,8 +175,9 @@ function register() {
             success: function (data) {
                 if (data === '666') {
                     loadingOut()
-                     $('.content-wrapper .content').remove();
+                    $('.content-wrapper .content').remove();
                     $('.content-wrapper .finish-wrapper').removeClass("hide");
+                    $("html,body").animate({scrollTop:0},10);
                     setTimeout(function () {
                         window.location.href = "/";
                     },3000);
@@ -193,8 +194,18 @@ function register() {
                 }
                 else if (data === '333') {
                     loadingOut()
-                    $('.content-wrapper .content form .content-item #domain').addClass('waring').attr('placeholder', '域名存在，请重新输入').val('');
+                    $('.content-wrapper .content form .content-item #domain').addClass('waring').attr('placeholder', '域名已存在，请重新输入').val('');
                     window.location.href="#domain";
+                }
+                else if (data === '777') {
+                    loadingOut()
+                    $('.content-wrapper .content form .content-item #tel').addClass('waring').attr('placeholder', '手机号已存在，请重新输入').val('');
+                    window.location.href="#tel";
+                }
+                else if (data === '888') {
+                    loadingOut()
+                    $('.content-wrapper .content form .content-item #email').addClass('waring').attr('placeholder', '邮箱存在，请重新输入').val('');
+                    window.location.href="#email";
                 }
             }
         })

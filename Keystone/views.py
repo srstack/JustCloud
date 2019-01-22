@@ -34,11 +34,21 @@ def mainAdmin(request, username):
             user_name = user_obj.name
             first_name = user_name[0]
             plat_admin_chose = 'active'
+
+            # 左侧列表显示栏——名称：{awesome图标类：跳转URL}
+            menu_list = {
+                '平台概况': {'fa-linode': '/admin'},
+                '设备列表': {'fa-cubes': '/admin/' + username + '/device'},
+            }
+
+            # 主体栏显示的部分
+            exhibition_name = '平台概况'
+
             return render(request, 'admin.html', locals())
         else:
             return redirect('/admin/' + request.session.get('USERNAME'))
     else:
-        return redirect('/register')
+        return redirect('/')
 
 
 def mainHome(request, username):
@@ -51,6 +61,16 @@ def mainHome(request, username):
             user_name = user_obj.name
             first_name = user_name[0]
             user_center_chose = 'active'
+
+            menu_list = {
+                '用户管理': {'fa-eercast': '/home'},
+                '权限设置': {'fa-bullseye': '/home/' + username + '/auth'},
+                '个人中心': {'fa-cogs': '/home/' + username + '/center'}
+            }
+
+            # 主体栏显示的部分
+            exhibition_name = '用户管理'
+
             return render(request, 'home.html', locals())
         else:
             return redirect('/home/' + request.session.get('USERNAME'))

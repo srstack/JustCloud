@@ -15,7 +15,7 @@ class Domain(models.Model):
 
 
 class Users(models.Model):
-    username = models.CharField(max_length=15, verbose_name="用户名", unique=True, null=False, db_index=True)
+    username = models.CharField(max_length=15, verbose_name="用户名", null=False, db_index=True)
     password = models.CharField(max_length=40, verbose_name="密码", null=False)
     name = models.CharField(max_length=12, verbose_name="昵称", null=False)
     domain = models.ForeignKey("Domain", verbose_name="所属域", on_delete='CASCADE', related_name="users")
@@ -34,6 +34,7 @@ class Users(models.Model):
 class System(models.Model):
     name = models.CharField(max_length=10, verbose_name="系统名称", null=False)
     platform = models.CharField(max_length=8, verbose_name="系统平台", null=False, default="others")
+    creatuser = models.ForeignKey("Users", verbose_name="创建者", on_delete='CASCADE', related_name="ownsystem")
     domain = models.ForeignKey("Domain", verbose_name="所属域", on_delete='CASCADE', related_name="system")
     # JSON格式的数据模板，使用元组格式；
     type = models.CharField(max_length=100, verbose_name="数据模板", null=False)
