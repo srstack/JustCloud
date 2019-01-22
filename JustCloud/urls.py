@@ -22,7 +22,7 @@ from Lumiere import views as lumiere
 from Parquer import views as parquer
 
 urlpatterns = [
-    path('Admin/', admin.site.urls),
+    path('databaseadmin/', admin.site.urls),
     path('dome/', dashboard.dome),  # 测试效果页面....
     path('', dashboard.index, name='index'),
     path('register/', dashboard.register, name="register"),
