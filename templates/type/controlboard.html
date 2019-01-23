@@ -58,22 +58,8 @@
     </div>
 </div>
 
-
-<div class="menu">
-    <ul class="menu-ul">
-        {% for menu_name,menu_target in menu_list.items %}
-            {% if menu_name == exhibition_name %}
-                <li class='active'>
-            {% else %}
-                <li>
-            {% endif %}
-            {% for fa,url in menu_target.items %}
-                <a onclick="loadingIn()" href={{ url }}><i class='fa {{ fa }}'></i>{{ menu_name }}</a>
-            {% endfor %}
-                </li>
-        {% endfor %}
-    </ul>
-</div>
+{% block menu %}
+{% endblock %}
 
 <div class="content">
     <div class="wrapper">

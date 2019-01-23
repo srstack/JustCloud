@@ -35,13 +35,8 @@ def mainAdmin(request, username):
             first_name = user_name[0]
             # 确定header选中
             plat_admin_chose = 'active'
-
-            # 左侧列表显示栏——名称：{awesome图标类：跳转URL}
-            menu_list = {
-                '平台概况': {'fa-linode': '/admin'},
-                '设备管理': {'fa-cubes': '/admin/' + username + '/device'},
-            }
-
+            # 确定menu选中
+            main_admin = 'active'
             # 主体栏显示的部分
             exhibition_name = '平台概况'
 
@@ -63,13 +58,8 @@ def deviceAdmin(request, username):
             first_name = user_name[0]
             # 确定header选中
             plat_admin_chose = 'active'
-
-            # 左侧列表显示栏——名称：{awesome图标类：跳转URL}
-            menu_list = {
-                '平台概况': {'fa-linode': '/admin'},
-                '设备管理': {'fa-cubes': '/admin/' + username + '/device'},
-            }
-
+            # 确定menu选中
+            device_admin = 'active'
             # 主体栏显示的部分
             exhibition_name = '设备管理'
 
@@ -91,13 +81,8 @@ def mainHome(request, username):
             first_name = user_name[0]
             # 确定header选中
             user_center_chose = 'active'
-
-            menu_list = {
-                '用户管理': {'fa-eercast': '/home'},
-                '权限设置': {'fa-bullseye': '/home/' + username + '/auth'},
-                '个人中心': {'fa-cogs': '/home/' + username + '/center'},
-            }
-
+            # 确定menu选中
+            main_home = 'active'
             # 主体栏显示的部分
             exhibition_name = '用户管理'
 
@@ -119,16 +104,10 @@ def authHome(request, username):
             first_name = user_name[0]
             # 确定header选中
             user_center_chose = 'active'
-
-            menu_list = {
-                '用户管理': {'fa-eercast': '/home'},
-                '权限设置': {'fa-bullseye': '/home/' + username + '/auth'},
-                '个人中心': {'fa-cogs': '/home/' + username + '/center'},
-            }
-
+            # 确定menu选中
+            auth_home = 'active'
             # 主体栏显示的部分
             exhibition_name = '权限设置'
-
             return render(request, 'authHome.html', locals())
         else:
             return redirect('/home/' + request.session.get('USERNAME') + '/auth')
@@ -147,16 +126,10 @@ def centerHome(request, username):
             first_name = user_name[0]
             # 确定header选中
             user_center_chose = 'active'
-
-            menu_list = {
-                '用户管理': {'fa-eercast': '/home'},
-                '权限设置': {'fa-bullseye': '/home/' + username + '/auth'},
-                '个人中心': {'fa-cogs': '/home/' + username + '/center'},
-            }
-
+            # 确定menu选中
+            center_home = 'active'
             # 主体栏显示的部分
             exhibition_name = '个人中心'
-
             return render(request, 'centerHome.html', locals())
         else:
             return redirect('/home/' + request.session.get('USERNAME') + '/center')
