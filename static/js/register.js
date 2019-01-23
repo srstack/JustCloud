@@ -169,7 +169,7 @@ function register() {
     if (Status === true) {
         loadingIn()
         $.ajax({
-            url: 'register/',
+            url: '/register/',
             type: 'POST',
             data: $('.content-wrapper .content form').serialize(),
             success: function (data) {
