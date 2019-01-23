@@ -52,7 +52,7 @@ function login() {
     if (Status === true) {
         loadingIn()
         $.ajax({
-            url: 'login',
+            url: 'login/',
             type: 'POST',
             data: $(".modal-body form").serialize(),
             success: function (data) {

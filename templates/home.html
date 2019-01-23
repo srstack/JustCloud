@@ -32,5 +32,28 @@
             </div>
         </div>
     </div>
+    <div class="domaninfo">
+        <div class="grid">
+            <div class="domaninfo-base">
+            </div>
+            <div class="domaninfo-name">
+                <label>所属域ID</label>
+                <h2 style="font-size:18px">{{ domain.id }}</h2>
+            </div>
+            <div class="domaninfo-name">
+                <label>所属域名</label>
+                <h2 style="font-size:14px">{{ domain.name }}</h2>
+            </div>
+            <div class="domaninfo-name">
+                <label>创建时间</label>
+                <h2 style="font-size:12px">{{ domain.date|date:"Y-m-d H:i:s"  }}</h2>
+            </div>
+            <div >
+
+            </div>
+        </div>
+    </div>
+    <div class="usersinfo">
+    </div>
     <script src="/static/js/home.js"></script>
 {% endblock %}

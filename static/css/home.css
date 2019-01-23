@@ -1,5 +1,4 @@
-.content .wrapper .baseinfo {
-    height: 125px;
+.content .wrapper .baseinfo{
     margin-top: 20px;
     border-top: 1px solid #eee;
     border-bottom: 1px solid #eee;
@@ -7,8 +6,20 @@
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
 }
+.content .wrapper .domaninfo, .content .wrapper .usersinfo {
+    margin: 20px 20px 0 20px;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    background-color: #fff;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
 
-.content .wrapper .baseinfo .grid {
+.content .wrapper .baseinfo {
+    height: 130px;
+}
+
+.content .wrapper .baseinfo .grid, .content .wrapper .domaninfo .grid, .content .wrapper .usersinfo .grid {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -82,4 +93,35 @@
     color: #1e2027;
     margin-top: 28px;
     font-weight: 900;
+}
+
+.content .wrapper .domaninfo {
+    height: 120px;
+}
+
+.content .wrapper .domaninfo .grid .domaninfo-name {
+    height: 57px;
+    border-right: 1px solid #f4f5f6;
+    margin-top: 32px;
+    font-size: 12px;
+    font-weight: 300;
+    color: #666;
+    line-height: 24px;
+    padding: 0 30px;
+    text-align: center;
+    display: inline-block;
+    width: 17%;
+    vertical-align: top;
+}
+
+.content .wrapper .domaninfo .grid .domaninfo-name > label {
+    margin-right: 5px;
+    width: 100%;
+}
+
+.content .wrapper .domaninfo .grid .domaninfo-name > h2 {
+    color: #333;
+    font-weight: 400;
+    margin-top: 5px;
+    display: inline-block;
 }
