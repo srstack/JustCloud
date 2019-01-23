@@ -77,6 +77,8 @@ def mainHome(request, username):
         if request.session.get('USERNAME') == username:
             # 判断是否为此用户
             user_obj = Users.objects.filter(username=username)[0]
+            domain = Domain.objects.filter(id=request.session.get('DOMAIN_ID'))[0]
+            domain_name = domain.name
             user_name = user_obj.name
             first_name = user_name[0]
             # 确定header选中
@@ -85,7 +87,26 @@ def mainHome(request, username):
             main_home = 'active'
             # 主体栏显示的部分
             exhibition_name = '用户管理'
+            user_leve = 1
+            dic_user = {
+                1:'管理员用户',
+                2:'二级用户',
+                3:'三级用户',
+                4: '四级用户',
+                5: '五级用户',
+                6: '六级用户',
+            }
+            sub_user = user_obj
+            while True:
+                if sub_user.rely_id:
+                    sub_user = sub_user.rely
+                    user_leve = user_leve + 1
+                else:
+                    user_class = dic_user.get(user_leve)
+                    break
 
+            sub_user_count = user_obj.sub_user.count()
+            system_count = user_obj.system.count()
             return render(request, 'home.html', locals())
         else:
             return redirect('/home/' + request.session.get('USERNAME'))

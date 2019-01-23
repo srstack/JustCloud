@@ -34,7 +34,10 @@ class Users(models.Model):
 class System(models.Model):
     name = models.CharField(max_length=10, verbose_name="系统名称", null=False)
     platform = models.CharField(max_length=8, verbose_name="系统平台", null=False, default="others")
-    creatuser = models.ForeignKey("Users", verbose_name="创建者", on_delete='CASCADE', related_name="ownsystem")
+    createuser = models.ForeignKey("Users", verbose_name="创建者", on_delete='CASCADE', related_name="ownsystem")
+    key = models.CharField(max_length=26, verbose_name="API密钥", null=True)
+    protocol = models.CharField(max_length=4, verbose_name="接入协议", default="COAP")
+    devicecode = models.CharField(max_length=20, verbose_name="设备注册码", null=True)
     domain = models.ForeignKey("Domain", verbose_name="所属域", on_delete='CASCADE', related_name="system")
     # JSON格式的数据模板，使用元组格式；
     type = models.CharField(max_length=100, verbose_name="数据模板", null=False)

@@ -6,5 +6,31 @@
 {% endblock %}
 
 {% block wrapper %}
-
+    <link href="/static/css/home.css" rel="stylesheet" type="text/css"/>
+    <div class="baseinfo">
+        <div class="grid">
+            <div class="baseinfo-user">
+                <h2>{{ user_name }}</h2>
+                <span>{{ user_class }}</span>
+                <a onclick="loadingIn()" href="/home/{{ username }}/center">详情</a>
+            </div>
+            <div class="baseinfo-aid">
+                <h3>所属域</h3>
+                <span>{{ domain_name }}</span>
+            </div>
+            <div class="baseinfo-uid">
+                <h3>用户ID</h3>
+                <span>{{ user_obj.id }}</span>
+            </div>
+            <div class="baseinfo-subuser">
+                <h3>下级用户数</h3>
+                <span>{{ sub_user_count }}</span>
+            </div>
+            <div class="baseinfo-system">
+                <h3>管理子系统数</h3>
+                <span>{{ system_count }}</span>
+            </div>
+        </div>
+    </div>
+    <script src="/static/js/home.js"></script>
 {% endblock %}
