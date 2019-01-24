@@ -1,4 +1,4 @@
-.content .wrapper .baseinfo{
+.content .wrapper .baseinfo {
     margin-top: 20px;
     border-top: 1px solid #eee;
     border-bottom: 1px solid #eee;
@@ -6,6 +6,7 @@
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
 }
+
 .content .wrapper .domaninfo, .content .wrapper .usersinfo {
     margin: 20px 20px 0 20px;
     border-top: 1px solid #eee;
@@ -124,4 +125,81 @@
     font-weight: 400;
     margin-top: 5px;
     display: inline-block;
+}
+
+.content .wrapper .domaninfo .grid .domaninfo-chenge > a {
+    padding-left: 18px;
+    margin: 40px 0 40px 100px;
+    color: #fff;
+    background-color: #57a2ff;
+    border-color: #57a2ff;
+    height: 36px;
+    width: 128px;
+    line-height: 36px;
+    font-size: 14px;
+    border-radius: 9px;
+    display: inline-block;
+    font-weight: 400;
+}
+
+.content .wrapper .domaninfo .grid .domaninfo-chenge > a > span {
+    margin-left: 4px;
+}
+
+.content .wrapper .domaninfo .grid .domaninfo-chenge :hover {
+    background-color: #24bdfd;
+    border-color: #24bdfd;
+}
+
+.change {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 2040;
+    display: none;
+    background-color: rgba(1, 1, 1, 0.5);
+}
+
+.change .change-table {
+    width: 500px;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+    right: 0;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    background-color: #fff;
+    border: 0;
+    background-clip: padding-box;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, .15);
+}
+
+.change .change-table .change-table-close {
+    right: 32px;
+    top: 32px;
+    position: absolute;
+}
+
+.change .change-table .change-table-close > i {
+    font-size: 21px;
+    color: #999;
+    transition: color .2s ease;
+    position: relative;
+    top: 1px;
+}
+
+.change .change-table .change-table-header {
+    padding: 36px;
+    border-bottom: 1px solid #e8eaec;
+    line-height: 1;
+    display: inline-block;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 18px;
+    font-weight: 600;
 }

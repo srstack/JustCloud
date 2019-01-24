@@ -19,8 +19,12 @@
                 <span>{{ domain_name }}</span>
             </div>
             <div class="baseinfo-uid">
-                <h3>用户ID</h3>
-                <span>{{ user_obj.id }}</span>
+                <h3>上级用户</h3>
+                {% if user_class == '管理员用户' %}
+                    <span>无</span>
+                {% else %}
+                    <span>{{ user_obj.rely.name }}</span>
+                {% endif %}
             </div>
             <div class="baseinfo-subuser">
                 <h3>下级用户数</h3>
@@ -32,6 +36,9 @@
             </div>
         </div>
     </div>
+
+    <div class="navigation" style="margin: 30px 20px 0 20px;text-align: center">所属域概况</div>
+
     <div class="domaninfo">
         <div class="grid">
             <div class="domaninfo-base">
@@ -46,14 +53,32 @@
             </div>
             <div class="domaninfo-name">
                 <label>创建时间</label>
-                <h2 style="font-size:12px">{{ domain.date|date:"Y-m-d H:i:s"  }}</h2>
+                <h2 style="font-size:12px">{{ domain.date|date:"Y-m-d H:i:s" }}</h2>
             </div>
-            <div >
-
+            <div class="domaninfo-name">
+                <label>所在地</label>
+                <h2 style="font-size:12px">{{ domain.country }}-{{ domain.province }}-{{ domain.city }}</h2>
+            </div>
+            <div class="domaninfo-chenge">
+                <a onclick="loadingIn(),changeDoman()">
+                    <i class="fa fa-globe"></i>
+                    <span>修改所属域</span>
+                </a>
             </div>
         </div>
     </div>
     <div class="usersinfo">
     </div>
+
+
+    <div class="change">
+        <div class="change-table">
+            <a class="change-table-close" onclick="loadingIn(),closeChange(this)"><i class="fa fa-times"></i></a>
+            <div class="change-table-header">修改所属域</div>
+            <div class="change-table-form">
+            </div>
+        </div>
+    </div>
+
     <script src="/static/js/home.js"></script>
 {% endblock %}

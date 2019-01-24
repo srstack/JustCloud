@@ -388,19 +388,17 @@ ul {
 }
 
 .content .wrapper .navigation {
-    width: 100%;
     background: #fff;
     -webkit-box-shadow: 0 0 0 0 #eee;
     box-shadow: 0 0 0 0 #eee;
     position: relative;
-    padding-left: 40px;
-    display: inline-block;
+    padding: 0 40px;
     vertical-align: middle;
-    height: 50px;
+    height: 72px;
     color: #333;
     font-size: 14px;
     font-weight: 600;
-    line-height: 50px;
+    line-height: 72px;
 }
 
 .footer {
