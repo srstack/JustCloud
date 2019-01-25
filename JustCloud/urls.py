@@ -34,6 +34,7 @@ urlpatterns = [
     path('admin/<username>/device/', keystone.deviceAdmin, name='deviceAdmin'),
     path('home/<username>/', keystone.mainHome, name='mainHome'),
     path('home/<username>/auth/', keystone.authHome, name='authHome'),
-    path('home/<username>/center', keystone.centerHome, name='centerHome'),
-
+    path('home/<username>/center/', keystone.centerHome, name='centerHome'),
+    path('home/<username>/domainchange/', keystone.domainChange, name='domainChange'),
+    path('home/<username>/useradd/', keystone.userAdd, name='userAdd'),
 ]

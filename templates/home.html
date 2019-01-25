@@ -6,6 +6,7 @@
 {% endblock %}
 
 {% block wrapper %}
+    <script src="/static/js/jquery.validate.min.js"></script>
     <link href="/static/css/home.css" rel="stylesheet" type="text/css"/>
     <div class="baseinfo">
         <div class="grid">
@@ -19,16 +20,16 @@
                 <span>{{ domain_name }}</span>
             </div>
             <div class="baseinfo-uid">
+                <h3>用户ID</h3>
+                <span>{{ user_obj.id }}</span>
+            </div>
+            <div class="baseinfo-subuser">
                 <h3>上级用户</h3>
                 {% if user_class == '管理员用户' %}
                     <span>无</span>
                 {% else %}
                     <span>{{ user_obj.rely.name }}</span>
                 {% endif %}
-            </div>
-            <div class="baseinfo-subuser">
-                <h3>下级用户数</h3>
-                <span>{{ sub_user_count }}</span>
             </div>
             <div class="baseinfo-system">
                 <h3>管理子系统数</h3>
@@ -38,7 +39,6 @@
     </div>
 
     <div class="navigation" style="margin: 30px 20px 0 20px;text-align: center">所属域概况</div>
-
     <div class="domaninfo">
         <div class="grid">
             <div class="domaninfo-base">
@@ -47,7 +47,7 @@
                 <label>所属域ID</label>
                 <h2 style="font-size:18px">{{ domain.id }}</h2>
             </div>
-            <div class="domaninfo-name">
+            <div class="domaninfo-name" id="domainname">
                 <label>所属域名</label>
                 <h2 style="font-size:14px">{{ domain.name }}</h2>
             </div>
@@ -55,7 +55,7 @@
                 <label>创建时间</label>
                 <h2 style="font-size:12px">{{ domain.date|date:"Y-m-d H:i:s" }}</h2>
             </div>
-            <div class="domaninfo-name">
+            <div class="domaninfo-name" id="domainplace">
                 <label>所在地</label>
                 <h2 style="font-size:12px">{{ domain.country }}-{{ domain.province }}-{{ domain.city }}</h2>
             </div>
@@ -67,15 +67,223 @@
             </div>
         </div>
     </div>
+
+    <div class="navigation" style="margin: 30px 20px 0 20px;text-align: center">下级用户管理</div>
     <div class="usersinfo">
+        <div class="grid">
+            <div>
+                <h3>下级用户数</h3>
+                <span>{{ sub_user_count }}</span>
+            </div>
+            <div class="useradd">
+                <a onclick="loadingIn(),usertable()">
+                    <i class="fa fa-user-plus"></i>
+                    <span style="margin-left: 4px;">增加下级用户</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="userlist">
+        <div class="user-table">
+            <div class="t-header">
+                <table style="width: 100%;table-layout: fixed;">
+                    <thead>
+                    <tr>
+                        <th>
+                            <div>
+                                <span>用户ID</span>
+                            </div>
+                        </th>
+                        <th>
+                            <div>
+                                <span>用户名</span>
+                            </div>
+                        </th>
+                        <th>
+                            <div>
+                                <span>用户昵称</span>
+                            </div>
+                        </th>
+                        <th>
+                            <div>
+                                <span>用户邮箱</span>
+                            </div>
+                        </th>
+                        <th>
+                            <div>
+                                <span>用户手机</span>
+                            </div>
+                        </th>
+                        <th>
+                            <div>
+                                <span>操作</span>
+                            </div>
+                        </th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+            {% if sub_user_count > 0 %}
+                <div class="t-body">
+                    <table style="width: 100%;table-layout: fixed;">
+                        <tbody>
+                        {% for user in sub_user %}
+                            <tr>
+                                <td>
+                                    <div><span>{{ user.id }}</span></div>
+                                </td>
+                                <td>
+                                    <div><span>{{ user.username }}</span></div>
+                                </td>
+                                <td>
+                                    <div><span>{{ user.name }}</span></div>
+                                </td>
+                                <td>
+                                    <div><span>{{ user.email }}</span></div>
+                                </td>
+                                <td>
+                                    <div><span>{{ user.phone }}</span></div>
+                                </td>
+                                <td>
+                                    <div><a onclick="loadingIn(),userremove(this)">删除</a></div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <div class="t-body">
+                    <table style="width: 100%;table-layout: fixed;">
+                        <tbody>
+                        <tr>
+                            <td>
+                                <div><span>暂无下级用户</span></div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            {% endif %}
+            <div class="t-footer">
+                <span style="font-size: 12px;color: #999;">共{{ sub_user_count }}项数据</span>
+            </div>
+        </div>
     </div>
 
 
-    <div class="change">
+    <div class="change" id="domainchange">
         <div class="change-table">
             <a class="change-table-close" onclick="loadingIn(),closeChange(this)"><i class="fa fa-times"></i></a>
             <div class="change-table-header">修改所属域</div>
             <div class="change-table-form">
+                <div>
+                    <form>
+                        {% csrf_token %}
+                        <p>所属域信息</p>
+                        <div style="margin-bottom: 24px">
+                            <label class="form-item">修改所属域名:</label>
+                            <div class="form-input">
+                                <input type="text" placeholder="请输入修改后域名" onclick="reWaring(this)" id="domain"
+                                       name="domain"
+                                       value={{ domain.name }}>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 24px">
+                            <label class="form-item">修改所属国家:</label>
+                            <div class="form-input">
+                                <input type="text" placeholder="请输入所属国家" id="country" name="country" value="中国"
+                                       readonly>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 24px">
+                            <label class="form-item">修改所属省份:</label>
+                            <div class="form-input">
+                                <select class="item-body" id="province" name="province"
+                                        onchange="select_province(this);"></select>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 24px">
+                            <label class="form-item">选择所属城市:</label>
+                            <div class="form-input">
+                                <select class="item-body" name="city" id="city"></select>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="change-table-footer">
+                <button class="sent" onclick="loadingIn(),domainchange()"><span>确定</span></button>
+            </div>
+        </div>
+    </div>
+
+    <div class="change" id="usertable">
+        <div class="change-table">
+            <a class="change-table-close" onclick="loadingIn(),closeChange(this)"><i class="fa fa-times"></i></a>
+            <div class="change-table-header">创建下级用户</div>
+            <div class="change-table-form">
+                <div>
+                    <form>
+                        {% csrf_token %}
+                        <p>下级用户信息</p>
+                        <div style="margin-bottom: 24px">
+                            <label class="form-item">用户账号:</label>
+                            <div class="form-input">
+                                <input type="text" placeholder="请输入用户账号" onclick="reWaring(this)"
+                                       onblur="get_error(this)"
+                                       id="username"
+                                       name="username">
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 24px">
+                            <label class="form-item">用户名:</label>
+                            <div class="form-input">
+                                <input type="text" placeholder="请输入用户名" onclick="reWaring(this)"
+                                       onblur="get_error(this)"
+                                       id="name"
+                                       name="name">
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 24px">
+                            <label class="form-item">输入密码:</label>
+                            <div class="form-input">
+                                <input type="password" name="password" id="password"
+                                       onblur="get_error(this)"
+                                       onclick="reWaring(this)"
+                                       placeholder="需包含字母数字符号，长度至少为8位">
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 24px">
+                            <label class="form-item">确认密码:</label>
+                            <div class="form-input">
+                                <input type="password" id="pwd_s" name="pwd_s"
+                                       onclick="reWaring(this)" onblur="get_error(this)" placeholder="请再次输入密码">
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 24px">
+                            <label class="form-item">手机号:</label>
+                            <div class="form-input">
+                                <input type="text" id="tel" name="tel"
+                                       onblur="get_error(this)"
+                                       onclick="reWaring(this)"
+                                       placeholder="请输入用户手机号">
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 24px">
+                            <label class="form-item">邮箱:</label>
+                            <div class="form-input">
+                                <input type="text" id="email" name="email" placeholder="请输入用户邮箱"
+                                       onblur="get_error(this)"
+                                       onclick="reWaring(this)">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="change-table-footer">
+                <button class="sent" onclick="useradd()"><span>确定</span></button>
             </div>
         </div>
     </div>

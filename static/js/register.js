@@ -167,14 +167,14 @@ function register() {
         }
     });
     if (Status === true) {
-        loadingIn()
+        loadingIn();
         $.ajax({
             url: '/register/',
             type: 'POST',
             data: $('.content-wrapper .content form').serialize(),
             success: function (data) {
                 if (data === '666') {
-                    loadingOut()
+                    loadingOut();
                     $('.content-wrapper .content').remove();
                     $('.content-wrapper .finish-wrapper').removeClass("hide");
                     $("html,body").animate({scrollTop:0},10);
@@ -183,27 +183,27 @@ function register() {
                     },3000);
                 }
                 else if (data === '555') {
-                    loadingOut()
+                    loadingOut();
                     $('.content-wrapper .content form .content-item #code').addClass('waring').attr('placeholder', '激活码无效，请重新输入').val('');
                     window.location.href="#code";
                 }
                 else if (data === '444') {
-                    loadingOut()
+                    loadingOut();
                     $('.content-wrapper .content form .content-item #username').addClass('waring').attr('placeholder', '用户名已存在，请重新输入').val('');
                     window.location.href="#username";
                 }
                 else if (data === '333') {
-                    loadingOut()
+                    loadingOut();
                     $('.content-wrapper .content form .content-item #domain').addClass('waring').attr('placeholder', '域名已存在，请重新输入').val('');
                     window.location.href="#domain";
                 }
                 else if (data === '777') {
-                    loadingOut()
+                    loadingOut();
                     $('.content-wrapper .content form .content-item #tel').addClass('waring').attr('placeholder', '手机号已存在，请重新输入').val('');
                     window.location.href="#tel";
                 }
                 else if (data === '888') {
-                    loadingOut()
+                    loadingOut();
                     $('.content-wrapper .content form .content-item #email').addClass('waring').attr('placeholder', '邮箱存在，请重新输入').val('');
                     window.location.href="#email";
                 }
@@ -306,8 +306,7 @@ function get_error(that) {
         that.value = '';
         that.setAttribute('placeholder', label.innerHTML)
     }
-    ;
-};
+}
 
 
 

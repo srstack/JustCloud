@@ -86,6 +86,7 @@ class Operation(models.Model):
 
     '''
     operation_code = {
+    100:"修改域",
     101:"创建用户",
     102:"删除用户",
     103:"修改用户",

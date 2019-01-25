@@ -89,9 +89,9 @@ def mainHome(request, username):
             exhibition_name = '用户管理'
             user_leve = 1
             dic_user = {
-                1:'管理员用户',
-                2:'二级用户',
-                3:'三级用户',
+                1: '管理员用户',
+                2: '二级用户',
+                3: '三级用户',
                 4: '四级用户',
                 5: '五级用户',
                 6: '六级用户',
@@ -105,7 +105,8 @@ def mainHome(request, username):
                     user_class = dic_user.get(user_leve)
                     break
 
-            sub_user_count = user_obj.sub_user.count()
+            sub_user = Users.objects.filter(rely_id=user_obj.id)
+            sub_user_count = sub_user.count()
             system_count = user_obj.system.count()
             return render(request, 'home.html', locals())
         else:
@@ -154,5 +155,77 @@ def centerHome(request, username):
             return render(request, 'centerHome.html', locals())
         else:
             return redirect('/home/' + request.session.get('USERNAME') + '/center')
+    else:
+        return redirect('/')
+
+
+def domainChange(request, username):
+    if request.method == 'POST':
+        is_login = request.session.get('IS_LOGIN', False)
+        if is_login:
+            if request.session.get('USERNAME') == username:
+                # 判断是否为此用户
+                user_obj = Users.objects.filter(username=username)[0]
+                domain = Domain.objects.filter(id=request.session.get('DOMAIN_ID'))[0]
+                if user_obj.rely:
+                    return HttpResponse('222')
+                else:
+                    reg_domain = request.POST.get('domain')
+                    reg_country = request.POST.get('country')
+                    reg_province = request.POST.get('province')
+                    reg_city = request.POST.get('city')
+                    domain.name = reg_domain
+                    domain.country = reg_country
+                    domain.province = reg_province
+                    domain.city = reg_city
+                    domain.save()
+                    Operation.objects.create(code=100, user=user_obj)
+                    return HttpResponse('666')
+            else:
+                return redirect('/home/' + request.session.get('USERNAME') + '/center')
+        else:
+            return redirect('/')
+    else:
+        return redirect('/home')
+
+
+def userAdd(request, username):
+    if request.method == 'POST':
+        is_login = request.session.get('IS_LOGIN', False)
+        if is_login:
+            if request.session.get('USERNAME') == username:
+                # 判断是否为此用户
+                reg_username = request.POST.get('username')
+                reg_name = request.POST.get('name')
+                reg_pwd = request.POST.get('password')
+                reg_tel = request.POST.get('tel')
+                reg_email = request.POST.get('email')
+                user_obj = Users.objects.filter(username=username)[0]
+                domain = Domain.objects.filter(id=request.session.get('DOMAIN_ID'))[0]
+                username = Users.objects.filter(username=reg_username)
+                if username:
+                    # 用户存在
+                    return HttpResponse('444')
+                else:
+                    username = Users.objects.filter(phone=reg_tel)
+                    if username:
+                        # 手机号存在
+                        return HttpResponse('777')
+                    else:
+                        username = Users.objects.filter(email=reg_email)
+                        if username:
+                            # 邮箱存在
+                            return HttpResponse('888')
+                        else:
+                            password = hashlib.sha1(reg_pwd.encode(encoding='utf8')).hexdigest()
+                            Users.objects.create(username=reg_username, password=password, name=reg_name,
+                                                 domain=domain, rely=user_obj,
+                                                 phone=reg_tel, email=reg_email)
+                            Operation.objects.create(code=101, user=user_obj)
+                            return HttpResponse('666')
+            else:
+                return redirect('/home/' + request.session.get('USERNAME') + '/center')
+        else:
+            return redirect('/')
     else:
         return redirect('/')

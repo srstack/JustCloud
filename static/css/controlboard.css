@@ -51,7 +51,7 @@ ul {
     top: 0;
     border-bottom: 1px solid darkgrey;
     z-index: 11;
-    position: absolute;
+    position: fixed;
     transition: background-color .2s;
     background-color: #262626;
     display: flex;
@@ -385,6 +385,7 @@ ul {
 
 .content .wrapper {
     background-color: #f5f6f7;
+    padding-bottom: 30px;
 }
 
 .content .wrapper .navigation {
