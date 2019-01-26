@@ -146,7 +146,7 @@
                                     <div><span>{{ user.phone }}</span></div>
                                 </td>
                                 <td>
-                                    <div><a onclick="loadingIn(),userremove(this)">删除</a></div>
+                                    <div><a onclick="loadingIn(),showremove(this)">删除</a></div>
                                 </td>
                             </tr>
                         {% endfor %}
@@ -284,6 +284,26 @@
             </div>
             <div class="change-table-footer">
                 <button class="sent" onclick="useradd()"><span>确定</span></button>
+            </div>
+        </div>
+    </div>
+
+    <div class="change" id="remove">
+        <div class="grid" style="width: 300px; margin: 148px auto">
+            <div class="reuser-table">
+                <div class="re-header">
+                    <a class="change-table-close" style="float: right;color: #b0b0b0" onclick="loadingIn(),reClose()"><i
+                            class="fa fa-times"></i></a>
+                    <div class="re-title ">提示</div>
+                </div>
+                <div class="re-body" style="position: relative;padding: 32px;">
+                    {% csrf_token %}
+                    <div>确定要删除ID为<span class="id"></span><span>用户</span></div>
+                </div>
+                <div class="re-footer">
+                    <button type="button" onclick="loadingIn();removeuser()">确定</button>
+                    <button type="button" onclick="loadingIn();reClose()">取消</button>
+                </div>
             </div>
         </div>
     </div>

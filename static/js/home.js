@@ -326,7 +326,35 @@ function useradd() {
     }
 }
 
-function userremove(that) {
-
+function reClose() {
+    loadingOut();
+    $('#remove').css('display', 'none');
 }
 
+function showremove(that) {
+    loadingOut();
+    $('#remove .grid .re-body div .id').html($(that).parent().parent().prev().prev().prev().prev().prev().find('div span').first().html());
+    $('#remove').css('display', 'block');
+}
+
+function removeuser() {
+    var user_id = $('#remove .grid .re-body div .id').html();
+    $.ajax({
+        url: 'userremove/',
+        type: 'POST',
+        data: {
+            'id': user_id,
+            "csrfmiddlewaretoken": $("[name = 'csrfmiddlewaretoken']").val()
+        },
+        success: function (data) {
+            if (data === '666') {
+                loadingOut();
+                window.location.href = "/home/";
+            }
+            else if (data === '555') {
+                loadingOut();
+                $('#remove .grid .re-body div').html('无法权限删除');
+            }
+        }
+    })
+}

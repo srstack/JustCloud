@@ -13,7 +13,7 @@
 </head>
 
 <body style="position: relative">
-<div class="header" id="top">
+<div class="header">
     <div class="header-body">
         <a href="/" class="header-logo" onclick="loadingIn()"></a>
         <div class="header-develop">
@@ -63,7 +63,7 @@
 
 <div class="content">
     <div class="wrapper">
-        <div class="navigation">{{ exhibition_name }}</div>
+        <div  id="top" class="navigation">{{ exhibition_name }}</div>
         {% block wrapper %}
         {% endblock %}
     </div>

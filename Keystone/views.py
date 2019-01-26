@@ -140,7 +140,6 @@ def authHome(request, username):
 def centerHome(request, username):
     is_login = request.session.get('IS_LOGIN', False)
     if is_login:
-        # 浩民加油！！！
         if request.session.get('USERNAME') == username:
             # 判断是否为此用户
             user_obj = Users.objects.filter(username=username)[0]
@@ -223,6 +222,28 @@ def userAdd(request, username):
                                                  phone=reg_tel, email=reg_email)
                             Operation.objects.create(code=101, user=user_obj)
                             return HttpResponse('666')
+            else:
+                return redirect('/home/' + request.session.get('USERNAME') + '/center')
+        else:
+            return redirect('/')
+    else:
+        return redirect('/')
+
+
+def userRemove(request, username):
+    if request.method == 'POST':
+        is_login = request.session.get('IS_LOGIN', False)
+        if is_login:
+            if request.session.get('USERNAME') == username:
+                # 判断是否为此用户
+                sub_id = request.POST.get('id')
+                sub_obj = Users.objects.filter(id=sub_id, rely=Users.objects.filter(username=username)[0])
+                if sub_obj:
+                    sub_obj.delete()
+                    Operation.objects.create(code=102, user=Users.objects.filter(username=username)[0])
+                    return HttpResponse('666')
+                else:
+                    return HttpResponse('555')
             else:
                 return redirect('/home/' + request.session.get('USERNAME') + '/center')
         else:

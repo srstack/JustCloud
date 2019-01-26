@@ -445,3 +445,61 @@ select {
     background-color: #fff;
     box-sizing: border-box;
 }
+
+#remove .grid .reuser-table {
+    position: relative;
+    background-color: #fff;
+    border-radius: 18px;
+    border: 1px solid #fff;
+}
+
+#remove .grid .reuser-table .re-header {
+    padding: 10px;
+    border-bottom: 1px solid #e5e5e5;
+
+}
+
+#remove .grid .reuser-table .re-header .re-title {
+    text-align: center;
+    margin: 0 auto;
+    color: black;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+#remove .grid .reuser-table .re-body {
+    text-align: center;
+    font-size: 15px;
+    color: #585858;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+#remove .grid .reuser-table .re-footer {
+    padding: 10px 0;
+    position: relative;
+    text-align: center;
+}
+
+#remove .grid .reuser-table .re-footer > button {
+    font-size: 14px;
+    width: 72px;
+    height: 32px;
+    cursor: pointer;
+    font-family: "Microsoft YaHei", sans-serif;
+    font-weight: 400;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    background-color: #00c0f1;
+    color: #fff;
+    border-width: 0;
+    transition: all .2s ease-in;
+    border-radius: 12px;
+    margin: 0 12px;
+}
+
+#remove .grid .reuser-table .re-footer > button:hover, #remove .grid .reuser-table .re-footer > button:focus {
+    background-color: #24bdfd;
+    border: 0;
+    outline: none;
+}
