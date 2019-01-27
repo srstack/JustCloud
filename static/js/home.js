@@ -148,8 +148,10 @@ function changeDoman() {
     }
     else {
         $('.domaninfo .grid .domaninfo-chenge>a>span').html('无权限操作');
+        $('.domaninfo .grid .domaninfo-chenge>a').css('background-color','#EB3C22');
         setTimeout(function () {
             $('.domaninfo .grid .domaninfo-chenge>a>span').html('修改所属域');
+            $('.domaninfo .grid .domaninfo-chenge>a').css('background-color','#57a2ff');
         }, 5000);
     }
 }
@@ -185,19 +187,23 @@ function domainchange() {
                 if (data === '666') {
                     loadingOut()
                     $('#domainchange').css('display', 'none');
+                    $('.domaninfo .grid .domaninfo-chenge>a').css('background-color','#f4ef76');
                     $('.domaninfo .grid .domaninfo-chenge>a>span').html('修改成功');
                     $('#domainname>h2').html(reg_value[1].value);
                     $('#domainplace>h2').html(reg_value[2].value + '-' + reg_value[3].value + '-' + reg_value[4].value);
                     setTimeout(function () {
                         $('.domaninfo .grid .domaninfo-chenge>a>span').html('修改所属域');
+                        $('.domaninfo .grid .domaninfo-chenge>a').css('background-color','#57a2ff');
                     }, 10000);
                 }
                 else if (data === '222') {
-                    loadingOut()
-                    $('#domainchange').css('display', 'none')
+                    loadingOut();
+                    $('#domainchange').css('display', 'none');
+                    $('.domaninfo .grid .domaninfo-chenge>a').css('background-color','#EB3C22');
                     $('.domaninfo .grid .domaninfo-chenge>a>span').html('无权限操作');
                     setTimeout(function () {
                         $('.domaninfo .grid .domaninfo-chenge>a>span').html('修改所属域');
+                        $('.domaninfo .grid .domaninfo-chenge>a').css('background-color','#57a2ff');
                     }, 5000);
                 }
             }
@@ -353,7 +359,7 @@ function removeuser() {
             }
             else if (data === '555') {
                 loadingOut();
-                $('#remove .grid .re-body div').html('无法权限删除');
+                $('#remove .grid .re-body div').html('无权限删除');
             }
         }
     })

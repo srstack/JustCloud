@@ -6,5 +6,206 @@
 {% endblock %}
 
 {% block wrapper %}
+    <link href="/static/css/authHome.css" rel="stylesheet" type="text/css"/>
+    <div class="navigation" style="margin: 30px 20px 0 20px;text-align: center">子系统概况</div>
 
+    <div class="systemlist">
+        <div class="system-table">
+            <div class="t-header">
+                <table style="width: 100%;table-layout: fixed;">
+                    <thead>
+                    <tr>
+                        <th>
+                            <div>
+                                <span>系统ID</span>
+                            </div>
+                        </th>
+                        <th>
+                            <div>
+                                <span>系统名称</span>
+                            </div>
+                        </th>
+                        <th>
+                            <div>
+                                <span>创建者</span>
+                            </div>
+                        </th>
+                        <th>
+                            <div>
+                                <span>系统平台</span>
+                            </div>
+                        </th>
+                        <th>
+                            <div>
+                                <span>接入协议</span>
+                            </div>
+                        </th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+            {% if system_count > 0 %}
+                <div class="t-body">
+                    <table style="width: 100%;table-layout: fixed;">
+                        <tbody>
+                        {% for system in system_list %}
+                            <tr>
+                                <td>
+                                    <div><span>{{ system.id }}</span></div>
+                                </td>
+                                <td>
+                                    <div><span>{{ system.name }}</span></div>
+                                </td>
+                                <td>
+                                    <div><span>{{ system.createuser.name }}</span></div>
+                                </td>
+                                <td>
+                                    <div><span>{{ system.platform }}</span></div>
+                                </td>
+                                <td>
+                                    <div><span>{{ system.protocol }}</span></div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <div class="t-body">
+                    <table style="width: 100%;table-layout: fixed;height: 145px;">
+                        <tbody>
+                        <tr>
+                            <td>
+                                <div><span>暂无子平台数据</span></div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            {% endif %}
+            <div class="t-footer">
+                <span style="font-size: 12px;color: #999;">共{{ system_count }}项数据</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="navigation" style="margin: 30px 20px 0 20px;text-align: center">权限管理</div>
+
+    {% if sub_user %}
+        <div class="authadmin">
+            <ul>
+                {% for sub in sub_user %}
+                    <li class="item">
+
+                        <div class="i-header">
+                            <i class="fa fa-bars" aria-hidden="true"
+                               style="margin-right: 8px;color: #49a6fd"></i>{{ sub.name }}
+                        </div>
+                        {% if sub.system.all %}
+                            <div class="i-body">
+                                <ul>
+                                    {% for system in sub.system.all %}
+                                        <li><i class="fa fa-viacoin" aria-hidden="true"></i><span>{{ system.name }}</span>
+                                            <a  onclick="loadingIn(),showRemove(this)"  sid={{ system.id }}  uid={{ sub.id }}>删除</a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        {% else %}
+                            <div class="i-body">
+                                <ul>
+                                    <li><i class="fa fa-stumbleupon" aria-hidden="true"></i>无任何子系统管理权限</li>
+                                </ul>
+                            </div>
+                        {% endif %}
+                        <div class="i-footer">
+                            {% if system_count > 0 %}
+                                <button onclick="loadingIn(),showAdd(this)" uid={{ sub.id }} uname={{ sub.name }} uuname="{{ sub.username }}"><i class="fa fa-openid" aria-hidden="true"></i><span>添加</span></button>
+                            {% else %}
+                                 <button style="background-color: #eb3c22" uid={{ sub.id }} uname={{ sub.name }} uuname="{{ sub.username }}"><i class="fa fa-openid" aria-hidden="true"></i>无可选择的子系统</button>
+                            {% endif %}
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% else %}
+        <div class="navigation"
+             style="margin: 30px 20px 0 20px;text-align: center;color: #666;font-weight: 500;height: 108px;line-height: 108px">
+            <span>无下级用户，无法管理对应权限</span>
+            <a href="/home" onclick="loadingIn()" style="color: #24bdfd;">请先创建下级用户</a>
+        </div>
+    {% endif %}
+
+
+    <div class="change" id="adminadd">
+        <div class="change-table">
+            <a class="change-table-close" onclick="loadingIn(),closeadd()"><i class="fa fa-times"></i></a>
+            <div class="change-table-header">权限管理</div>
+            <div class="change-table-form">
+                <div>
+                    <form>
+                        {% csrf_token %}
+                        <p>增加子系统管理权限</p>
+                        <div style="margin-bottom: 24px">
+                            <label class="form-item">下级用户ID:</label>
+                            <div class="form-input">
+                                <input type="text" placeholder="请输入下级用户ID" id="sub_id" name="sub_id"
+                                       readonly>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 24px">
+                            <label class="form-item">下级用户账号:</label>
+                            <div class="form-input">
+                                <input type="text" placeholder="请输入下级用户账号" id="sub_username" name="sub_username"
+                                       readonly>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 24px">
+                            <label class="form-item">下级用户名:</label>
+                            <div class="form-input">
+                                <input type="text" placeholder="请输入下级用户名" id="sub_name" name="sub_name"
+                                       readonly>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 24px">
+                            <label class="form-item">选择子系统:</label>
+                            <div class="form-input">
+                                <select class="item-body" name="system_id" id="system_id" onclick="reWaring(this)">
+                                    {% for system in system_list %}
+                                        <option value={{ system.id }}>{{ system.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="change-table-footer">
+                <button class="sent" onclick="loadingIn(),adminAdd()"><span>确定</span></button>
+            </div>
+        </div>
+    </div>
+
+    <div class="change" id="remove">
+        <div class="grid" style="width: 300px; margin: 148px auto">
+            <div class="reuser-table">
+                <div class="re-header">
+                    <a class="change-table-close" style="float: right;color: #b0b0b0" onclick="loadingIn(),reClose()"><i
+                            class="fa fa-times"></i></a>
+                    <div class="re-title ">提示</div>
+                </div>
+                <div class="re-body" style="position: relative;padding: 32px;">
+                    {% csrf_token %}
+                    <div>确定要删除对<span></span>的管理权限吗？</div>
+                </div>
+                <div class="re-footer">
+                    <button type="button" onclick="loadingIn();adminRemove()">确定</button>
+                    <button type="button" onclick="loadingIn();reClose()">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/js/authHome.js"></script>
 {% endblock %}

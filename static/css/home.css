@@ -37,7 +37,7 @@
 .content .wrapper .baseinfo .grid .baseinfo-user {
     position: relative;
     display: inline-block;
-    flex-basis: 280px;
+    width: 25%;
     -webkit-box-flex: 0;
     flex-grow: 0;
     height: 100%;
@@ -85,7 +85,7 @@
     border-right: 1px solid #f3f4f5;
     text-align: center;
     line-height: 100%;
-    flex-basis: 240px;
+    width: 20%;
     padding-top: 35px;
 }
 
@@ -111,7 +111,7 @@
     padding: 0 30px;
     text-align: center;
     display: inline-block;
-    width: 17%;
+    width: 18%;
     vertical-align: top;
 }
 
@@ -129,7 +129,7 @@
 
 .content .wrapper .domaninfo .grid .domaninfo-chenge > a {
     padding-left: 18px;
-    margin: 40px 0 40px 100px;
+    margin: 40px 0 40px 80px;
     color: #fff;
     background-color: #57a2ff;
     border-color: #57a2ff;

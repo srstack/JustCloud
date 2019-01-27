@@ -41,8 +41,6 @@
     <div class="navigation" style="margin: 30px 20px 0 20px;text-align: center">所属域概况</div>
     <div class="domaninfo">
         <div class="grid">
-            <div class="domaninfo-base">
-            </div>
             <div class="domaninfo-name">
                 <label>所属域ID</label>
                 <h2 style="font-size:18px">{{ domain.id }}</h2>
@@ -298,7 +296,7 @@
                 </div>
                 <div class="re-body" style="position: relative;padding: 32px;">
                     {% csrf_token %}
-                    <div>确定要删除ID为<span class="id"></span><span>用户</span></div>
+                    <div>确定要删除ID为<span class="id"></span><span>用户吗？</span></div>
                 </div>
                 <div class="re-footer">
                     <button type="button" onclick="loadingIn();removeuser()">确定</button>

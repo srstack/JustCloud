@@ -1,0 +1,387 @@
+
+.wrapper .systemlist {
+    margin: 20px 20px 0 20px;
+}
+
+.wrapper .systemlist .system-table {
+    position: relative;
+    border: 1px solid #dcdee2;
+    border-bottom: 0;
+    border-right: 0;
+}
+
+.system-table:before {
+    content: "";
+    position: absolute;
+    background-color: #dcdee2;
+    width: 100%;
+    height: 1px;
+    left: 0;
+    bottom: 0;
+    z-index: 1;
+}
+
+.t-header > table > thead > tr > th {
+    border-bottom: 1px solid #eee;
+    height: 50px;
+    background-color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    box-sizing: border-box;
+    text-align: center;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+}
+
+.t-header > table > thead > tr > th > div, .t-body > table > tbody > tr > td > div {
+    display: inline-block;
+    word-wrap: normal;
+    vertical-align: middle;
+    padding-left: 36px;
+    padding-right: 36px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    word-break: break-all;
+    box-sizing: border-box;
+}
+
+.t-header > table > thead > tr > th > div > span {
+    color: #333;
+    font-weight: 600;
+    font-size: 12px;
+}
+
+.t-body > table > tbody > tr > td {
+    border-bottom: 1px solid #eee;
+    height: 55px;
+    color: #666;
+    background-color: #fff;
+    text-align: center;
+}
+
+.t-footer {
+    padding: 17px 0;
+    text-align: center;
+    position: relative;
+    line-height: 32px;
+    border-top: none;
+    background-color: #fff;
+    box-sizing: border-box;
+}
+
+.authadmin {
+    margin: 20px 20px 0 20px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.authadmin ul {
+    display: inline-block;
+    width: 100%;
+    margin-top: 16px;
+}
+
+.authadmin ul .item {
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    border: 1px solid #eee;
+    margin-left: 5%;
+    margin-bottom: 20px;
+    padding: 30px;
+    background: #fff;
+    float: left;
+    width: 42%;
+    vertical-align: middle;
+    position: relative;
+}
+
+.item .i-header {
+    height: 40px;
+    position: relative;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+}
+
+.i-body > ul > li {
+    color: #666666;
+    font-size: 15px;
+    margin: 12px 0 16px 24px;;
+}
+
+.i-body > ul > li:hover {
+    color: #49a6fd;
+}
+
+.i-body > ul > li > i {
+    margin-right: 16px;
+    color: #49a6fd;
+}
+
+.i-body > ul > li > a {
+    float: right;
+    margin-right: 21px;
+    color: #24bdfd;
+    cursor: context-menu;
+}
+
+.i-body > ul > li > a:hover {
+    color: #eb3c22;
+}
+
+.i-footer {
+    margin-top: 56px;
+    text-align: center;
+}
+
+.i-footer > button {
+    color: #fff;
+    background-color: #57a2ff;
+    border: #57a2ff;
+    height: 36px;
+    width: 56%;
+    font-size: 14px;
+    border-radius: 2px;
+    outline: none;
+}
+
+.i-footer > button:hover, .i-footer > button:focus {
+    outline: none;
+}
+
+.i-footer > button > i {
+    margin-right: 12px;
+}
+
+.change {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 2040;
+    display: none;
+    background-color: rgba(1, 1, 1, 0.5);
+}
+
+#remove .grid .reuser-table {
+    position: relative;
+    background-color: #fff;
+    border-radius: 18px;
+    border: 1px solid #fff;
+}
+
+#remove .grid .reuser-table .re-header {
+    padding: 10px;
+    border-bottom: 1px solid #e5e5e5;
+
+}
+
+#remove .grid .reuser-table .re-header .re-title {
+    text-align: center;
+    margin: 0 auto;
+    color: black;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+#remove .grid .reuser-table .re-body {
+    text-align: center;
+    font-size: 15px;
+    color: #585858;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+#remove .grid .reuser-table .re-footer {
+    padding: 10px 0;
+    position: relative;
+    text-align: center;
+}
+
+#remove .grid .reuser-table .re-footer > button {
+    font-size: 14px;
+    width: 72px;
+    height: 32px;
+    cursor: pointer;
+    font-family: "Microsoft YaHei", sans-serif;
+    font-weight: 400;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    background-color: #00c0f1;
+    color: #fff;
+    border-width: 0;
+    transition: all .2s ease-in;
+    border-radius: 12px;
+    margin: 0 12px;
+}
+
+#remove .grid .reuser-table .re-footer > button:hover, #remove .grid .reuser-table .re-footer > button:focus {
+    background-color: #24bdfd;
+    border: 0;
+    outline: none;
+}
+
+
+.change .change-table {
+    width: 500px;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+    right: 0;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    background-color: #fff;
+    border: 0;
+    background-clip: padding-box;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, .15);
+}
+
+.change .change-table .change-table-close {
+    right: 32px;
+    top: 32px;
+    position: absolute;
+}
+
+.change .change-table .change-table-close > i {
+    font-size: 21px;
+    color: #999;
+    transition: color .2s ease;
+    position: relative;
+    top: 1px;
+}
+
+.change .change-table .change-table-header {
+    padding: 36px;
+    border-bottom: 1px solid #e8eaec;
+    line-height: 1;
+    display: inline-block;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.change .change-table .change-table-form {
+    overflow: auto;
+    position: static;
+    padding-right: 55px;
+    padding-top: 32px;
+    padding-left: 30px;
+    height: calc(100% - 160px);
+    font-size: 12px;
+    line-height: 1.5;
+    word-wrap: break-word;
+}
+
+.change .change-table .change-table-form > div {
+    margin-bottom: 120px;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.change .change-table .change-table-form > div > form > p {
+    font-size: 16px;
+    margin: 0;
+    font-weight: 400;
+    color: #333;
+    line-height: 26px;
+    padding-bottom: 30px;
+}
+
+.change-table .change-table-form > div > form > div > .form-item {
+    text-align: right;
+    width: 124px;
+    vertical-align: middle;
+    float: left;
+    font-size: 12px;
+    color: #666;
+    line-height: 1;
+    padding: 10px 12px 10px 0;
+    box-sizing: border-box;
+}
+
+.change-table .change-table-form > div > form > div > .form-input {
+    position: relative;
+    line-height: 32px;
+    font-size: 12px;
+}
+
+.change-table .change-table-form > div > form > div > .form-input > input, .change-table .change-table-form > div > form > div > .form-input > select {
+    color: #333;
+    font-size: 12px;
+    border-radius: 2px;
+    border: 1px solid #d9d9d9;
+    padding-left: 15px;
+    height: 36px;
+    margin-left: 24px;
+    width: 240px;
+    display: inline-block;
+}
+
+.change-table .change-table-form > div > form > div > .form-input > input :hover, .change-table .change-table-form > div > form > div > .form-input > select:hover {
+    border: 1px solid #49d9ff;
+}
+
+select {
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    background: url("/static/img/arrow.png") no-repeat scroll 368px center transparent;
+    padding-right: 14px;
+    background-size: 15px;
+}
+
+.change-table .change-table-form > div > form > div > .form-input .waring {
+    background-color: red;
+    opacity: 0.4;
+    color: black;
+    border: 0;
+}
+
+.change .change-table-footer {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    border-top: 1px solid #e8e8e8;
+    text-align: center;
+    background: #fff;
+    z-index: 2;
+    line-height: 108px;
+    margin-bottom: -16px;
+}
+
+.change-table-footer > button {
+    padding: 0 55px;
+    border-radius: 2px;
+    height: 36px;
+    border: 1px solid transparent;
+    display: inline-block;
+    font-weight: 400;
+    font: icon;
+}
+
+.change-table-footer > button > span {
+    vertical-align: middle;
+}
+
+.change-table-footer .sent {
+    color: #fff;
+    background-color: #57a2ff;
+    border-color: #57a2ff;
+}
+
+.change-table .change-table-form > div > form > div > .form-input .waring {
+    background-color: red;
+    opacity: 0.4;
+    color: black;
+    border: 0;
+}

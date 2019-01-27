@@ -38,4 +38,6 @@ urlpatterns = [
     path('home/<username>/domainchange/', keystone.domainChange, name='domainChange'),
     path('home/<username>/useradd/', keystone.userAdd, name='userAdd'),
     path('home/<username>/userremove/', keystone.userRemove, name='userRemove'),
+    path('home/<username>/auth/adminremove/', keystone.adminRemove, name='adminRemove'),
+    path('home/<username>/auth/adminadd/', keystone.adminAdd, name='adminAdd'),
 ]

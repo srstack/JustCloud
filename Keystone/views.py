@@ -130,6 +130,11 @@ def authHome(request, username):
             auth_home = 'active'
             # 主体栏显示的部分
             exhibition_name = '权限设置'
+
+            system_list = System.objects.filter(admin=user_obj)
+            system_count = system_list.count()
+
+            sub_user = Users.objects.filter(rely=user_obj)
             return render(request, 'authHome.html', locals())
         else:
             return redirect('/home/' + request.session.get('USERNAME') + '/auth')
@@ -245,7 +250,51 @@ def userRemove(request, username):
                 else:
                     return HttpResponse('555')
             else:
-                return redirect('/home/' + request.session.get('USERNAME') + '/center')
+                return redirect('/home/' + request.session.get('USERNAME'))
+        else:
+            return redirect('/')
+    else:
+        return redirect('/')
+
+
+def adminRemove(request, username):
+    if request.method == 'POST':
+        is_login = request.session.get('IS_LOGIN', False)
+        if is_login:
+            if request.session.get('USERNAME') == username:
+                # 判断是否为此用户
+                sub_id = request.POST.get('uid')
+                sys_id = request.POST.get('sid')
+                sub_obj = Users.objects.filter(id=sub_id, rely=Users.objects.filter(username=username)[0])
+                if sub_obj:
+                    sub_obj[0].system.remove(sys_id)
+                    return HttpResponse('666')
+                else:
+                    return HttpResponse('555')
+            else:
+                return redirect('/home/' + request.session.get('USERNAME'))
+        else:
+            return redirect('/')
+    else:
+        return redirect('/')
+
+
+def adminAdd(request, username):
+    if request.method == 'POST':
+        is_login = request.session.get('IS_LOGIN', False)
+        if is_login:
+            if request.session.get('USERNAME') == username:
+                # 判断是否为此用户
+                sub_id = request.POST.get('sub_id')
+                sys_id = request.POST.get('system_id')
+                sys_obj = System.objects.filter(id=sys_id, admin=Users.objects.filter(username=username)[0])
+                if sys_obj:
+                    sys_obj[0].admin.add(sub_id)
+                    return HttpResponse('666')
+                else:
+                    return HttpResponse('555')
+            else:
+                return redirect('/home/' + request.session.get('USERNAME'))
         else:
             return redirect('/')
     else:
