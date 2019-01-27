@@ -120,7 +120,7 @@
                         {% endif %}
                         <div class="i-footer">
                             {% if system_count > 0 %}
-                                <button onclick="loadingIn(),showAdd(this)" uid={{ sub.id }} uname={{ sub.name }} uuname="{{ sub.username }}"><i class="fa fa-openid" aria-hidden="true"></i><span>添加</span></button>
+                                <button onclick="loadingIn(),showAdd(this)" id={{ sub.id }} uid={{ sub.id }} uname={{ sub.name }} uuname="{{ sub.username }}"><i class="fa fa-openid" aria-hidden="true"></i><span>添加</span></button>
                             {% else %}
                                  <button style="background-color: #eb3c22" uid={{ sub.id }} uname={{ sub.name }} uuname="{{ sub.username }}"><i class="fa fa-openid" aria-hidden="true"></i>无可选择的子系统</button>
                             {% endif %}

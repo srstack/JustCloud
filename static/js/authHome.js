@@ -49,14 +49,9 @@ function closeadd() {
     $('#adminadd').css('display', 'none')
 }
 
-function reWaring(that) {
-    if (that.classList.contains('waring')) {
-        that.classList.remove('waring');
-    }
-}
-
 function adminAdd() {
     loadingIn();
+    var u_id = $('#sub_id').val()
     $.ajax({
         url: 'adminadd/',
         type: 'POST',
@@ -69,11 +64,21 @@ function adminAdd() {
             else if (data === '555') {
                 loadingOut();
                 $('#adminadd').css('display', 'none');
-                $('.i-footer button span').html('无权限操作');
-                $('.i-footer button').css('background-color', '#EB3C22');
+                $('#'+u_id+' span').html('无权限操作');
+                $('#'+u_id).css('background-color', '#EB3C22');
                 setTimeout(function () {
-                    $('.i-footer button span').html('添加');
-                    $('.i-footer button').css('background-color', '#57a2ff');
+                    $('#'+u_id+' span').html('添加');
+                    $('#'+u_id).css('background-color', '#57a2ff');
+                }, 5000);
+            }
+            else if (data === '444') {
+                loadingOut();
+                $('#adminadd').css('display', 'none');
+                $('#'+u_id+' span').html('权限已存在');
+                $('#'+u_id).css('background-color', '#EB3C22');
+                setTimeout(function () {
+                    $('#'+u_id+' span').html('添加');
+                    $('#'+u_id).css('background-color', '#57a2ff');
                 }, 5000);
             }
         }

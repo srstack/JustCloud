@@ -289,8 +289,11 @@ def adminAdd(request, username):
                 sys_id = request.POST.get('system_id')
                 sys_obj = System.objects.filter(id=sys_id, admin=Users.objects.filter(username=username)[0])
                 if sys_obj:
-                    sys_obj[0].admin.add(sub_id)
-                    return HttpResponse('666')
+                    if sys_obj[0].admin.filter(id=sub_id):
+                        return HttpResponse('444')
+                    else:
+                        sys_obj[0].admin.add(sub_id)
+                        return HttpResponse('666')
                 else:
                     return HttpResponse('555')
             else:
