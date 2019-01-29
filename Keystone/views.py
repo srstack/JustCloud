@@ -39,6 +39,10 @@ def mainAdmin(request, username):
             main_admin = 'active'
             # 主体栏显示的部分
             exhibition_name = '平台概况'
+            # 用户设备数
+            device_count = user_obj.device_users.count()
+            # 用户使用系统数
+            system_count = user_obj.ownsystem.count()
 
             return render(request, 'admin.html', locals())
         else:
