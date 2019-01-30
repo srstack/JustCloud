@@ -50,7 +50,6 @@ class System(models.Model):
 class Device(models.Model):
     name = models.CharField(max_length=30, verbose_name="设备名", null=False)
     system = models.ForeignKey("System", verbose_name="所属系统", on_delete=models.CASCADE, related_name="device")
-    users = models.ForeignKey("Users",verbose_name="所属用户",on_delete=models.CASCADE,related_name="device_users")
     date = models.DateTimeField(verbose_name="创建时间", auto_now_add=True)
 
     def __str__(self):
