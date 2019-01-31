@@ -2,11 +2,39 @@
 {% block title %}JustCloud-平台概况{% endblock %}
 
 {% block menu %}
-    {% include 'type/admintype.html' %}
+{% include 'type/admintype.html' %}
 {% endblock %}
 
 {% block wrapper %}
-    <link href="/static/css/admin.css" rel="stylesheet" type="text/css"/>
+<link href="/static/css/admin.css" rel="stylesheet" type="text/css" />
+<script src="/static/js/admin.js"></script>
 
-    <script src="/static/js/admin.js"></script>
+<div class="device-overview-body">
+    <div style="margin-top: 21px;">
+        <div class="overview-nav">
+            <ul class="overview-ul">
+                <li>
+                    <div class="li-item"><label class="overview-nav-title">设备总数(台)</label>
+                        <p class="number">{{device_count}}</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="li-item"><label class="overview-nav-title">系统使用数(个)</label>
+                        <p class="number">{{system_count}}</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="li-item"><label class="overview-nav-title">今日推送消息数(次)</label>
+                        <p class="number">0</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="li-item"><label class="overview-nav-title">今日下发命令数(次)</label>
+                        <p class="number">0</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
 {% endblock %}

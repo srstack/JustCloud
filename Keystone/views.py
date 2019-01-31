@@ -39,6 +39,13 @@ def mainAdmin(request, username):
             main_admin = 'active'
             # 主体栏显示的部分
             exhibition_name = '平台概况'
+            # 用户设备数
+            use_system=user_obj.system
+            device_count=0
+            for i in use_system.all():
+                device_count+=Device.objects.filter(system=i).count()
+            # 用户使用系统数
+            system_count = user_obj.ownsystem.count()
 
             return render(request, 'admin.html', locals())
         else:
@@ -63,6 +70,7 @@ def deviceAdmin(request, username):
             # 主体栏显示的部分
             exhibition_name = '设备管理'
 
+            
             return render(request, 'device.html', locals())
         else:
             return redirect('/admin/' + request.session.get('USERNAME') + '/device')
@@ -77,7 +85,8 @@ def mainHome(request, username):
         if request.session.get('USERNAME') == username:
             # 判断是否为此用户
             user_obj = Users.objects.filter(username=username)[0]
-            domain = Domain.objects.filter(id=request.session.get('DOMAIN_ID'))[0]
+            domain = Domain.objects.filter(
+                id=request.session.get('DOMAIN_ID'))[0]
             domain_name = domain.name
             user_name = user_obj.name
             first_name = user_name[0]
@@ -169,7 +178,8 @@ def domainChange(request, username):
             if request.session.get('USERNAME') == username:
                 # 判断是否为此用户
                 user_obj = Users.objects.filter(username=username)[0]
-                domain = Domain.objects.filter(id=request.session.get('DOMAIN_ID'))[0]
+                domain = Domain.objects.filter(
+                    id=request.session.get('DOMAIN_ID'))[0]
                 if user_obj.rely:
                     return HttpResponse('222')
                 else:
@@ -204,7 +214,8 @@ def userAdd(request, username):
                 reg_tel = request.POST.get('tel')
                 reg_email = request.POST.get('email')
                 user_obj = Users.objects.filter(username=username)[0]
-                domain = Domain.objects.filter(id=request.session.get('DOMAIN_ID'))[0]
+                domain = Domain.objects.filter(
+                    id=request.session.get('DOMAIN_ID'))[0]
                 username = Users.objects.filter(username=reg_username)
                 if username:
                     # 用户存在
@@ -220,7 +231,8 @@ def userAdd(request, username):
                             # 邮箱存在
                             return HttpResponse('888')
                         else:
-                            password = hashlib.sha1(reg_pwd.encode(encoding='utf8')).hexdigest()
+                            password = hashlib.sha1(
+                                reg_pwd.encode(encoding='utf8')).hexdigest()
                             Users.objects.create(username=reg_username, password=password, name=reg_name,
                                                  domain=domain, rely=user_obj,
                                                  phone=reg_tel, email=reg_email)
@@ -241,10 +253,12 @@ def userRemove(request, username):
             if request.session.get('USERNAME') == username:
                 # 判断是否为此用户
                 sub_id = request.POST.get('id')
-                sub_obj = Users.objects.filter(id=sub_id, rely=Users.objects.filter(username=username)[0])
+                sub_obj = Users.objects.filter(
+                    id=sub_id, rely=Users.objects.filter(username=username)[0])
                 if sub_obj:
                     sub_obj.delete()
-                    Operation.objects.create(code=102, user=Users.objects.filter(username=username)[0])
+                    Operation.objects.create(
+                        code=102, user=Users.objects.filter(username=username)[0])
                     return HttpResponse('666')
                 else:
                     return HttpResponse('555')
@@ -264,7 +278,8 @@ def adminRemove(request, username):
                 # 判断是否为此用户
                 sub_id = request.POST.get('uid')
                 sys_id = request.POST.get('sid')
-                sub_obj = Users.objects.filter(id=sub_id, rely=Users.objects.filter(username=username)[0])
+                sub_obj = Users.objects.filter(
+                    id=sub_id, rely=Users.objects.filter(username=username)[0])
                 if sub_obj:
                     sub_obj[0].system.remove(sys_id)
                     Operation.objects.create(code=205, user=Users.objects.filter(username=username)[0])
@@ -287,7 +302,8 @@ def adminAdd(request, username):
                 # 判断是否为此用户
                 sub_id = request.POST.get('sub_id')
                 sys_id = request.POST.get('system_id')
-                sys_obj = System.objects.filter(id=sys_id, admin=Users.objects.filter(username=username)[0])
+                sys_obj = System.objects.filter(
+                    id=sys_id, admin=Users.objects.filter(username=username)[0])
                 if sys_obj:
                     if sys_obj[0].admin.filter(id=sub_id):
                         return HttpResponse('444')
