@@ -37,7 +37,9 @@ urlpatterns = [
     path('home/<username>/center/', keystone.centerHome, name='centerHome'),
     path('home/<username>/domainchange/', keystone.domainChange, name='domainChange'),
     path('home/<username>/useradd/', keystone.userAdd, name='userAdd'),
+    path('home/<username>/center/userchange/', keystone.userChange, name='userChange'),
     path('home/<username>/userremove/', keystone.userRemove, name='userRemove'),
     path('home/<username>/auth/adminremove/', keystone.adminRemove, name='adminRemove'),
     path('home/<username>/auth/adminadd/', keystone.adminAdd, name='adminAdd'),
+    path('home/<username>/center/passwordchange/', keystone.passwordChange, name='passwordChange'),
 ]

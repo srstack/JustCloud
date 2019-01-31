@@ -323,3 +323,85 @@ def adminAdd(request, username):
             return redirect('/')
     else:
         return redirect('/')
+
+
+def userChange(request, username):
+    if request.method == 'POST':
+        is_login = request.session.get('IS_LOGIN', False)
+        if is_login:
+            if request.session.get('USERNAME') == username:
+                # 判断是否为此用户
+                reg_name = request.POST.get('name')
+                reg_phone = request.POST.get('phone')
+                reg_email = request.POST.get('email')
+                reg_age = request.POST.get('age')
+                reg_sex = request.POST.get('sex')
+                user_obj = Users.objects.filter(username=username)[0]
+
+                if reg_name == user_obj.name:
+                    if reg_email == user_obj.email:
+                        if reg_phone == user_obj.phone:
+                            user_obj.age = reg_age
+                            user_obj.sex = reg_sex
+                            user_obj.save()
+                            Operation.objects.create(code=103, user=user_obj)
+                            return HttpResponse('666')
+                        else:
+                            username = Users.objects.filter(phone=reg_phone)
+                            if username:
+                                # 手机号存在
+                                return HttpResponse('777')
+                            else:
+                                user_obj.phone = reg_phone
+                                user_obj.save()
+                                Operation.objects.create(code=103, user=user_obj)
+                                return HttpResponse('666')
+                    else:
+                        username = Users.objects.filter(email=reg_email)
+                        if username:
+                            # 邮箱存在
+                            return HttpResponse('888')
+                        else:
+                            user_obj.email = reg_email
+                            user_obj.save()
+                            Operation.objects.create(code=103, user=user_obj)
+                            return HttpResponse('666')
+                else:
+                    user_obj.name = reg_name
+                    user_obj.save()
+                    Operation.objects.create(code=103, user=user_obj)
+                    return HttpResponse('666')
+            else:
+                return redirect('/home/' + request.session.get('USERNAME') + '/center')
+        else:
+            return redirect('/home/' + request.session.get('USERNAME') + '/center')
+    else:
+        return redirect('/')
+
+
+def passwordChange(request, username):
+    if request.method == 'POST':
+        is_login = request.session.get('IS_LOGIN', False)
+        if is_login:
+            if request.session.get('USERNAME') == username:
+                # 判断是否为此用户
+                user_obj = Users.objects.filter(username=username)[0]
+                old_pwd = request.POST.get('o_password')
+                new_pwd = request.POST.get('password')
+                if user_obj.password == hashlib.sha1(old_pwd.encode(encoding='utf8')).hexdigest():
+                    user_obj.password = hashlib.sha1(new_pwd.encode(encoding='utf8')).hexdigest()
+                    user_obj.save()
+                    Operation.objects.create(code=103, user=user_obj)
+                    del request.session['USERNAME']
+                    del request.session['DOMAIN_ID']
+                    request.session['IS_LOGIN'] = False
+                    Login.objects.create(user=user_obj, operation='OUT', IP=request.META['REMOTE_ADDR'])
+                    return HttpResponse('666')
+                else:
+                    return HttpResponse('777')
+            else:
+                return redirect('/home/' + request.session.get('USERNAME')+'/center')
+        else:
+            return redirect('/home/' + request.session.get('USERNAME')+'/center')
+    else:
+        return redirect('/')

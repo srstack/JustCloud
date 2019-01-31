@@ -267,3 +267,6 @@ select {
     color: black;
     border: 0;
 }
+.change-user .change-table .change-table-form > div > form > div > div > label {
+    display: none !important;
+}
