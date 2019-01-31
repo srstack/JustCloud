@@ -1,0 +1,49 @@
+.content-w {
+    margin: 20px 20px 0 20px;
+    background-color: #fff;
+    vertical-align: baseline;
+    text-align: center;
+}
+
+.content-w .content {
+    margin: 0 auto;
+    padding: 25px 0 20px;
+    font-size: 14px;
+    position: relative;
+    width: 520px;
+}
+
+.content .content-item {
+    position: relative;
+    box-sizing: border-box;
+    display: block;
+    width: 100%;
+    min-height: 50px;
+    margin-top: 36px;
+}
+
+.content .content-item .item-label {
+    width: 85px;
+    line-height: 50px;
+    float: left;
+}
+
+.content input, .content select {
+    padding: 0 20px;
+    border-radius: 3px;
+    border: 1px solid #dddee3;
+}
+
+.content .content-item .item-body {
+    width: 408px;
+    margin-left: 95px;
+}
+
+.content .content-item > input{
+    box-sizing: border-box;
+    display: block;
+    width: 400px;
+    height: 50px;
+    padding-left: 15px;
+    border-radius: 0;
+}

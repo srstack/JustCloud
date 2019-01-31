@@ -455,13 +455,11 @@ select {
 
 #remove .grid .reuser-table .re-header {
     padding: 10px;
-    border-bottom: 1px solid #e5e5e5;
-
 }
 
 #remove .grid .reuser-table .re-header .re-title {
     text-align: center;
-    margin: 0 auto;
+    margin-top: 8px;
     color: black;
     font-size: 16px;
     font-weight: 600;
@@ -471,7 +469,6 @@ select {
     text-align: center;
     font-size: 15px;
     color: #585858;
-    border-bottom: 1px solid #e5e5e5;
 }
 
 #remove .grid .reuser-table .re-footer {

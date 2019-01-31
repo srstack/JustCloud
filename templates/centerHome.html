@@ -6,5 +6,61 @@
 {% endblock %}
 
 {% block wrapper %}
+    <link href="/static/css/centerHome.css" rel="stylesheet" type="text/css"/>
+    <div class="navigation" style="margin: 30px 20px 0 20px;text-align: center">{{ user_obj.name }}概况</div>
 
+    <div class="content-w">
+        <div class="content">
+        <form>
+            {% csrf_token %}
+            <div class="content-item">
+                <div class="item-label">域名</div>
+                <input class="item-body" type="text" id="domain" name="domain" placeholder="请输入自定义域名，不能超过20个字符"
+                       onblur="get_error(this)"
+                       onclick="reWaring(this)">
+            </div>
+            <div class="content-item">
+                <div class="item-label">国家</div>
+                <input class="item-body" type="text" placeholder="请输入所属国家" id="country" name="country" value="中国"
+                       onblur="get_error(this)"
+                       readonly="readonly" onclick="reWaring(this)">
+            </div>
+            <div class="content-item">
+                <div class="item-label">省份</div>
+                <select class="item-body" id="province" name="province" onchange="select_province(this);"></select>
+            </div>
+            <div class="content-item">
+                <div class="item-label">城市</div>
+                <select class="item-body" name="city" id="city"></select>
+            </div>
+            <div class="content-item">
+                <div class="item-label">管理员账号</div>
+                <input class="item-body" type="text" id="username" name='username'
+                       placeholder="管理员账号由字母、数字和符号组成，长度至少为4位" onblur="get_error(this)" onclick="reWaring(this)">
+            </div>
+            <div class="content-item">
+                <div class="item-label">管理员用户名</div>
+                <input class="item-body" type="text" id="name" name="name" placeholder="请输入自定义管理员用户名，不能超过20个字符"
+                       onblur="get_error(this)"
+                       onclick="reWaring(this)">
+            </div>
+
+            <div class="content-item">
+                <div class="item-label">手机号</div>
+                <input type="text" id="tel" name="tel" class=" item-body"
+                       onblur="get_error(this)"
+                       onclick="reWaring(this)"
+                       placeholder="请输入管理员手机号">
+            </div>
+            <div class="content-item">
+                <div class="item-label">邮箱</div>
+                <input class="item-body" type="text" id="email" name="email" placeholder="请输入管理员邮箱"
+                       onblur="get_error(this)"
+                       onclick="reWaring(this)">
+            </div>
+        </form>
+    </div>
+    </div>
+
+    <script src="/static/js/centerHome.js"></script>
 {% endblock %}
