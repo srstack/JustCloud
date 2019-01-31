@@ -1,0 +1,219 @@
+.device-device-list-table {
+    margin-top: 20px;
+}
+
+.device-device-list-table .grid {
+    max-width: 1440px;
+    margin-left: auto;
+    margin-right: auto;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    margin: 20px;
+    background-color: #fff;
+    border: 1px solid #eee;
+    padding-bottom: 30px;
+}
+
+[table-namespace=device-device-list-table].ivu-table-wrapper {
+    border-color: transparent;
+}
+
+body .ivu-table-wrapper {
+    border-color: #eee;
+}
+
+.ivu-table-wrapper {
+    position: relative;
+    border: 1px solid #dcdee2;
+    border-bottom: 0;
+    border-right: 0;
+}
+
+.ivu-table {
+    width: inherit;
+    height: 100%;
+    max-width: 100%;
+    overflow: hidden;
+    color: #515a6e;
+    font-size: 12px;
+    background-color: #fff;
+    box-sizing: border-box;
+}
+
+.ivu-table-header {
+    overflow: hidden;
+}
+
+.ivu-table table {
+    table-layout: fixed;
+}
+
+thead {
+    display: table-header-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
+
+tr {
+    display: table-row;
+    vertical-align: inherit;
+    border-color: inherit;
+}
+
+body .ivu-table-wrapper .ivu-table td, body .ivu-table-wrapper .ivu-table th {
+    border-bottom: 1px solid #eee;
+}
+
+th .ivu-table-cell {
+    display: inline-block;
+    word-wrap: normal;
+    vertical-align: middle;
+}
+
+.ivu-table-cell {
+    padding-left: 18px;
+    padding-right: 18px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    word-break: break-all;
+    box-sizing: border-box;
+}
+
+body .ivu-table-wrapper .ivu-table th span {
+    color: #333;
+    font-weight: 600;
+    font-size: 12px;
+}
+
+body .ivu-table-wrapper .ivu-table th {
+    height: 50px;
+    background-color: #fff;
+}
+
+td.ivu-table-column-center, th.ivu-table-column-center {
+    text-align: center;
+}
+
+.ivu-table th {
+    height: 40px;
+    white-space: nowrap;
+    overflow: hidden;
+    background-color: #f8f8f9;
+}
+
+.ivu-table td, .ivu-table th {
+    min-width: 0;
+    height: 48px;
+    box-sizing: border-box;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+    border-bottom: 1px solid #e8eaec;
+}
+
+*, :after, :before {
+    box-sizing: border-box;
+}
+
+body .ivu-table-wrapper .ivu-table td {
+    height: 55px;
+    color: #666;
+}
+
+[table-namespace=device-device-list-table] .device-status {
+    display: inline-block;
+    width: 80px;
+    height: 26px;
+    line-height: 26px;
+    color: #fff;
+    background-color: #c3cacd;
+}
+
+.ivu-btn {
+    display: inline-block;
+    margin-bottom: 0;
+    font-weight: 400;
+    text-align: center;
+    touch-action: manipulation;
+    cursor: pointer;
+    background-image: none;
+    border: 1px solid transparent;
+    white-space: nowrap;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    padding: 5px 15px 6px;
+    font-size: 12px;
+    border-radius: 4px;
+    transition: color .2s linear,background-color .2s linear,border .2s linear,box-shadow .2s linear;
+    color: #515a6e;
+    background-color: #fff;
+    border-color: #dcdee2;
+}
+
+body .ivu-btn.ivu-btn-text {
+    width: auto;
+    height: auto;
+    border-color: transparent;
+    line-height: 100%;
+    font-size: 14px;
+    padding: 0;
+}
+
+body .ivu-btn.ivu-btn-text-status2 {
+    color: #57a2ff;
+}
+
+.device-table-actions button {
+    font-size: 12px;
+}
+
+.ivu-btn>span {
+    vertical-align: middle;
+}
+
+.ivu-poptip-rel {
+    position: relative;
+}
+
+.ivu-poptip, .ivu-poptip-rel {
+    display: inline-block;
+}
+
+.ivu-poptip-arrow {
+    border-width: 8px;
+}
+
+.ivu-poptip-arrow, .ivu-poptip-arrow:after {
+    display: block;
+    width: 0;
+    height: 0;
+    position: absolute;
+    border-color: transparent;
+    border-style: solid;
+}
+
+.ivu-poptip-confirm .ivu-poptip-inner {
+    white-space: normal;
+}
+
+.ivu-poptip-confirm .ivu-poptip-inner {
+    white-space: normal;
+}
+.ivu-poptip-inner {
+    width: 100%;
+    background-color: #fff;
+    background-clip: padding-box;
+    border-radius: 4px;
+    box-shadow: 0 1px 6px rgba(0,0,0,.2);
+    white-space: nowrap;
+}
+
+body .ivu-poptip-confirm .ivu-poptip-body {
+    padding: 16px 16px 24px;
+}
+
+.ivu-poptip-confirm .ivu-poptip-body {
+    padding: 16px 16px 8px;
+}

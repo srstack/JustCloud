@@ -70,6 +70,7 @@ def deviceAdmin(request, username):
             # 主体栏显示的部分
             exhibition_name = '设备管理'
 
+            
             return render(request, 'device.html', locals())
         else:
             return redirect('/admin/' + request.session.get('USERNAME') + '/device')
