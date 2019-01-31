@@ -40,10 +40,10 @@ def mainAdmin(request, username):
             # 主体栏显示的部分
             exhibition_name = '平台概况'
             # 用户设备数
-            use_system=user_obj.system
-            device_count=0
+            use_system = user_obj.system
+            device_count = 0
             for i in use_system.all():
-                device_count+=Device.objects.filter(system=i).count()
+                device_count += Device.objects.filter(system=i).count()
             # 用户使用系统数
             system_count = user_obj.ownsystem.count()
 
@@ -70,7 +70,11 @@ def deviceAdmin(request, username):
             # 主体栏显示的部分
             exhibition_name = '设备管理'
 
-            
+            devices = []
+            for system_obj in user_obj.system.all():
+                for device_obj in system_obj.device.all():
+                    devices.append(device_obj)
+
             return render(request, 'device.html', locals())
         else:
             return redirect('/admin/' + request.session.get('USERNAME') + '/device')
