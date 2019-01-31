@@ -118,7 +118,6 @@ def mainHome(request, username):
 def authHome(request, username):
     is_login = request.session.get('IS_LOGIN', False)
     if is_login:
-        # 浩民加油！！！
         if request.session.get('USERNAME') == username:
             # 判断是否为此用户
             user_obj = Users.objects.filter(username=username)[0]
@@ -268,6 +267,7 @@ def adminRemove(request, username):
                 sub_obj = Users.objects.filter(id=sub_id, rely=Users.objects.filter(username=username)[0])
                 if sub_obj:
                     sub_obj[0].system.remove(sys_id)
+                    Operation.objects.create(code=205, user=Users.objects.filter(username=username)[0])
                     return HttpResponse('666')
                 else:
                     return HttpResponse('555')
@@ -293,6 +293,7 @@ def adminAdd(request, username):
                         return HttpResponse('444')
                     else:
                         sys_obj[0].admin.add(sub_id)
+                        Operation.objects.create(code=205, user=Users.objects.filter(username=username)[0])
                         return HttpResponse('666')
                 else:
                     return HttpResponse('555')
