@@ -54,7 +54,7 @@
                                     </div>
                                 </th>
                                 <th class="ivu-table-column-center">
-                                    <div class="ivu-table-cell"><span class="">所属产品</span>
+                                    <div class="ivu-table-cell"><span class="">所属系统</span>
                                         <!---->
                                         <!---->
                                     </div>
@@ -102,12 +102,13 @@
                             <col width="259">
                         </colgroup>
                         <tbody class="ivu-table-tbody">
+                            {% for device in devices %}
                             <tr class="ivu-table-row">
                                 <td class="ivu-table-column-center">
                                     <div class="ivu-table-cell">
                                         <!---->
                                         <!---->
-                                        <!----><span>515427445</span>
+                                        <!----><span>{{ device.id }}</span>
                                         <!---->
                                         <!---->
                                         <!---->
@@ -119,7 +120,7 @@
                                         <!---->
                                         <!---->
                                         <!---->
-                                        <!----><span title="11">11</span>
+                                        <!----><span title="11">{{ device.name }}</span>
                                         <!---->
                                     </div>
                                 </td>
@@ -147,7 +148,7 @@
                                     <div class="ivu-table-cell">
                                         <!---->
                                         <!---->
-                                        <!----><span>111</span>
+                                        <!----><span>{{ device.system_id }}</span>
                                         <!---->
                                         <!---->
                                         <!---->
@@ -169,7 +170,7 @@
                                         <!---->
                                         <!---->
                                         <!---->
-                                        <!----><span>2019-01-20</span>
+                                        <!----><span>{{ device.date|date:"Y-m-d" }}</span>
                                         <!---->
                                     </div>
                                 </td>
@@ -230,6 +231,7 @@
                                 </td>
                             </tr>
                             <!---->
+                            {% endfor %}
                         </tbody>
                     </table>
                 </div>

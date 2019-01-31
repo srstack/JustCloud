@@ -40,6 +40,10 @@ body .ivu-table-wrapper {
     box-sizing: border-box;
 }
 
+.ivu-table-row:hover {
+    background-color: #ebf7ff;
+}
+
 .ivu-table-header {
     overflow: hidden;
 }
@@ -60,7 +64,8 @@ tr {
     border-color: inherit;
 }
 
-body .ivu-table-wrapper .ivu-table td, body .ivu-table-wrapper .ivu-table th {
+body .ivu-table-wrapper .ivu-table td,
+body .ivu-table-wrapper .ivu-table th {
     border-bottom: 1px solid #eee;
 }
 
@@ -91,7 +96,8 @@ body .ivu-table-wrapper .ivu-table th {
     background-color: #fff;
 }
 
-td.ivu-table-column-center, th.ivu-table-column-center {
+td.ivu-table-column-center,
+th.ivu-table-column-center {
     text-align: center;
 }
 
@@ -102,7 +108,8 @@ td.ivu-table-column-center, th.ivu-table-column-center {
     background-color: #f8f8f9;
 }
 
-.ivu-table td, .ivu-table th {
+.ivu-table td,
+.ivu-table th {
     min-width: 0;
     height: 48px;
     box-sizing: border-box;
@@ -111,7 +118,9 @@ td.ivu-table-column-center, th.ivu-table-column-center {
     border-bottom: 1px solid #e8eaec;
 }
 
-*, :after, :before {
+*,
+:after,
+:before {
     box-sizing: border-box;
 }
 
@@ -146,7 +155,7 @@ body .ivu-table-wrapper .ivu-table td {
     padding: 5px 15px 6px;
     font-size: 12px;
     border-radius: 4px;
-    transition: color .2s linear,background-color .2s linear,border .2s linear,box-shadow .2s linear;
+    transition: color .2s linear, background-color .2s linear, border .2s linear, box-shadow .2s linear;
     color: #515a6e;
     background-color: #fff;
     border-color: #dcdee2;
@@ -177,7 +186,8 @@ body .ivu-btn.ivu-btn-text-status2 {
     position: relative;
 }
 
-.ivu-poptip, .ivu-poptip-rel {
+.ivu-poptip,
+.ivu-poptip-rel {
     display: inline-block;
 }
 
@@ -185,7 +195,8 @@ body .ivu-btn.ivu-btn-text-status2 {
     border-width: 8px;
 }
 
-.ivu-poptip-arrow, .ivu-poptip-arrow:after {
+.ivu-poptip-arrow,
+.ivu-poptip-arrow:after {
     display: block;
     width: 0;
     height: 0;
@@ -201,12 +212,13 @@ body .ivu-btn.ivu-btn-text-status2 {
 .ivu-poptip-confirm .ivu-poptip-inner {
     white-space: normal;
 }
+
 .ivu-poptip-inner {
     width: 100%;
     background-color: #fff;
     background-clip: padding-box;
     border-radius: 4px;
-    box-shadow: 0 1px 6px rgba(0,0,0,.2);
+    box-shadow: 0 1px 6px rgba(0, 0, 0, .2);
     white-space: nowrap;
 }
 
