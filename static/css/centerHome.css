@@ -10,7 +10,7 @@
     padding: 25px 0 20px;
     font-size: 14px;
     position: relative;
-    width: 520px;
+    width: 720px;
 }
 
 .content .content-item {
@@ -18,32 +18,252 @@
     box-sizing: border-box;
     display: block;
     width: 100%;
-    min-height: 50px;
-    margin-top: 36px;
+    min-height: 66px;
+    border-top: 1px dashed #eee;
 }
 
 .content .content-item .item-label {
-    width: 85px;
-    line-height: 50px;
+    width: 88px;
+    line-height: 66px;
     float: left;
 }
 
-.content input, .content select {
+.content input {
     padding: 0 20px;
     border-radius: 3px;
-    border: 1px solid #dddee3;
+    border: 0;
 }
 
 .content .content-item .item-body {
-    width: 408px;
-    margin-left: 95px;
+    font-weight: 700;
+    display: initial;
 }
 
-.content .content-item > input{
+.content .content-item > input {
     box-sizing: border-box;
     display: block;
     width: 400px;
-    height: 50px;
-    padding-left: 15px;
+    height: 66px;
+    padding-left: 56px;
     border-radius: 0;
+}
+
+.i-footer {
+    margin-top: 56px;
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.i-footer > button {
+    color: #fff;
+    background-color: #57a2ff;
+    border: #57a2ff;
+    height: 36px;
+    width: 56%;
+    font-size: 14px;
+    border-radius: 2px;
+    outline: none;
+}
+
+.i-footer > button:hover {
+    background-color: #24bdfd;
+    border: #24bdfd;
+}
+
+.i-footer > button > i {
+    margin-right: 12px;
+}
+
+.change {
+    float: right;
+    margin-right: 40px;
+}
+
+.change > a {
+    color: #fff;
+    background-color: #57a2ff;
+    border-color: #57a2ff;
+    height: 36px;
+    width: 112px;
+    line-height: 36px;
+    font-size: 14px;
+    border-radius: 9px;
+    display: inline-block;
+    font-weight: 400;
+    margin-top: 16px;
+}
+
+.change > a:hover {
+    background-color: #24bdfd;
+    border-color: #24bdfd;
+}
+
+.change-user {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 2040;
+    display: none;
+    background-color: rgba(1, 1, 1, 0.5);
+}
+
+.change-user .change-table {
+    width: 500px;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+    right: 0;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    background-color: #fff;
+    border: 0;
+    background-clip: padding-box;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, .15);
+}
+
+.change-user .change-table .change-table-close {
+    right: 32px;
+    top: 32px;
+    position: absolute;
+}
+
+.change-user .change-table .change-table-close > i {
+    font-size: 21px;
+    color: #999;
+    transition: color .2s ease;
+    position: relative;
+    top: 1px;
+}
+
+.change-user .change-table .change-table-header {
+    padding: 36px;
+    border-bottom: 1px solid #e8eaec;
+    line-height: 1;
+    display: inline-block;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.change-user .change-table .change-table-form {
+    overflow: auto;
+    position: static;
+    padding-right: 55px;
+    padding-top: 32px;
+    padding-left: 30px;
+    height: calc(100% - 160px);
+    font-size: 12px;
+    line-height: 1.5;
+    word-wrap: break-word;
+}
+
+.change-user .change-table .change-table-form > div {
+    margin-bottom: 120px;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.change-user .change-table .change-table-form > div > form > p {
+    font-size: 16px;
+    margin: 0;
+    font-weight: 400;
+    color: #333;
+    line-height: 26px;
+    padding-bottom: 30px;
+}
+
+.change-table .change-table-form > div > form > div > .form-item {
+    text-align: right;
+    width: 124px;
+    vertical-align: middle;
+    float: left;
+    font-size: 12px;
+    color: #666;
+    line-height: 1;
+    padding: 10px 12px 10px 0;
+    box-sizing: border-box;
+}
+
+.change-table .change-table-form > div > form > div > .form-input {
+    position: relative;
+    line-height: 32px;
+    font-size: 12px;
+}
+
+.change-table .change-table-form > div > form > div > .form-input > input, .change-table .change-table-form > div > form > div > .form-input > select {
+    color: #333;
+    font-size: 12px;
+    border-radius: 2px;
+    border: 1px solid #d9d9d9;
+    padding-left: 15px;
+    height: 36px;
+    margin-left: 24px;
+    width: 240px;
+    display: inline-block;
+}
+
+.change-table .change-table-form > div > form > div > .form-input > input :hover, .change-table .change-table-form > div > form > div > .form-input > select:hover {
+    border: 1px solid #49d9ff;
+}
+
+select {
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    background: url("/static/img/arrow.png") no-repeat scroll 368px center transparent;
+    padding-right: 14px;
+    background-size: 15px;
+}
+
+.change-table .change-table-form > div > form > div > .form-input .waring {
+    background-color: red;
+    opacity: 0.4;
+    color: black;
+    border: 0;
+}
+
+.change-user .change-table-footer {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    border-top: 1px solid #e8e8e8;
+    text-align: center;
+    background: #fff;
+    z-index: 2;
+    line-height: 108px;
+    margin-bottom: -16px;
+}
+
+.change-table-footer > button {
+    padding: 0 55px;
+    border-radius: 2px;
+    height: 36px;
+    border: 1px solid transparent;
+    display: inline-block;
+    font-weight: 400;
+    font: icon;
+}
+
+.change-table-footer > button > span {
+    vertical-align: middle;
+}
+
+.change-table-footer .sent {
+    color: #fff;
+    background-color: #57a2ff;
+    border-color: #57a2ff;
+}
+
+.change-table .change-table-form > div > form > div > .form-input .waring {
+    background-color: red;
+    opacity: 0.4;
+    color: black;
+    border: 0;
 }

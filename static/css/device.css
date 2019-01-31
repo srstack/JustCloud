@@ -3,9 +3,6 @@
 }
 
 .device-device-list-table .grid {
-    max-width: 1440px;
-    margin-left: auto;
-    margin-right: auto;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
     margin: 20px;
