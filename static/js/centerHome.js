@@ -192,6 +192,7 @@ function userChange() {
     });
     if (Status === true) {
         loadingIn();
+        $('#user-change .change-table .change-table-form div form div .form-input #sex').removeAttr('disabled');
         $.ajax({
             url: 'userchange/',
             type: 'POST',

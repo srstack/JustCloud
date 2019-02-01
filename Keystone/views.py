@@ -341,6 +341,8 @@ def userChange(request, username):
                 if reg_name == user_obj.name:
                     if reg_email == user_obj.email:
                         if reg_phone == user_obj.phone:
+                            if not reg_age:
+                                reg_age = 0
                             Users.objects.filter(username=username, domain_id=request.session.get('DOMAIN_ID')).update(
                                 sex=reg_sex, age=reg_age)
                             Operation.objects.create(code=103, user=user_obj)
