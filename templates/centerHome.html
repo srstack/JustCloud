@@ -163,9 +163,8 @@
                                                    onclick="reWaring(this)" onblur="get_error(this)"
                                            readonly>
                                 {% else %}
-                                    <input type="text" placeholder="请输入用户年龄" id="age" name="age"
+                                    <input type="text" placeholder="保密" id="age" name="age"
                                            onclick="reWaring(this)" onblur="get_error(this)"
-                                           value="保密"
                                            readonly>
                                 {% endif %}
                             </div>
@@ -175,15 +174,15 @@
                             <div class="form-input">
                                 <select class="item-body" name="sex" id="sex" onclick="reWaring(this)" disabled>
                                     {% if user_obj.sex == 1 %}
-                                        <option>保密</option>
+                                        <option value="">保密</option>
                                         <option value=0>女</option>
                                         <option value=1 selected="selected">男</option>
                                     {% elif user_obj.sex == 0 %}
-                                        <option>保密</option>
+                                        <option value="">保密</option>
                                         <option value=0 selected="selected">女</option>
                                         <option value=1>男</option>
                                     {% else %}
-                                        <option selected="selected">保密</option>
+                                        <option selected="selected" value="">保密</option>
                                         <option value=0>女</option>
                                         <option value=1>男</option>
                                     {% endif %}

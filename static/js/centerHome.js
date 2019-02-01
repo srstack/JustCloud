@@ -55,6 +55,10 @@ $().ready(function () {
                 required: true,
                 email: true
             },
+            age : {
+                digits: true,
+                maxlength: 3
+            }
         },
         messages: {
             username: {
@@ -76,6 +80,10 @@ $().ready(function () {
                 required: '用户邮箱不能为空，请输入',
                 email: '邮箱格式错误，请重新输入'
             },
+            age: {
+                digits: '年龄格式错误，请重新输入',
+                maxlength: '年龄格式错误，请重新输入',
+            }
         }
     })
 });
@@ -133,6 +141,7 @@ function reWaring(that) {
 }
 
 function passwordChange() {
+    loadingOut();
     var Status = true;
     var reg_value = $('#password-change .change-table .change-table-form div form').serializeArray();
     $.each(reg_value, function (i, val) {
@@ -154,7 +163,7 @@ function passwordChange() {
                     $('.i-footer>button').css('background-color', '#38B259').css('border-color', '#38B259');
                     $('.i-footer>button>span').html('修改成功');
                     setTimeout(function () {
-                         window.location.href = "/";
+                        window.location.href = "/";
                     }, 10000);
                 }
                 else if (data === '777') {
@@ -167,12 +176,18 @@ function passwordChange() {
 }
 
 function userChange() {
+    loadingOut();
     var Status = true;
     var reg_value = $('#user-change .change-table .change-table-form div form').serializeArray();
     $.each(reg_value, function (i, val) {
         if (reg_value[i].value === "") {
-            $('#user-change .change-table .change-table-form div form #' + reg_value[i].name).addClass('waring');
-            Status = false;
+            if (reg_value[i].name === 'age' || reg_value[i].name === 'sex' ) {
+                Status = true;
+            }
+            else {
+                $('#user-change .change-table .change-table-form div form #' + reg_value[i].name).addClass('waring');
+                Status = false;
+            }
         }
     });
     if (Status === true) {

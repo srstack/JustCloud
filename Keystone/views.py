@@ -30,7 +30,7 @@ def mainAdmin(request, username):
         if request.session.get('USERNAME') == username:
             # 判断是否为此用户
             # 拿到用户ORM对象
-            user_obj = Users.objects.filter(username=username)[0]
+            user_obj = Users.objects.filter(username=username, domain_id=request.session.get('DOMAIN_ID'))[0]
             user_name = user_obj.name
             first_name = user_name[0]
             # 确定header选中
@@ -60,7 +60,7 @@ def deviceAdmin(request, username):
         if request.session.get('USERNAME') == username:
             # 判断是否为此用户
             # 拿到用户ORM对象
-            user_obj = Users.objects.filter(username=username)[0]
+            user_obj = Users.objects.filter(username=username, domain_id=request.session.get('DOMAIN_ID'))[0]
             user_name = user_obj.name
             first_name = user_name[0]
             # 确定header选中
@@ -88,7 +88,7 @@ def mainHome(request, username):
         # 浩民加油！！！
         if request.session.get('USERNAME') == username:
             # 判断是否为此用户
-            user_obj = Users.objects.filter(username=username)[0]
+            user_obj = Users.objects.filter(username=username, domain_id=request.session.get('DOMAIN_ID'))[0]
             domain = Domain.objects.filter(
                 id=request.session.get('DOMAIN_ID'))[0]
             domain_name = domain.name
@@ -133,7 +133,7 @@ def authHome(request, username):
     if is_login:
         if request.session.get('USERNAME') == username:
             # 判断是否为此用户
-            user_obj = Users.objects.filter(username=username)[0]
+            user_obj = Users.objects.filter(username=username, domain_id=request.session.get('DOMAIN_ID'))[0]
             user_name = user_obj.name
             first_name = user_name[0]
             # 确定header选中
@@ -159,7 +159,7 @@ def centerHome(request, username):
     if is_login:
         if request.session.get('USERNAME') == username:
             # 判断是否为此用户
-            user_obj = Users.objects.filter(username=username)[0]
+            user_obj = Users.objects.filter(username=username, domain_id=request.session.get('DOMAIN_ID'))[0]
             user_name = user_obj.name
             first_name = user_name[0]
             # 确定header选中
@@ -181,7 +181,7 @@ def domainChange(request, username):
         if is_login:
             if request.session.get('USERNAME') == username:
                 # 判断是否为此用户
-                user_obj = Users.objects.filter(username=username)[0]
+                user_obj = Users.objects.filter(username=username, domain_id=request.session.get('DOMAIN_ID'))[0]
                 domain = Domain.objects.filter(
                     id=request.session.get('DOMAIN_ID'))[0]
                 if user_obj.rely:
@@ -217,21 +217,21 @@ def userAdd(request, username):
                 reg_pwd = request.POST.get('password')
                 reg_tel = request.POST.get('tel')
                 reg_email = request.POST.get('email')
-                user_obj = Users.objects.filter(username=username)[0]
+                user_obj = Users.objects.filter(username=username, domain_id=request.session.get('DOMAIN_ID'))[0]
                 domain = Domain.objects.filter(
                     id=request.session.get('DOMAIN_ID'))[0]
-                username = Users.objects.filter(username=reg_username)
-                if username:
+                new_user = Users.objects.filter(username=reg_username, domain_id=request.session.get('DOMAIN_ID'))
+                if new_user:
                     # 用户存在
                     return HttpResponse('444')
                 else:
-                    username = Users.objects.filter(phone=reg_tel)
-                    if username:
+                    new_user = Users.objects.filter(phone=reg_tel)
+                    if new_user:
                         # 手机号存在
                         return HttpResponse('777')
                     else:
-                        username = Users.objects.filter(email=reg_email)
-                        if username:
+                        new_user = Users.objects.filter(email=reg_email)
+                        if new_user:
                             # 邮箱存在
                             return HttpResponse('888')
                         else:
@@ -336,19 +336,18 @@ def userChange(request, username):
                 reg_email = request.POST.get('email')
                 reg_age = request.POST.get('age')
                 reg_sex = request.POST.get('sex')
-                user_obj = Users.objects.filter(username=username)[0]
-
+                user_obj = Users.objects.filter(username=username, domain_id=request.session.get('DOMAIN_ID'))[0]
+                print(request.POST)
                 if reg_name == user_obj.name:
                     if reg_email == user_obj.email:
                         if reg_phone == user_obj.phone:
-                            user_obj.age = reg_age
-                            user_obj.sex = reg_sex
-                            user_obj.save()
+                            Users.objects.filter(username=username, domain_id=request.session.get('DOMAIN_ID')).update(
+                                sex=reg_sex, age=reg_age)
                             Operation.objects.create(code=103, user=user_obj)
                             return HttpResponse('666')
                         else:
-                            username = Users.objects.filter(phone=reg_phone)
-                            if username:
+                            user_exist = Users.objects.filter(phone=reg_phone)
+                            if user_exist:
                                 # 手机号存在
                                 return HttpResponse('777')
                             else:
@@ -357,8 +356,8 @@ def userChange(request, username):
                                 Operation.objects.create(code=103, user=user_obj)
                                 return HttpResponse('666')
                     else:
-                        username = Users.objects.filter(email=reg_email)
-                        if username:
+                        user_exist = Users.objects.filter(email=reg_email)
+                        if user_exist:
                             # 邮箱存在
                             return HttpResponse('888')
                         else:
@@ -385,7 +384,7 @@ def passwordChange(request, username):
         if is_login:
             if request.session.get('USERNAME') == username:
                 # 判断是否为此用户
-                user_obj = Users.objects.filter(username=username)[0]
+                user_obj = Users.objects.filter(username=username, domain_id=request.session.get('DOMAIN_ID'))[0]
                 old_pwd = request.POST.get('o_password')
                 new_pwd = request.POST.get('password')
                 if user_obj.password == hashlib.sha1(old_pwd.encode(encoding='utf8')).hexdigest():
@@ -400,8 +399,8 @@ def passwordChange(request, username):
                 else:
                     return HttpResponse('777')
             else:
-                return redirect('/home/' + request.session.get('USERNAME')+'/center')
+                return redirect('/home/' + request.session.get('USERNAME') + '/center')
         else:
-            return redirect('/home/' + request.session.get('USERNAME')+'/center')
+            return redirect('/home/' + request.session.get('USERNAME') + '/center')
     else:
         return redirect('/')
