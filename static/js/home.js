@@ -1,3 +1,5 @@
+// 国家、城市选择框
+
 var list1 = new Array;
 var list2 = new Array;
 list1[list1.length] = "北京市";
@@ -140,7 +142,7 @@ function select_province(obj) {
     }
 }
 
-
+// 判断权限（交互）
 function changeDoman() {
     loadingOut();
     if ($('.baseinfo .grid .baseinfo-user >span').html() === '管理员用户') {
@@ -148,19 +150,21 @@ function changeDoman() {
     }
     else {
         $('.domaninfo .grid .domaninfo-chenge>a>span').html('无权限操作');
-        $('.domaninfo .grid .domaninfo-chenge>a').css('background-color','#EB3C22');
+        $('.domaninfo .grid .domaninfo-chenge>a').css('background-color', '#EB3C22');
         setTimeout(function () {
             $('.domaninfo .grid .domaninfo-chenge>a>span').html('修改所属域');
-            $('.domaninfo .grid .domaninfo-chenge>a').css('background-color','#57a2ff');
+            $('.domaninfo .grid .domaninfo-chenge>a').css('background-color', '#57a2ff');
         }, 5000);
     }
 }
 
+// 关闭修改界面
 function closeChange(that) {
     loadingOut();
     $(that).parent().parent().css('display', 'none')
 }
 
+// 消除警告
 function reWaring(that) {
     if (that.classList.contains('waring')) {
         that.classList.remove('waring');
@@ -168,6 +172,7 @@ function reWaring(that) {
     }
 }
 
+// ajax 修改域信息
 function domainchange() {
     var Status = true;
     var reg_value = $('#domainchange .change-table .change-table-form > div > form').serializeArray();
@@ -187,23 +192,23 @@ function domainchange() {
                 if (data === '666') {
                     loadingOut()
                     $('#domainchange').css('display', 'none');
-                    $('.domaninfo .grid .domaninfo-chenge>a').css('background-color','#38B259').css('border-color','#38B259');
+                    $('.domaninfo .grid .domaninfo-chenge>a').css('background-color', '#38B259').css('border-color', '#38B259');
                     $('.domaninfo .grid .domaninfo-chenge>a>span').html('修改成功');
                     $('#domainname>h2').html(reg_value[1].value);
                     $('#domainplace>h2').html(reg_value[2].value + '-' + reg_value[3].value + '-' + reg_value[4].value);
                     setTimeout(function () {
                         $('.domaninfo .grid .domaninfo-chenge>a>span').html('修改所属域');
-                        $('.domaninfo .grid .domaninfo-chenge>a').css('background-color','#57a2ff').css('border-color','#57a2ff');
+                        $('.domaninfo .grid .domaninfo-chenge>a').css('background-color', '#57a2ff').css('border-color', '#57a2ff');
                     }, 10000);
                 }
                 else if (data === '222') {
                     loadingOut();
                     $('#domainchange').css('display', 'none');
-                    $('.domaninfo .grid .domaninfo-chenge>a').css('background-color','#EB3C22').css('border-color','#EB3C22');
+                    $('.domaninfo .grid .domaninfo-chenge>a').css('background-color', '#EB3C22').css('border-color', '#EB3C22');
                     $('.domaninfo .grid .domaninfo-chenge>a>span').html('无权限操作');
                     setTimeout(function () {
                         $('.domaninfo .grid .domaninfo-chenge>a>span').html('修改所属域');
-                        $('.domaninfo .grid .domaninfo-chenge>a').css('background-color','#57a2ff').css('border-color','#57a2ff');
+                        $('.domaninfo .grid .domaninfo-chenge>a').css('background-color', '#57a2ff').css('border-color', '#57a2ff');
                     }, 5000);
                 }
             }
@@ -211,12 +216,13 @@ function domainchange() {
     }
 }
 
+// 显示修改界面
 function usertable() {
     loadingOut();
     $('#usertable').css('display', 'block');
 }
 
-
+//表单验证
 $().ready(function () {
     $('#usertable .change-table .change-table-form div form').validate({
         rules: {

@@ -1,9 +1,11 @@
+// 关闭修改界面
 function closechange(that) {
     loadingOut();
     $(that).parent().parent().css('display', 'none');
     window.location.reload();
 }
 
+// 不允许修改账号
 function usernameChange(that) {
     loadingOut();
     $(that).css('background-color', '#EB3C22').css('border-color', '#EB3C22');
@@ -14,6 +16,7 @@ function usernameChange(that) {
     }, 10000);
 }
 
+// 显示修改密码界面
 function passwordshow() {
     loadingOut();
     $('#password-change').css('display', 'block');
@@ -26,6 +29,7 @@ function changeUser_i(that) {
     $('#user-change .change-table .change-table-form div form div .form-input #' + change_id).removeAttr('readonly').val('')
 }
 
+// 显示input框的用户信息修改
 function changeUser_s(that) {
     loadingOut();
     $('#user-change').css('display', 'block');
@@ -33,6 +37,7 @@ function changeUser_s(that) {
     $('#user-change .change-table .change-table-form div form div .form-input #' + change_id).removeAttr('disabled')
 }
 
+// from表单验证
 $().ready(function () {
     $('#user-change .change-table .change-table-form div form').validate({
         rules: {
@@ -88,6 +93,7 @@ $().ready(function () {
     })
 });
 
+// form表单验证（修改密码）
 $().ready(function () {
     $('#password-change .change-table .change-table-form div form').validate({
         rules: {
@@ -123,6 +129,7 @@ $().ready(function () {
     })
 });
 
+// 消除验证插件提示
 function get_error(that) {
     if (that.classList.contains('error')) {
         that.classList.remove('error');
@@ -133,6 +140,7 @@ function get_error(that) {
     }
 }
 
+// 去除警告
 function reWaring(that) {
     if (that.classList.contains('waring')) {
         that.classList.remove('waring');
@@ -140,6 +148,7 @@ function reWaring(that) {
     }
 }
 
+// ajax 修改密码及回调函数
 function passwordChange() {
     loadingOut();
     var Status = true;
@@ -164,7 +173,7 @@ function passwordChange() {
                     $('.i-footer>button>span').html('修改成功');
                     setTimeout(function () {
                         window.location.href = "/";
-                    }, 10000);
+                    }, 3000);
                 }
                 else if (data === '777') {
                     loadingOut();

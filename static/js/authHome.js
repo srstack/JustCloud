@@ -1,17 +1,22 @@
+// 展现删除界面
 function showRemove(that) {
     loadingOut();
     $('#remove .grid .re-body div span').html($(that).prev().html());
+    // 添加给删除界面
     $('#remove').attr('uid', $(that).attr('uid'));
     $('#remove').attr('sid', $(that).attr('sid'));
     $('#remove').css('display', 'block')
 }
 
+// 关闭页面
 function reClose() {
     loadingOut();
     $('#remove').css('display', 'none')
 }
 
+// 删除管理权限
 function adminRemove(that) {
+    // 获得uid sid 通过showReomve获得
     var uid = $('#remove').attr('uid');
     var sid = $('#remove').attr('sid');
     $.ajax({
@@ -36,6 +41,7 @@ function adminRemove(that) {
 
 }
 
+// 显示添加权限界面
 function showAdd(that) {
     loadingOut();
     $('#sub_id').val($(that).attr('uid'));
@@ -44,11 +50,13 @@ function showAdd(that) {
     $('#adminadd').css('display', 'block')
 }
 
+// 关闭添加权限界面
 function closeadd() {
     loadingOut();
     $('#adminadd').css('display', 'none')
 }
 
+// Ajax添加权限
 function adminAdd() {
     loadingIn();
     var u_id = $('#sub_id').val()
@@ -64,21 +72,21 @@ function adminAdd() {
             else if (data === '555') {
                 loadingOut();
                 $('#adminadd').css('display', 'none');
-                $('#'+u_id+' span').html('无权限操作');
-                $('#'+u_id).css('background-color', '#EB3C22');
+                $('#' + u_id + ' span').html('无权限操作');
+                $('#' + u_id).css('background-color', '#EB3C22');
                 setTimeout(function () {
-                    $('#'+u_id+' span').html('添加');
-                    $('#'+u_id).css('background-color', '#57a2ff');
+                    $('#' + u_id + ' span').html('添加');
+                    $('#' + u_id).css('background-color', '#57a2ff');
                 }, 5000);
             }
             else if (data === '444') {
                 loadingOut();
                 $('#adminadd').css('display', 'none');
-                $('#'+u_id+' span').html('权限已存在');
-                $('#'+u_id).css('background-color', '#EB3C22');
+                $('#' + u_id + ' span').html('权限已存在');
+                $('#' + u_id).css('background-color', '#EB3C22');
                 setTimeout(function () {
-                    $('#'+u_id+' span').html('添加');
-                    $('#'+u_id).css('background-color', '#57a2ff');
+                    $('#' + u_id + ' span').html('添加');
+                    $('#' + u_id).css('background-color', '#57a2ff');
                 }, 5000);
             }
         }

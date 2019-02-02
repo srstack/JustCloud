@@ -8,26 +8,60 @@
     <link rel="shortcut icon" href="/static/img/favicon.ico" type="image/x-icon">
     <link href="/static/css/index1.css" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="/static/plugins/font-awesome/css/font-awesome.min.css">
-</head>
-data-trigger="focus"
 
+    <script src="https://img.highcharts.com.cn/highcharts/highcharts.js"></script>
+    <script src="https://img.highcharts.com.cn/highcharts/modules/exporting.js"></script>
+    <script src="https://img.hcharts.cn/highcharts-plugins/highcharts-zh_CN.js"></script>
+</head>
 <body>
 
-
-<div class="h-u-h-c-b show">
-    <div class="header-user-head-content">
-        <p class="h-u-h-c-username">srstack</p>
-        <ul class="h-u-h-c-setting">
-            <li><a href="/passport/profile" target="_blank"><i class="icon iconfont icon-user"></i>管理中心</a></li>
-            <li><a href="/logout"><i class="icon iconfont icon-logout"></i>退出帐号</a></li>
-        </ul>
-    </div>
-</div>
+<div id="container" style="min-width:400px;height:400px"></div>
 
 <script>
-    $(function () {
-        $('[data-toggle="popover"]').popover()
-    })
+    Highcharts.chart('container', {
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: false
+                },
+                showInLegend: true
+            }
+        },
+        series: [{
+            name: 'Brands',
+            colorByPoint: true,
+            data: [{
+                name: 'Chrome',
+                y: 61.41,
+                sliced: true,
+                selected: true
+            }, {
+                name: 'Internet Explorer',
+                y: 11.84
+            }, {
+                name: 'Firefox',
+                y: 10.85
+            }, {
+                name: 'Edge',
+                y: 4.67
+            }, {
+                name: 'Safari',
+                y: 4.18
+            }, {
+                name: 'Other',
+                y: 7.05
+            }]
+        }]
+    });
+
 </script>
 
 <script src="/static/js/index.js"></script>

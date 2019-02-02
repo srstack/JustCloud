@@ -33,9 +33,9 @@ class Users(models.Model):
 
 class System(models.Model):
     name = models.CharField(max_length=10, verbose_name="系统名称", null=False)
-    platform = models.CharField(max_length=8, verbose_name="系统平台", null=False, default="others")
-    createuser = models.ForeignKey("Users", verbose_name="创建者", on_delete=models.SET_NULL, null=True, related_name="ownsystem")
-    key = models.CharField(max_length=26, verbose_name="API密钥", null=True)
+    platform = models.CharField(max_length=8, verbose_name="系统平台", null=False, default="Others")
+    createuser = models.ForeignKey("Users", verbose_name="创建者", on_delete=models.SET_NULL, null=True,
+                                   related_name="ownsystem")
     protocol = models.CharField(max_length=4, verbose_name="接入协议", default="CoAP")
     devicecode = models.CharField(max_length=20, verbose_name="设备注册码", null=True)
     domain = models.ForeignKey("Domain", verbose_name="所属域", on_delete=models.CASCADE, related_name="system")
@@ -57,13 +57,15 @@ class Device(models.Model):
 
 
 class Data(models.Model):
-    name = models.ForeignKey("Device", verbose_name="所属设备", on_delete=models.CASCADE, related_name="data")
+    device = models.ForeignKey("Device", verbose_name="所属设备", on_delete=models.CASCADE, related_name="data")
     # JSON格式数据存储，采用字典（JS中的对象）格式；
     data = models.CharField(max_length=200, verbose_name="设备数据", null=False)
     date = models.DateTimeField(verbose_name="接收时间", auto_now_add=True)
+    model = models.BooleanField(verbose_name="推送/下发", default=0)
+    # 0:推送 1:下发
 
     def __str__(self):
-        return self.name
+        return self.data
 
 
 class Login(models.Model):

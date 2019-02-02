@@ -2,39 +2,240 @@
 {% block title %}JustCloud-平台概况{% endblock %}
 
 {% block menu %}
-{% include 'type/admintype.html' %}
+    {% include 'type/admintype.html' %}
 {% endblock %}
 
 {% block wrapper %}
-<link href="/static/css/admin.css" rel="stylesheet" type="text/css" />
-<script src="/static/js/admin.js"></script>
-
-<div class="device-overview-body">
-    <div style="margin-top: 21px;">
-        <div class="overview-nav">
-            <ul class="overview-ul">
-                <li>
-                    <div class="li-item"><label class="overview-nav-title">设备总数(台)</label>
-                        <p class="number">{{device_count}}</p>
-                    </div>
-                </li>
-                <li>
-                    <div class="li-item"><label class="overview-nav-title">系统使用数(个)</label>
-                        <p class="number">{{system_count}}</p>
-                    </div>
-                </li>
-                <li>
-                    <div class="li-item"><label class="overview-nav-title">今日推送消息数(次)</label>
-                        <p class="number">0</p>
-                    </div>
-                </li>
-                <li>
-                    <div class="li-item"><label class="overview-nav-title">今日下发命令数(次)</label>
-                        <p class="number">0</p>
-                    </div>
-                </li>
-            </ul>
+    <script src="/static/js/jquery.validate.min.js"></script>
+    <link href="/static/css/admin.css" rel="stylesheet" type="text/css"/>
+    <div class="device-overview-body">
+        <div style="margin-top: 21px;">
+            <div class="overview-nav">
+                <ul class="overview-ul">
+                    <li>
+                        <div class="li-item"><label class="overview-nav-title">设备总数(台)</label>
+                            <p class="number">{{ device_count }}</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="li-item"><label class="overview-nav-title">子系统数(个)</label>
+                            <p class="number">{{ system_count }}</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="li-item"><label class="overview-nav-title">今日推送消息(次)</label>
+                            <p class="number">{{ today_receive_data_count }}</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="li-item"><label class="overview-nav-title">今日下发命令(次)</label>
+                            <p class="number">{{ today_sent_data_count }}</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
-</div>
+
+    <div class="navigation" style="margin: 30px 20px 0 20px;text-align: center">平台数据</div>
+
+    <div class="system-wrap">
+        <div class="item">
+            <div class="s-header">
+                <h1>各子系统占比</h1>
+            </div>
+            <div id="system_container"></div>
+        </div>
+        <div class="item" style="margin-left: 20px;">
+            <div class="s-header">
+                <h1>子系统设备数</h1>
+            </div>
+            <div id="device_container"></div>
+        </div>
+    </div>
+
+    <div class="navigation" style="margin: 30px 20px 20px 20px;text-align: center">系统概况</div>
+
+    {% if system_list %}
+        {% for system in system_list %}
+            <div class="baseinfo">
+                <div class="grid">
+                    <div class="baseinfo-user">
+                        <h2>{{ system.name }}</h2>
+                        <span>{{ system.platform }}</span>
+                        <a onclick="loadingIn()"
+                           href="/system/{{ username }}/{{ system.platform }}/{{ system.id }}">详情</a>
+                        <a onclick="loadingIn()"
+                           href="/system/{{ username }}/{{ system.platform }}/{{ system.id }}">删除</a>
+                    </div>
+                    <div class="baseinfo-aid">
+                        <h3>所属域</h3>
+                        <span>{{ system.domain.name }}</span>
+                    </div>
+                    <div class="baseinfo-uid">
+                        <h3>系统ID</h3>
+                        <span>{{ system.id }}</span>
+                    </div>
+                    <div class="baseinfo-subuser">
+                        <h3>设备注册码</h3>
+                        <span>{{ system.devicecode }}</span>
+                    </div>
+                    <div class="baseinfo-system">
+                        <h3>接入协议</h3>
+                        <span>{{ system.protocol }}</span>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="navigation"
+             style="margin: 30px 20px 0 20px;text-align: center;color: #666;font-weight: 500;height: 180px;line-height: 180px">
+            <span>无可管理的子系统</span>
+            <a style="color: #24bdfd;">请先创建子系统或获得管理权限</a>
+        </div>
+    {% endif %}
+
+    <div class="navigation" style="margin: 0 20px 0 20px;text-align: center; height: 108px;line-height: 108px">
+        <a class="create-system" onclick="loadingIn(),createShow()">
+            <i class="fa fa-globe"></i>
+            <span style="margin-left: 4px;">创建子系统</span>
+        </a>
+    </div>
+
+    <div class="change" id="create">
+        <div class="change-table">
+            <a class="change-table-close" onclick="loadingIn(),closeChange(this)"><i class="fa fa-times"></i></a>
+            <div class="change-table-header">创建子系统</div>
+            <div class="change-table-form">
+                <div>
+                    <form>
+                        {% csrf_token %}
+                        <p>子系统信息</p>
+                        <div style="margin-bottom: 24px">
+                            <label class="form-item">子系统名:</label>
+                            <div class="form-input">
+                                <input type="text" placeholder="请输入子系统名" onclick="reWaring(this)"
+                                       onblur="get_error(this)"
+                                       id="name"
+                                       name="name">
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 24px">
+                            <label class="form-item">系统平台:</label>
+                            <div class="form-input">
+                                <select id="platform" name="platform" onclick="reWaring(this)" onchange="showtype()">
+                                    <option value="Jinger">Jinger智能井盖系统</option>
+                                    <option value="Detritus">Detritus智能垃圾处理系统</option>
+                                    <option value="Lumiere">Lumiere智能路灯系统</option>
+                                    <option value="Parquer">Parquer智能停车系统</option>
+                                    <option value="Other">自定义系统</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 24px">
+                            <label class="form-item">数据模板:</label>
+                            <div class="form-input">
+                                <input type="text" placeholder="请输入按格式输入数据模板" onclick="reWaring(this)"
+                                       onblur="get_error(this)"
+                                       id="type"
+                                       name="type"
+                                       value="（‘Lon’,'Lat','Switch','Cycle','Turn',）">
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 24px">
+                            <label class="form-item">接入协议:</label>
+                            <div class="form-input">
+                                <input type="text" placeholder="请选择接入协议" id="protocol" name="protocol" value="CoAP"
+                                       readonly>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="change-table-footer">
+                <button class="sent" onclick="createSys()"><span>确定</span></button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/js/admin.js"></script>
+    <script src="/static/plugins/highcharts/highcharts.js"></script>
+    <script src="/static/plugins/highcharts/exporting.js"></script>
+    <script src="/static/plugins/highcharts/highcharts-zh_CN.js"></script>
+    <script src="/static/plugins/highcharts/grid-light.js"></script>
+    <script src="/static/plugins/highcharts/highcharts-more.js"></script>
+    <script>
+        Highcharts.chart('system_container', {
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            title: null,
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            legend: {
+                itemDistance: 10
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: false
+                    },
+                    showInLegend: true
+                }
+            },
+            series: [{
+                name: '子系统占比',
+                colorByPoint: true,
+                data: [
+                    {% for type,count in system_type_dict.items %}
+                        {
+                            name: '{{ type }}',
+                            y: {{ count }},
+                        },
+                    {% endfor %}
+                ]
+            }]
+        });
+        Highcharts.chart('device_container', {
+            title: {
+                text: null
+            },
+            subtitle: {
+                alignTicks: true,
+                text: null
+            },
+            xAxis: {
+                gridLineWidth: 0,
+                categories: ['Jinger', 'Detritus', 'Lumiere', 'Parquer', 'Other'],
+
+            },
+            yAxis: {
+                title: {
+                    text: "设备数"
+                },
+            },
+            chart: {
+                type: 'line'
+            },
+            series: [{
+                name: '设备数',
+                type: 'column',
+                colorByPoint: true,
+                data: [
+                    {% for type,count in device_count_dict.items %}
+                        {{ count }},
+                    {% endfor %}
+                ],
+                showInLegend: false
+            }]
+        });
+
+
+    </script>
 {% endblock %}

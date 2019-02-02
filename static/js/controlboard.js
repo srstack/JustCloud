@@ -1,3 +1,4 @@
+// 用户管理下拉框
 function adminList() {
     if (!$('.header .header-body .header-user .login-ul .h-u-h-c-b').hasClass('show')) {
         $('.header .header-body .header-user .login-ul .h-u-h-c-b').addClass('show');
@@ -6,10 +7,12 @@ function adminList() {
     }
 }
 
+// 关闭用户管理下拉框
 function reList() {
     $('.header .header-body .header-user .login-ul .h-u-h-c-b').removeClass('show')
 }
 
+// 小飞机回到顶部
 function showReposBtn() {
     var clientHeight = $(window).height() / 2;
     var scroll = $(document).scrollTop();
@@ -26,6 +29,7 @@ window.onscroll = function () {
     showReposBtn();
 };
 
+// 删除其余子元素的active类
 function chosed(that) {
     that.firstElementChild.classList.add('active');
     $(that).parent().siblings().children('li').children('a.active').removeClass('active');
