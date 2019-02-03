@@ -83,35 +83,31 @@ def register(request):
                     # 域存在
                     return HttpResponse('333')
                 else:
-                    username = Users.objects.filter(username=reg_username)
+                    username = Users.objects.filter(phone=reg_tel)
                     if username:
-                        # 用户存在
-                        return HttpResponse('444')
+                        # 手机号存在
+                        return HttpResponse('777')
                     else:
-                        username = Users.objects.filter(phone=reg_tel)
+                        username = Users.objects.filter(email=reg_email)
                         if username:
-                            # 手机号存在
-                            return HttpResponse('777')
+                            # 邮箱存在
+                            return HttpResponse('888')
                         else:
-                            username = Users.objects.filter(email=reg_email)
-                            if username:
-                                # 邮箱存在
-                                return HttpResponse('888')
-                            else:
-                                password = hashlib.sha1(reg_pwd.encode(encoding='utf8')).hexdigest()
-                                Domain.objects.create(name=reg_domain, city=reg_city, province=reg_province,
-                                                      country=reg_country)
-                                domain_obj = Domain.objects.get(name=reg_domain)
-                                Users.objects.create(username=reg_username, password=password, name=reg_name,
-                                                     domain=domain_obj,
-                                                     phone=reg_tel, email=reg_email)
-                                user_obj = Users.objects.get(username=reg_username)
-                                request.session['IS_LOGIN'] = True
-                                request.session['USERNAME'] = reg_username
-                                request.session['DOMAIN_ID'] = domain_obj.id
-                                Operation.objects.create(code=101, user=user_obj)
-                                Login.objects.create(user=user_obj, operation='IN', IP=request.META['REMOTE_ADDR'])
-                                return HttpResponse('666')
+                            password = hashlib.sha1(reg_pwd.encode(encoding='utf8')).hexdigest()
+                            Domain.objects.create(name=reg_domain, city=reg_city, province=reg_province,
+                                                  country=reg_country)
+                            domain_obj = Domain.objects.get(name=reg_domain)
+                            Users.objects.create(username=reg_username, password=password, name=reg_name,
+                                                 domain=domain_obj,
+                                                 phone=reg_tel, email=reg_email)
+                            user_obj = Users.objects.get(username=reg_username)
+                            request.session['IS_LOGIN'] = True
+                            request.session['USERNAME'] = reg_username
+                            request.session['DOMAIN_ID'] = domain_obj.id
+                            Operation.objects.create(code=101, user=user_obj)
+                            Operation.objects.create(code=900, user=user_obj)
+                            Login.objects.create(user=user_obj, operation='IN', IP=request.META['REMOTE_ADDR'])
+                            return HttpResponse('666')
             else:
                 # 激活码错误
                 return HttpResponse('555')

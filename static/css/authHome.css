@@ -5,7 +5,6 @@
 
 .wrapper .systemlist .system-table {
     position: relative;
-    border: 1px solid #dcdee2;
     border-bottom: 0;
     border-right: 0;
 }
@@ -22,8 +21,7 @@
 }
 
 .t-header > table > thead > tr > th {
-    border-bottom: 1px solid #eee;
-    height: 50px;
+    height: 60px;
     background-color: #fff;
     white-space: nowrap;
     overflow: hidden;
@@ -53,9 +51,9 @@
 }
 
 .t-body > table > tbody > tr > td {
-    border-bottom: 1px solid #eee;
-    height: 55px;
-    color: #666;
+    border-bottom: 1px solid #f5f6f7;
+    height: 72px;
+    color: #303030;
     background-color: #fff;
     text-align: center;
 }
@@ -71,7 +69,7 @@
 }
 
 .authadmin {
-    margin: 20px 20px 0 20px;
+    margin: 10px 20px 0 20px;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -89,7 +87,7 @@
     flex: 1;
     border: 1px solid #eee;
     margin-left: 5%;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
     padding: 30px;
     background: #fff;
     float: left;
@@ -145,7 +143,7 @@
     height: 36px;
     width: 56%;
     font-size: 14px;
-    border-radius: 2px;
+    border-radius: 16px;
     outline: none;
 }
 
@@ -194,7 +192,8 @@
 }
 
 #remove .grid .reuser-table .re-footer {
-    padding: 10px 0;
+    padding-top: 10px;
+    padding-bottom: 24px;
     position: relative;
     text-align: center;
 }

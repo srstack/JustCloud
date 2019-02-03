@@ -32,6 +32,7 @@ urlpatterns = [
     path('home/', keystone.home_no, name='home_no'),
     path('admin/<username>/', keystone.mainAdmin, name='mainAdmin'),
     path('admin/<username>/systemcreate/', keystone.systemCreate, name='systemCreate'),
+    path('admin/<username>/systemremove/', keystone.systemRemove, name='systemRemove'),
     path('admin/<username>/device/', keystone.deviceAdmin, name='deviceAdmin'),
     path('home/<username>/', keystone.mainHome, name='mainHome'),
     path('home/<username>/auth/', keystone.authHome, name='authHome'),

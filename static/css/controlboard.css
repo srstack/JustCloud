@@ -395,11 +395,12 @@ ul {
     position: relative;
     padding: 0 40px;
     vertical-align: middle;
-    height: 50px;
+    height: 66px;
     color: #333;
     font-size: 14px;
     font-weight: 600;
-    line-height: 50px;
+    line-height: 66px;
+    border-radius: 3px;
 }
 
 .footer {

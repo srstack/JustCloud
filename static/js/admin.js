@@ -8,6 +8,7 @@ function get_error(that) {
     }
 }
 
+// 显示创建系统界面
 function createShow() {
     loadingOut();
     $('#create').css('display', 'block')
@@ -25,24 +26,26 @@ function reWaring(that) {
     }
 }
 
+// 自动生成模板
 function showtype() {
     if ($('#platform').val() === 'Jinger') {
         $('#type').val('(\'Lon\',\'Lat\',\'Switch\',\'Cycle\',\'Turn\',)')
     }
     else if ($('#platform').val() === 'Detritus') {
-        $('#type').val('（\'Lon\',\'Lat\',\'Switch\',\'Cycle\',\'Full\',)')
+        $('#type').val('(\'Lon\',\'Lat\',\'Switch\',\'Cycle\',\'Full\',)')
     }
     else if ($('#platform').val() === 'Lumiere') {
-        $('#type').val('（\'Lon\',\'Lat\',\'Switch\',\'Cycle\',\'Switch-Light\',\'Top-Light\',\'Bottom-Light\',)')
+        $('#type').val('(\'Lon\',\'Lat\',\'Switch\',\'Cycle\',\'Switch-Light\',\'Top-Light\',\'Bottom-Light\',)')
     }
     else if ($('#platform').val() === 'Parquer') {
-        $('#type').val('（\'Lon\',\'Lat\',\'Switch\',\'Cycle\',\'Park\',)')
+        $('#type').val('(\'Lon\',\'Lat\',\'Switch\',\'Cycle\',\'Park\',)')
     }
     else {
         $('#type').val('(\'\',)')
     }
 }
 
+// ajax创建系统
 function createSys() {
     var Status = true;
     var reg_value = $('#create .change-table .change-table-form > div > form').serializeArray();
@@ -93,3 +96,42 @@ function createSys() {
     }
 }
 
+//显示删除系统界面
+function showreSys(that) {
+    loadingOut();
+    var sys_id = $(that).attr('id');
+    $('#remove').attr('sid', sys_id);
+    $('#remove .grid .re-body div .id').html(sys_id);
+    $('#remove').css('display', 'block')
+}
+
+function reClose() {
+    loadingOut();
+    $('#remove').css('display', 'none');
+}
+
+// 删除系统
+function removeSystem() {
+    var s_id = $('#remove').attr('sid');
+    $.ajax({
+        url: 'systemremove/',
+        type: 'POST',
+        data: {
+            'sid': s_id,
+            "csrfmiddlewaretoken": $("[name = 'csrfmiddlewaretoken']").val()
+        },
+        success: function (data) {
+            if (data === '666') {
+                loadingOut();
+                window.location.href = "/admin/";
+            }
+            else if (data === '555') {
+                loadingOut();
+                $('#remove .grid .re-body div').html('无权限删除').css('color', 'red');
+                setTimeout(function () {
+                    window.location.reload();
+                }, 1000);
+            }
+        }
+    })
+}

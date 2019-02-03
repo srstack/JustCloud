@@ -62,6 +62,7 @@ class Data(models.Model):
     data = models.CharField(max_length=200, verbose_name="设备数据", null=False)
     date = models.DateTimeField(verbose_name="接收时间", auto_now_add=True)
     model = models.BooleanField(verbose_name="推送/下发", default=0)
+
     # 0:推送 1:下发
 
     def __str__(self):
@@ -88,6 +89,7 @@ class Operation(models.Model):
 
     '''
     operation_code = {
+    900:"创建域",
     100:"修改域",
     101:"创建用户",
     102:"删除用户",

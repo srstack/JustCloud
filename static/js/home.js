@@ -361,11 +361,14 @@ function removeuser() {
         success: function (data) {
             if (data === '666') {
                 loadingOut();
-                window.location.href = "/home/";
+                window.location.href = "/admin/";
             }
             else if (data === '555') {
                 loadingOut();
-                $('#remove .grid .re-body div').html('无权限删除');
+                $('#remove .grid .re-body div').html('无权限删除').css('color','red');
+                setTimeout(function () {
+                        window.location.reload();
+                    }, 1000);
             }
         }
     })

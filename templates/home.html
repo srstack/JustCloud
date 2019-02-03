@@ -51,11 +51,11 @@
             </div>
             <div class="domaninfo-name">
                 <label>创建时间</label>
-                <h2 style="font-size:12px">{{ domain.date|date:"Y-m-d H:i:s" }}</h2>
+                <h2 style="font-size:13px">{{ domain.date|date:"Y-m-d H:i:s" }}</h2>
             </div>
             <div class="domaninfo-name" id="domainplace">
                 <label>所在地</label>
-                <h2 style="font-size:12px">{{ domain.country }}-{{ domain.province }}-{{ domain.city }}</h2>
+                <h2 style="font-size:13px">{{ domain.country }}-{{ domain.province }}-{{ domain.city }}</h2>
             </div>
             <div class="domaninfo-chenge">
                 <a onclick="loadingIn(),changeDoman()">
@@ -88,7 +88,7 @@
                 <table style="width: 100%;table-layout: fixed;">
                     <thead>
                     <tr>
-                        <th>
+                        <th style="width:12%">
                             <div>
                                 <span>用户ID</span>
                             </div>
@@ -128,7 +128,7 @@
                         <tbody>
                         {% for user in sub_user %}
                             <tr>
-                                <td>
+                                <td style="width:12%">
                                     <div><span>{{ user.id }}</span></div>
                                 </td>
                                 <td>
@@ -296,10 +296,11 @@
                 </div>
                 <div class="re-body" style="position: relative;padding: 32px;">
                     {% csrf_token %}
-                    <div>确定要删除ID为<span class="id"></span><span>用户吗？</span></div>
+                    <div>确定要删除ID为<span class="id"></span><span>的用户吗？</span></div>
                 </div>
                 <div class="re-footer">
-                    <button type="button" onclick="loadingIn();removeuser()">确定</button>
+                    <button type="button" onclick="loadingIn();removeuser()" style="background-color: #eb3c22">确定
+                    </button>
                     <button type="button" onclick="loadingIn();reClose()">取消</button>
                 </div>
             </div>

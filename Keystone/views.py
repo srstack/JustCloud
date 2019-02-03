@@ -4,6 +4,7 @@ import hashlib
 import datetime
 import random
 
+
 # 生成设备注册码
 def createCode():
     code = ''.join(random.sample(
@@ -143,9 +144,8 @@ def systemCreate(request, username):
                 type = request.POST.get('type')
                 protocol = request.POST.get('protocol')
                 code = createCode()
-                print(code)
                 # 判断模板
-                if str(type).startswith('（\'Lon\',\'Lat\',\'Switch\',\'Cycle\','):
+                if str(type).startswith('(\'Lon\',\'Lat\',\'Switch\',\'Cycle\','):
                     if System.objects.filter(domain_id=request.session.get('DOMAIN_ID'), name=name):
                         return HttpResponse('444')
                     else:
@@ -154,15 +154,54 @@ def systemCreate(request, username):
                                               domain_id=request.session.get('DOMAIN_ID'), createuser=user_obj,
                                               devicecode=code)
                         # 增加管理权限
-                        System.objects.filter(name=name, domain_id=request.session.get('DOMAIN_ID'))[0].admin.add(
-                            user_obj)
+                        admin_user = user_obj
+                        while True:
+                            if admin_user.rely:
+                                System.objects.filter(name=name, domain_id=request.session.get('DOMAIN_ID'))[
+                                    0].admin.add(admin_user, admin_user.rely)
+                                admin_user = admin_user.rely
+                            else:
+                                System.objects.filter(name=name, domain_id=request.session.get('DOMAIN_ID'))[
+                                    0].admin.add(admin_user)
+                                break
                         # 操作记录
                         Operation.objects.create(code=202, user=user_obj)
                     return HttpResponse('666')
                 else:
                     return HttpResponse('222')
             else:
-                return redirect('/home/' + request.session.get('USERNAME'))
+                return redirect('/admin/' + request.session.get('USERNAME'))
+        else:
+            return redirect('/')
+    else:
+        return redirect('/')
+
+
+def systemRemove(request, username):
+    if request.method == 'POST':
+        is_login = request.session.get('IS_LOGIN', False)
+        if is_login:
+            if request.session.get('USERNAME') == username:
+                # 判断是否为此用户
+                sid = request.POST.get('sid')
+                # 用户对象
+                user_obj = Users.objects.filter(username=username, domain_id=request.session.get('DOMAIN_ID'))[0]
+                # 系统对象
+                sys_obj = System.objects.filter(id=sid)[0]
+                print(sys_obj.createuser, user_obj)
+
+                # 确定是否有权限删除系统（创建者或者管理员用户）
+                if sys_obj.createuser == user_obj or not user_obj.rely:
+                    # 删除子用户
+                    sys_obj.admin.clear()
+                    sys_obj.delete()
+                    Operation.objects.create(
+                        code=203, user=user_obj)
+                    return HttpResponse('666')
+                else:
+                    return HttpResponse('555')
+            else:
+                return redirect('/admin/' + request.session.get('USERNAME'))
         else:
             return redirect('/')
     else:
@@ -359,12 +398,14 @@ def userRemove(request, username):
                 sub_id = request.POST.get('id')
                 # 子用户对象
                 sub_obj = Users.objects.filter(
-                    id=sub_id, rely=Users.objects.filter(username=username)[0])
+                    id=sub_id,
+                    rely=Users.objects.filter(username=username, domain_id=request.session.get('DOMAIN_ID'))[0])
                 if sub_obj:
                     # 删除子用户
                     sub_obj.delete()
                     Operation.objects.create(
-                        code=102, user=Users.objects.filter(username=username)[0])
+                        code=102,
+                        user=Users.objects.filter(username=username, domain_id=request.session.get('DOMAIN_ID'))[0])
                     return HttpResponse('666')
                 else:
                     # 不属于user管理
@@ -387,13 +428,15 @@ def adminRemove(request, username):
                 # 获得post数据
                 sub_id = request.POST.get('uid')
                 sys_id = request.POST.get('sid')
-                # 系统对象
+                # 下级用户对象
                 sub_obj = Users.objects.filter(
-                    id=sub_id, rely=Users.objects.filter(username=username)[0])
+                    id=sub_id,
+                    rely=Users.objects.filter(username=username, domain_id=request.session.get('DOMAIN_ID'))[0])
                 if sub_obj:
                     # 删除管理权限
                     sub_obj[0].system.remove(sys_id)
-                    Operation.objects.create(code=205, user=Users.objects.filter(username=username)[0])
+                    Operation.objects.create(code=205, user=
+                    Users.objects.filter(username=username, domain_id=request.session.get('DOMAIN_ID'))[0])
                     return HttpResponse('666')
                 else:
                     return HttpResponse('555')
@@ -522,6 +565,7 @@ def passwordChange(request, username):
                     del request.session['DOMAIN_ID']
                     request.session['IS_LOGIN'] = False
                     # 记录操作
+                    Operation.objects.create(code=103, user=user_obj)
                     Login.objects.create(user=user_obj, operation='OUT', IP=request.META['REMOTE_ADDR'])
                     return HttpResponse('666')
                 else:

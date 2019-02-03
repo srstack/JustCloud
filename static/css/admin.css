@@ -103,16 +103,6 @@
 
 .content .wrapper .baseinfo {
     margin: 0 20px 0 20px;
-    border-top: 1px solid #eee;
-    border-bottom: 1px solid #eee;
-    background-color: #fff;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-}
-
-.content .wrapper .domaninfo, .content .wrapper .usersinfo {
-    margin: 20px 20px 0 20px;
-    border-top: 1px solid #eee;
     border-bottom: 1px solid #eee;
     background-color: #fff;
     -webkit-box-sizing: border-box;
@@ -140,14 +130,13 @@
 .content .wrapper .baseinfo .grid .baseinfo-user {
     position: relative;
     display: inline-block;
-    width: 25%;
+    width: 28%;
     -webkit-box-flex: 0;
     flex-grow: 0;
     height: 100%;
     padding-left: 40px;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
-    border-right: 1px solid #f3f4f5;
 }
 
 .content .wrapper .baseinfo .grid .baseinfo-user > h2 {
@@ -185,7 +174,6 @@
 }
 
 .content .wrapper .baseinfo .grid .baseinfo-aid, .content .wrapper .baseinfo .grid .baseinfo-uid, .content .wrapper .baseinfo .grid .baseinfo-subuser, .content .wrapper .baseinfo .grid .baseinfo-system {
-    border-right: 1px solid #f3f4f5;
     text-align: center;
     line-height: 100%;
     width: 20%;
@@ -440,3 +428,58 @@ select {
     border-color: #57a2ff;
 }
 
+#remove .grid .reuser-table {
+    position: relative;
+    background-color: #fff;
+    border-radius: 18px;
+    border: 1px solid #fff;
+}
+
+#remove .grid .reuser-table .re-header {
+    padding: 10px;
+}
+
+#remove .grid .reuser-table .re-header .re-title {
+    text-align: center;
+    margin-top: 8px;
+    color: black;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+#remove .grid .reuser-table .re-body {
+    text-align: center;
+    font-size: 15px;
+    color: #585858;
+}
+
+#remove .grid .reuser-table .re-footer {
+    padding-top: 10px;
+    padding-bottom: 24px;
+    position: relative;
+    text-align: center;
+}
+
+#remove .grid .reuser-table .re-footer > button {
+    font-size: 14px;
+    width: 72px;
+    height: 32px;
+    cursor: pointer;
+    font-family: "Microsoft YaHei", sans-serif;
+    font-weight: 400;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    background-color: #00c0f1;
+    color: #fff;
+    border-width: 0;
+    transition: all .2s ease-in;
+    border-radius: 12px;
+    margin: 0 12px;
+}
+
+#remove .grid .reuser-table .re-footer > button:hover, #remove .grid .reuser-table .re-footer > button:focus {
+    background-color: #24bdfd;
+    border: 0;
+    outline: none;
+}

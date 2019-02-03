@@ -97,13 +97,13 @@
 }
 
 .content .wrapper .domaninfo {
-    height: 120px;
+    height: 125px;
 }
 
 .content .wrapper .domaninfo .grid .domaninfo-name {
     height: 57px;
     border-right: 1px solid #f4f5f6;
-    margin-top: 32px;
+    margin-top: 36px;
     font-size: 12px;
     font-weight: 300;
     color: #666;
@@ -129,7 +129,7 @@
 
 .content .wrapper .domaninfo .grid .domaninfo-chenge > a {
     padding-left: 18px;
-    margin: 40px 0 40px 80px;
+    margin: 45px 0 40px 80px;
     color: #fff;
     background-color: #57a2ff;
     border-color: #57a2ff;
@@ -366,7 +366,6 @@ select {
 
 .wrapper .userlist .user-table {
     position: relative;
-    border: 1px solid #dcdee2;
     border-bottom: 0;
     border-right: 0;
 }
@@ -383,8 +382,7 @@ select {
 }
 
 .t-header > table > thead > tr > th {
-    border-bottom: 1px solid #eee;
-    height: 50px;
+    height: 60px;
     background-color: #fff;
     white-space: nowrap;
     overflow: hidden;
@@ -414,9 +412,9 @@ select {
 }
 
 .t-body > table > tbody > tr > td {
-    border-bottom: 1px solid #eee;
-    height: 55px;
-    color: #666;
+    border-bottom: 1px solid #f5f6f7;
+    height: 76px;
+    color: #303030;
     background-color: #fff;
     text-align: center;
 }
@@ -472,7 +470,8 @@ select {
 }
 
 #remove .grid .reuser-table .re-footer {
-    padding: 10px 0;
+    padding-top: 10px;
+    padding-bottom: 24px;
     position: relative;
     text-align: center;
 }

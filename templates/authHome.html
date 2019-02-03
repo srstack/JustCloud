@@ -57,7 +57,11 @@
                                     <div><span>{{ system.name }}</span></div>
                                 </td>
                                 <td>
-                                    <div><span>{{ system.createuser.name }}</span></div>
+                                    {% if system.createuser %}
+                                        <div><span>{{ system.createuser.name }}</span></div>
+                                    {% else %}
+                                        <div><span>创建者已被删除</span></div>
+                                    {% endif %}
                                 </td>
                                 <td>
                                     <div><span>{{ system.platform }}</span></div>
@@ -105,8 +109,10 @@
                             <div class="i-body">
                                 <ul>
                                     {% for system in sub.system.all %}
-                                        <li><i class="fa fa-viacoin" aria-hidden="true"></i><span>{{ system.name }}</span>
-                                            <a  onclick="loadingIn(),showRemove(this)"  sid={{ system.id }}  uid={{ sub.id }}>删除</a>
+                                        <li><i class="fa fa-viacoin"
+                                               aria-hidden="true"></i><span>{{ system.name }}</span>
+                                            <a onclick="loadingIn(),showRemove(this)"
+                                               sid={{ system.id }}  uid={{ sub.id }}>删除</a>
                                         </li>
                                     {% endfor %}
                                 </ul>
@@ -120,9 +126,14 @@
                         {% endif %}
                         <div class="i-footer">
                             {% if system_count > 0 %}
-                                <button onclick="loadingIn(),showAdd(this)" id={{ sub.id }} uid={{ sub.id }} uname={{ sub.name }} uuname="{{ sub.username }}"><i class="fa fa-openid" aria-hidden="true"></i><span>添加</span></button>
+                                <button onclick="loadingIn(),showAdd(this)" id={{ sub.id }} uid={{ sub.id }}
+                                        uname={{ sub.name }} uuname="{{ sub.username }}"><i class="fa fa-openid"
+                                                                                            aria-hidden="true"></i><span>添加</span>
+                                </button>
                             {% else %}
-                                 <button style="background-color: #eb3c22" uid={{ sub.id }} uname={{ sub.name }} uuname="{{ sub.username }}"><i class="fa fa-openid" aria-hidden="true"></i>无可选择的子系统</button>
+                                <button style="background-color: #eb3c22" uid={{ sub.id }} uname={{ sub.name }}
+                                        uuname="{{ sub.username }}"><i class="fa fa-openid" aria-hidden="true"></i>无可选择的子系统
+                                </button>
                             {% endif %}
                         </div>
                     </li>
@@ -200,7 +211,8 @@
                     <div>确定要删除对<span></span>的管理权限吗？</div>
                 </div>
                 <div class="re-footer">
-                    <button type="button" onclick="loadingIn();adminRemove()">确定</button>
+                    <button type="button" onclick="loadingIn();adminRemove()" style="background-color: #eb3c22">确定
+                    </button>
                     <button type="button" onclick="loadingIn();reClose()">取消</button>
                 </div>
             </div>

@@ -18,13 +18,13 @@
     box-sizing: border-box;
     display: block;
     width: 100%;
-    min-height: 66px;
+    min-height: 72px;
     border-top: 1px dashed #eee;
 }
 
 .content .content-item .item-label {
     width: 88px;
-    line-height: 66px;
+    line-height: 72px;
     float: left;
 }
 
@@ -43,7 +43,7 @@
     box-sizing: border-box;
     display: block;
     width: 400px;
-    height: 66px;
+    height: 72px;
     padding-left: 56px;
     border-radius: 0;
 }
