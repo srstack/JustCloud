@@ -100,7 +100,7 @@ def register(request):
                             Users.objects.create(username=reg_username, password=password, name=reg_name,
                                                  domain=domain_obj,
                                                  phone=reg_tel, email=reg_email)
-                            user_obj = Users.objects.get(username=reg_username)
+                            user_obj = Users.objects.get(username=reg_username, domain=domain_obj)
                             request.session['IS_LOGIN'] = True
                             request.session['USERNAME'] = reg_username
                             request.session['DOMAIN_ID'] = domain_obj.id
@@ -115,7 +115,7 @@ def register(request):
 
 def logout(request):
     request.session['IS_LOGIN'] = False
-    user_obj = Users.objects.get(username=request.session.get('USERNAME'))
+    user_obj = Users.objects.get(username=request.session.get('USERNAME'), domain_id=request.session.get('DOMAIN_ID'))
     del request.session['USERNAME']
     del request.session['DOMAIN_ID']
     Login.objects.create(user=user_obj, operation='OUT', IP=request.META['REMOTE_ADDR'])
