@@ -33,12 +33,13 @@ function adminRemove(that) {
                 window.location.reload()
             }
             else if (data === '555') {
-                loadingOut();
-                $('#remove .grid .re-body div').html('无权限删除');
+                $('#remove .grid .re-body div').html('无权限删除').css('color', 'red');
+                setTimeout(function () {
+                    window.location.reload();
+                }, 1000);
             }
         }
     })
-
 }
 
 // 显示添加权限界面

@@ -63,7 +63,6 @@ function createSys() {
             data: $('#create .change-table .change-table-form > div > form').serialize(),
             success: function (data) {
                 if (data === '666') {
-                    loadingOut();
                     $('#create').css('display', 'none');
                     $('.create-system').css('background-color', '#38B259').css('border-color', '#38B259');
                     $('.create-system>span').html('创建成功');
@@ -122,11 +121,9 @@ function removeSystem() {
         },
         success: function (data) {
             if (data === '666') {
-                loadingOut();
                 window.location.href = "/admin/";
             }
             else if (data === '555') {
-                loadingOut();
                 $('#remove .grid .re-body div').html('无权限删除').css('color', 'red');
                 setTimeout(function () {
                     window.location.reload();

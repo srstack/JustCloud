@@ -34,3 +34,9 @@ function chosed(that) {
     that.firstElementChild.classList.add('active');
     $(that).parent().siblings().children('li').children('a.active').removeClass('active');
 }
+
+// 关闭警告页面
+function waringClose() {
+    loadingOut();
+    $('#device_waring').css('display','none')
+}

@@ -63,14 +63,15 @@
 
 <div class="content">
     <div class="wrapper">
-        <div  id="top" class="navigation" style=" border-radius:0">{{ exhibition_name }}</div>
+        <div id="top" class="navigation" style=" border-radius:0">{{ exhibition_name }}</div>
         {% block wrapper %}
         {% endblock %}
     </div>
 </div>
 
 <div class="footer">
-    <a target="_blank" href="https://www.google.com/"><img src="https://cdn.jsdelivr.net/gh/moezx/cdn@3.0.8/img/logo/Google.svg" style="width: 70px;"></a>
+    <a target="_blank" href="https://www.google.com/"><img
+            src="https://cdn.jsdelivr.net/gh/moezx/cdn@3.0.8/img/logo/Google.svg" style="width: 70px;"></a>
     <p>联系我们：QQ-732616469/QQ-980830593/QQ-2750895964</p>
     <p>Copyright©2019 JustCloud 版权所有 蜀ICP备17013721号</p>
 </div>
@@ -80,6 +81,29 @@
 <div class="suspension">
     <a href="#top"><span class="fa fa-paper-plane" aria-hidden="true"></span></a>
 </div>
+
+{% if waring_system_list %}
+    <div class="change" id="device_waring" style="display: block">
+        <div class="grid" style="width: 300px; margin: 148px auto">
+            <div class="reuser-table">
+                <div class="re-header">
+                    <a class="change-table-close" style="float: right;color: #b0b0b0"
+                       onclick="loadingIn(),waringClose()"><i
+                            class="fa fa-times"></i></a>
+                    <div class="re-title " style="color: #eb3c22">警告</div>
+                </div>
+                <div class="re-body" style="position: relative;padding: 32px;">
+                    <div>设备存在异常！</div>
+                </div>
+                <div class="re-footer">
+                    <button type="button" onclick="loadingIn();waringClose()" style="background-color: #eb3c22">确定
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}
+
 <script src="/static/js/controlboard.js"></script>
 </body>
 </html>

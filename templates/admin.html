@@ -8,18 +8,19 @@
 {% block wrapper %}
     <script src="/static/js/jquery.validate.min.js"></script>
     <link href="/static/css/admin.css" rel="stylesheet" type="text/css"/>
+
     <div class="device-overview-body">
         <div style="margin-top: 21px;">
             <div class="overview-nav">
                 <ul class="overview-ul">
                     <li>
-                        <div class="li-item"><label class="overview-nav-title">设备总数(台)</label>
-                            <p class="number">{{ device_count }}</p>
+                        <div class="li-item"><label class="overview-nav-title">子系统数(个)</label>
+                            <p class="number">{{ system_count }}</p>
                         </div>
                     </li>
                     <li>
-                        <div class="li-item"><label class="overview-nav-title">子系统数(个)</label>
-                            <p class="number">{{ system_count }}</p>
+                        <div class="li-item"><label class="overview-nav-title">设备总数(台)</label>
+                            <p class="number">{{ device_count }}</p>
                         </div>
                     </li>
                     <li>
@@ -61,7 +62,11 @@
             <div class="baseinfo">
                 <div class="grid">
                     <div class="baseinfo-user">
-                        <h2>{{ system.name }}</h2>
+                        {% if system in waring_system_list %}
+                            <h2 style="color: #eb3c22">{{ system.name }}</h2>
+                        {% else %}
+                            <h2>{{ system.name }}</h2>
+                        {% endif %}
                         <span>{{ system.platform }}</span>
                         <a onclick="loadingIn()"
                            href="/system/{{ username }}/{{ system.platform }}/{{ system.id }}">详情</a>
@@ -101,7 +106,7 @@
     <div class="navigation"
          style="margin: 0 20px 0 20px;text-align: center; height: 108px;line-height: 108px;border-radius:0">
         <a class="create-system" onclick="loadingIn(),createShow()">
-            <i class="fa fa-globe"></i>
+            <i class="fa fa-connectdevelop"></i>
             <span style="margin-left: 4px;">创建子系统</span>
         </a>
     </div>
@@ -175,7 +180,8 @@
                     <div>确定要删除ID为<span class="id"></span><span>的系统吗？</span></div>
                 </div>
                 <div class="re-footer">
-                    <button type="button" onclick="loadingIn();removeSystem()" style="background-color: #eb3c22">确定</button>
+                    <button type="button" onclick="loadingIn();removeSystem()" style="background-color: #eb3c22">确定
+                    </button>
                     <button type="button" onclick="loadingIn();reClose()">取消</button>
                 </div>
             </div>

@@ -190,7 +190,7 @@ function domainchange() {
             data: $('#domainchange .change-table .change-table-form > div > form').serialize(),
             success: function (data) {
                 if (data === '666') {
-                    loadingOut()
+                    loadingOut();
                     $('#domainchange').css('display', 'none');
                     $('.domaninfo .grid .domaninfo-chenge>a').css('background-color', '#38B259').css('border-color', '#38B259');
                     $('.domaninfo .grid .domaninfo-chenge>a>span').html('修改成功');
@@ -315,7 +315,6 @@ function useradd() {
             data: $('#usertable .change-table .change-table-form div form').serialize(),
             success: function (data) {
                 if (data === '666') {
-                    loadingOut();
                     window.location.href = "/home/";
                 }
                 else if (data === '444') {
@@ -360,11 +359,9 @@ function removeuser() {
         },
         success: function (data) {
             if (data === '666') {
-                loadingOut();
                 window.location.href = "/admin/";
             }
             else if (data === '555') {
-                loadingOut();
                 $('#remove .grid .re-body div').html('无权限删除').css('color','red');
                 setTimeout(function () {
                         window.location.reload();

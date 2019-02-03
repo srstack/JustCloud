@@ -167,7 +167,6 @@ function passwordChange() {
             data: $('#password-change .change-table .change-table-form div form').serialize(),
             success: function (data) {
                 if (data === '666') {
-                    loadingOut();
                     $('#password-change').css('display', 'none');
                     $('.i-footer>button').css('background-color', '#38B259').css('border-color', '#38B259');
                     $('.i-footer>button>span').html('修改成功');

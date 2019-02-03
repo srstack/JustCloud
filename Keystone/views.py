@@ -14,6 +14,21 @@ def createCode():
     return code
 
 
+# 异常状态函数
+def waringDevice(user_obj):
+    devices = []
+    system = []
+    waring_devices = []
+    for system_obj in user_obj.system.all():
+        for device_obj in system_obj.device.all():
+            devices.append(device_obj)
+    for device_obj in devices:
+        if device_obj.data.filter(waring=1).all():
+            system.append(device_obj.system)
+            waring_devices.append(device_obj)
+    return system, waring_devices
+
+
 # Create your views here.
 def home_no(request):
     is_login = request.session.get('IS_LOGIN', False)
@@ -42,6 +57,8 @@ def mainAdmin(request, username):
             # 判断是否为此用户
             # 拿到用户ORM对象
             user_obj = Users.objects.filter(username=username, domain_id=request.session.get('DOMAIN_ID'))[0]
+            # 有无异常设备
+            waring_system_list, waring_device_list = waringDevice(user_obj)
             user_name = user_obj.name
             first_name = user_name[0]
             # 确定header选中
@@ -63,7 +80,7 @@ def mainAdmin(request, username):
             system_list = System.objects.filter(admin=user_obj)
             # 系统个数
             system_count = system_list.count()
-
+            # 今日时间
             now_date = str(datetime.datetime.now().date())
             # 今日下发数据列表
             today_sent_data = []
@@ -93,7 +110,6 @@ def mainAdmin(request, username):
             for system_obj in system_list:
                 device_count_dict[str(system_obj.platform)] = device_count_dict[str(system_obj.platform)] + len(
                     system_obj.device.all())
-                print()
 
             return render(request, 'admin.html', locals())
         else:
@@ -109,6 +125,8 @@ def deviceAdmin(request, username):
             # 判断是否为此用户
             # 拿到用户ORM对象
             user_obj = Users.objects.filter(username=username, domain_id=request.session.get('DOMAIN_ID'))[0]
+            # 有无异常设备
+            waring_system_list, waring_device_list = waringDevice(user_obj)
             user_name = user_obj.name
             first_name = user_name[0]
             # 确定header选中
@@ -118,15 +136,66 @@ def deviceAdmin(request, username):
             # 主体栏显示的部分
             exhibition_name = '设备管理'
 
+            # 系统列表
+            system_list = System.objects.filter(admin=user_obj)
             # 管理设备列表
             devices = []
             for system_obj in user_obj.system.all():
                 for device_obj in system_obj.device.all():
                     devices.append(device_obj)
 
+            # 设备总数
+            device_count = len(devices)
+
+            # 今日时间
+            now_date = str(datetime.datetime.now().date())
+
+            # 活跃设备数
+            device_active_count = 0
+            for device_obj in devices:
+                if device_obj.data.all():
+                    if str(device_obj.data.last().date).split()[0] == now_date:
+                        device_active_count = device_active_count + 1
+            # 异常设备数
+            device_waring_count = 0
+            for device_obj in devices:
+                if device_obj.data.filter(waring=1).all():
+                    device_waring_count = device_waring_count + 1
+
             return render(request, 'deviceAdmin.html', locals())
         else:
             return redirect('/admin/' + request.session.get('USERNAME') + '/device')
+    else:
+        return redirect('/')
+
+
+def deviceRemove(request, username):
+    if request.method == 'POST':
+        is_login = request.session.get('IS_LOGIN', False)
+        if is_login:
+            if request.session.get('USERNAME') == username:
+                # 判断是否为此用户
+                did = request.POST.get('did')
+
+                user_obj = Users.objects.filter(username=username, domain_id=request.session.get('DOMAIN_ID'))[0]
+                # 设备对象
+                device_obj = Device.objects.filter(id=did)[0]
+
+                # 判断是否有管理权限(系统创建者和管理员)
+                if device_obj.system.createuser == user_obj or not user_obj.rely:
+                    # 删除设备
+                    device_obj.delete()
+                    Operation.objects.create(
+                        code=303,
+                        user=user_obj)
+                    return HttpResponse('666')
+                else:
+                    # 不属于user管理
+                    return HttpResponse('555')
+            else:
+                return redirect('/admin/' + request.session.get('USERNAME') + '/device/')
+        else:
+            return redirect('/')
     else:
         return redirect('/')
 
@@ -188,7 +257,6 @@ def systemRemove(request, username):
                 user_obj = Users.objects.filter(username=username, domain_id=request.session.get('DOMAIN_ID'))[0]
                 # 系统对象
                 sys_obj = System.objects.filter(id=sid)[0]
-                print(sys_obj.createuser, user_obj)
 
                 # 确定是否有权限删除系统（创建者或者管理员用户）
                 if sys_obj.createuser == user_obj or not user_obj.rely:
@@ -208,6 +276,32 @@ def systemRemove(request, username):
         return redirect('/')
 
 
+def deviceAdd(request, username):
+    if request.method == 'POST':
+        is_login = request.session.get('IS_LOGIN', False)
+        if is_login:
+            if request.session.get('USERNAME') == username:
+                # 判断是否为此用户
+                user_obj = Users.objects.filter(username=username, domain_id=request.session.get('DOMAIN_ID'))[0]
+                # 获得post数据
+                name = request.POST.get('name')
+                sid = request.POST.get('sid')
+                IMEI = request.POST.get('IMEI')
+                if Device.objects.filter(system_id=sid, name=name):
+                    return HttpResponse('444')
+                else:
+                    Device.objects.create(name=name, IMEI=IMEI, system_id=sid)
+                    # 操作记录
+                    Operation.objects.create(code=302, user=user_obj)
+                return HttpResponse('666')
+            else:
+                return redirect('/admin/' + request.session.get('USERNAME') + '/device/')
+        else:
+            return redirect('/')
+    else:
+        return redirect('/')
+
+
 def mainHome(request, username):
     is_login = request.session.get('IS_LOGIN', False)
     if is_login:
@@ -215,6 +309,8 @@ def mainHome(request, username):
         if request.session.get('USERNAME') == username:
             # 判断是否为此用户
             user_obj = Users.objects.filter(username=username, domain_id=request.session.get('DOMAIN_ID'))[0]
+            # 有无异常设备
+            waring_system_list, waring_device_list = waringDevice(user_obj)
             domain = Domain.objects.filter(
                 id=request.session.get('DOMAIN_ID'))[0]
             domain_name = domain.name
@@ -261,6 +357,8 @@ def authHome(request, username):
         if request.session.get('USERNAME') == username:
             # 判断是否为此用户
             user_obj = Users.objects.filter(username=username, domain_id=request.session.get('DOMAIN_ID'))[0]
+            # 有无异常设备
+            waring_system_list, waring_device_list = waringDevice(user_obj)
             user_name = user_obj.name
             first_name = user_name[0]
             # 确定header选中
@@ -289,6 +387,8 @@ def centerHome(request, username):
         if request.session.get('USERNAME') == username:
             # 判断是否为此用户
             user_obj = Users.objects.filter(username=username, domain_id=request.session.get('DOMAIN_ID'))[0]
+            # 有无异常设备
+            waring_system_list, waring_device_list = waringDevice(user_obj)
             user_name = user_obj.name
             first_name = user_name[0]
             # 确定header选中

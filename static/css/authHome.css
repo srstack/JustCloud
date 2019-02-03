@@ -1,4 +1,3 @@
-
 .wrapper .systemlist {
     margin: 20px 20px 0 20px;
 }
@@ -7,17 +6,6 @@
     position: relative;
     border-bottom: 0;
     border-right: 0;
-}
-
-.system-table:before {
-    content: "";
-    position: absolute;
-    background-color: #dcdee2;
-    width: 100%;
-    height: 1px;
-    left: 0;
-    bottom: 0;
-    z-index: 1;
 }
 
 .t-header > table > thead > tr > th {
@@ -221,7 +209,6 @@
     border: 0;
     outline: none;
 }
-
 
 .change .change-table {
     width: 500px;

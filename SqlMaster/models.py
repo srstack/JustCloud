@@ -51,6 +51,7 @@ class Device(models.Model):
     name = models.CharField(max_length=30, verbose_name="设备名", null=False)
     system = models.ForeignKey("System", verbose_name="所属系统", on_delete=models.CASCADE, related_name="device")
     date = models.DateTimeField(verbose_name="创建时间", auto_now_add=True)
+    IMEI = models.CharField(max_length=15, verbose_name="序列号", null=False)
 
     def __str__(self):
         return self.name
@@ -62,8 +63,9 @@ class Data(models.Model):
     data = models.CharField(max_length=200, verbose_name="设备数据", null=False)
     date = models.DateTimeField(verbose_name="接收时间", auto_now_add=True)
     model = models.BooleanField(verbose_name="推送/下发", default=0)
-
     # 0:推送 1:下发
+    waring = models.NullBooleanField(verbose_name="正常/异常", default=None, null=True)
+    # null:正常 0:解除异常 1:异常
 
     def __str__(self):
         return self.data
@@ -76,7 +78,7 @@ class Login(models.Model):
     date = models.DateTimeField(verbose_name="时间", auto_now_add=True)
 
     def __str__(self):
-        return self.name
+        return self.user.name
 
 
 class Operation(models.Model):
@@ -94,16 +96,13 @@ class Operation(models.Model):
     101:"创建用户",
     102:"删除用户",
     103:"修改用户",
-    201:"查看系统",
     202:"增加系统",
     203:"删除系统",
     204:"修改系统",
     205:"系统权限",
-    301:"查看设备",
     302:"增加设备",
     303:"删除设备",
     304:"修改设备"，    
-    401:"查看数据",
     500:"无效操作",
     }
     '''

@@ -1,80 +1,107 @@
-.device-device-list-table {
-    margin-top: 20px;
+.device-overview-body {
+    margin: 0 20px;
 }
 
-.device-device-list-table .grid {
+.overview-nav {
+    width: 100%;
+    background: #fff;
+    border: 1px solid #eee;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
-    margin: 20px;
-    background-color: #fff;
-    border: 1px solid #eee;
-    padding-bottom: 30px;
 }
 
-[table-namespace=device-device-list-table].ivu-table-wrapper {
-    border-color: transparent;
+.overview-nav .overview-ul {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
 }
 
-body .ivu-table-wrapper {
-    border-color: #eee;
+.overview-nav .overview-ul li {
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    height: 100px;
+    padding: 20px 0;
+    border-right: 1px solid #f4f5f6;
+    font-size: 14px;
+    font-weight: 300;
+    color: #666;
+    line-height: 24px;
+    text-align: center;
+    list-style: none;
 }
 
-.ivu-table-wrapper {
+.overview-nav .overview-ul li .li-item {
+    display: inline;
+}
+
+.overview-nav .overview-ul li .li-item .overview-nav-title {
+    font-size: 14px;
+    color: #666;
+    font-weight: 100;
+}
+
+.overview-nav .overview-ul li .li-item .number {
+    font-size: 18px;
+    color: #333;
+    font-weight: 700;
+    margin-bottom: 0;
+}
+
+.overview-nav .overview-ul li .li-item .online-wrap p {
+    display: inline-block;
+    margin-right: 20px;
+    margin-bottom: 0;
+}
+
+.overview-nav .overview-ul li .li-item .small {
+    margin-top: 30px;
+    color: #999;
+    font-size: 12px;
+}
+
+.overview-nav .overview-ul li .li-item .txt-blue {
+    color: #099fde;
+}
+
+.wrapper .devicelist {
+    margin: 20px 20px 0 20px;
+}
+
+.wrapper .devicelist .device-table {
     position: relative;
-    border: 1px solid #dcdee2;
     border-bottom: 0;
     border-right: 0;
 }
 
-.ivu-table {
-    width: inherit;
-    height: 100%;
-    max-width: 100%;
-    overflow: hidden;
-    color: #515a6e;
-    font-size: 12px;
+.device-table:before {
+    content: "";
+    position: absolute;
+    background-color: #f5f6f7;
+    width: 100%;
+    height: 1px;
+    left: 0;
+    bottom: 0;
+    z-index: 1;
+}
+
+.t-header > table > thead > tr > th {
+    height: 60px;
     background-color: #fff;
-    box-sizing: border-box;
-}
-
-.ivu-table-row:hover {
-    background-color: #ebf7ff;
-}
-
-.ivu-table-header {
+    white-space: nowrap;
     overflow: hidden;
-}
-
-.ivu-table table {
-    table-layout: fixed;
-}
-
-thead {
-    display: table-header-group;
+    box-sizing: border-box;
+    text-align: center;
+    text-overflow: ellipsis;
     vertical-align: middle;
-    border-color: inherit;
 }
 
-tr {
-    display: table-row;
-    vertical-align: inherit;
-    border-color: inherit;
-}
-
-body .ivu-table-wrapper .ivu-table td,
-body .ivu-table-wrapper .ivu-table th {
-    border-bottom: 1px solid #eee;
-}
-
-th .ivu-table-cell {
+.t-header > table > thead > tr > th > div, .t-body > table > tbody > tr > td > div {
     display: inline-block;
     word-wrap: normal;
     vertical-align: middle;
-}
-
-.ivu-table-cell {
-    padding-left: 18px;
-    padding-right: 18px;
+    padding-left: 36px;
+    padding-right: 36px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: normal;
@@ -82,147 +109,287 @@ th .ivu-table-cell {
     box-sizing: border-box;
 }
 
-body .ivu-table-wrapper .ivu-table th span {
+.t-header > table > thead > tr > th > div > span {
     color: #333;
     font-weight: 600;
     font-size: 12px;
 }
 
-body .ivu-table-wrapper .ivu-table th {
-    height: 50px;
-    background-color: #fff;
+.t-body > table > tbody > tr > td > div > a {
+    color: #00c0f1;
+    font-size: small;
+    margin: 0 5px;
+    cursor: default;
 }
 
-td.ivu-table-column-center,
-th.ivu-table-column-center {
+.t-body > table > tbody > tr > td {
+    border-bottom: 1px solid #f5f6f7;
+    height: 72px;
+    color: #303030;
+    background-color: #fff;
     text-align: center;
 }
 
-.ivu-table th {
-    height: 40px;
-    white-space: nowrap;
-    overflow: hidden;
-    background-color: #f8f8f9;
-}
-
-.ivu-table td,
-.ivu-table th {
-    min-width: 0;
-    height: 48px;
-    box-sizing: border-box;
-    text-overflow: ellipsis;
-    vertical-align: middle;
-    border-bottom: 1px solid #e8eaec;
-}
-
-*,
-:after,
-:before {
+.t-footer {
+    padding: 17px 0;
+    text-align: center;
+    position: relative;
+    line-height: 32px;
+    border-top: none;
+    background-color: #fff;
     box-sizing: border-box;
 }
 
-body .ivu-table-wrapper .ivu-table td {
-    height: 55px;
-    color: #666;
-}
-
-[table-namespace=device-device-list-table] .device-status {
+.device-status {
     display: inline-block;
     width: 80px;
     height: 26px;
+    background: rgb(196, 201, 205);
+    font-size: 12px;
+    color: rgb(255, 255, 255);
     line-height: 26px;
-    color: #fff;
-    background-color: #c3cacd;
+    text-align: center;
+    border-radius: 3px;
 }
 
-.ivu-btn {
-    display: inline-block;
-    margin-bottom: 0;
+.change {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 2040;
+    display: none;
+    background-color: rgba(1, 1, 1, 0.5);
+}
+
+#remove .grid .reuser-table {
+    position: relative;
+    background-color: #fff;
+    border-radius: 18px;
+    border: 1px solid #fff;
+}
+
+#remove .grid .reuser-table .re-header {
+    padding: 10px;
+}
+
+#remove .grid .reuser-table .re-header .re-title {
+    text-align: center;
+    color: black;
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 8px;
+}
+
+#remove .grid .reuser-table .re-body {
+    text-align: center;
+    font-size: 15px;
+    color: #585858;
+}
+
+#remove .grid .reuser-table .re-footer {
+    padding-top: 10px;
+    padding-bottom: 24px;
+    position: relative;
+    text-align: center;
+}
+
+#remove .grid .reuser-table .re-footer > button {
+    font-size: 14px;
+    width: 72px;
+    height: 32px;
+    cursor: pointer;
+    font-family: "Microsoft YaHei", sans-serif;
     font-weight: 400;
     text-align: center;
-    touch-action: manipulation;
-    cursor: pointer;
-    background-image: none;
-    border: 1px solid transparent;
-    white-space: nowrap;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    padding: 5px 15px 6px;
-    font-size: 12px;
-    border-radius: 4px;
-    transition: color .2s linear, background-color .2s linear, border .2s linear, box-shadow .2s linear;
-    color: #515a6e;
-    background-color: #fff;
-    border-color: #dcdee2;
+    text-decoration: none;
+    display: inline-block;
+    background-color: #00c0f1;
+    color: #fff;
+    border-width: 0;
+    transition: all .2s ease-in;
+    border-radius: 12px;
+    margin: 0 12px;
 }
 
-body .ivu-btn.ivu-btn-text {
-    width: auto;
-    height: auto;
-    border-color: transparent;
-    line-height: 100%;
+#remove .grid .reuser-table .re-footer > button:hover, #remove .grid .reuser-table .re-footer > button:focus {
+    background-color: #24bdfd;
+    border: 0;
+    outline: none;
+}
+
+.create-device {
+    color: #fff;
+    background-color: #57a2ff;
+    border-color: #57a2ff;
+    height: 36px;
+    width: 160px;
+    line-height: 36px;
     font-size: 14px;
-    padding: 0;
+    border-radius: 5px;
+    display: inline-block;
+    font-weight: 400;
 }
 
-body .ivu-btn.ivu-btn-text-status2 {
-    color: #57a2ff;
+.create-device:hover, .create-system:focus {
+    background-color: #24bdfd;
+    border-color: #24bdfd;
+    color: white;
 }
 
-.device-table-actions button {
+.change-table .change-table-form > div > form > div > div > label {
+    display: none !important;
+}
+
+.change .change-table {
+    width: 500px;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+    right: 0;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    background-color: #fff;
+    border: 0;
+    background-clip: padding-box;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, .15);
+}
+
+.change .change-table .change-table-close {
+    right: 32px;
+    top: 32px;
+    position: absolute;
+}
+
+.change .change-table .change-table-close > i {
+    font-size: 21px;
+    color: #999;
+    transition: color .2s ease;
+    position: relative;
+    top: 1px;
+}
+
+.change .change-table .change-table-header {
+    padding: 36px;
+    border-bottom: 1px solid #e8eaec;
+    line-height: 1;
+    display: inline-block;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.change .change-table .change-table-form {
+    overflow: auto;
+    position: static;
+    padding-right: 55px;
+    padding-top: 32px;
+    padding-left: 30px;
+    height: calc(100% - 160px);
+    font-size: 12px;
+    line-height: 1.5;
+    word-wrap: break-word;
+}
+
+.change .change-table .change-table-form > div {
+    margin-bottom: 120px;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.change .change-table .change-table-form > div > form > p {
+    font-size: 16px;
+    margin: 0;
+    font-weight: 400;
+    color: #333;
+    line-height: 26px;
+    padding-bottom: 30px;
+}
+
+.change-table .change-table-form > div > form > div > .form-item {
+    text-align: right;
+    width: 124px;
+    vertical-align: middle;
+    float: left;
+    font-size: 12px;
+    color: #666;
+    line-height: 1;
+    padding: 10px 12px 10px 0;
+    box-sizing: border-box;
+}
+
+.change-table .change-table-form > div > form > div > .form-input {
+    position: relative;
+    line-height: 32px;
     font-size: 12px;
 }
 
-.ivu-btn>span {
+.change-table .change-table-form > div > form > div > .form-input > input, .change-table .change-table-form > div > form > div > .form-input > select {
+    color: #333;
+    font-size: 12px;
+    border-radius: 2px;
+    border: 1px solid #d9d9d9;
+    padding-left: 15px;
+    height: 36px;
+    margin-left: 24px;
+    width: 240px;
+    display: inline-block;
+}
+
+.change-table .change-table-form > div > form > div > .form-input > input :hover, .change-table .change-table-form > div > form > div > .form-input > select:hover {
+    border: 1px solid #49d9ff;
+}
+
+select {
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    background: url("/static/img/arrow.png") no-repeat scroll 368px center transparent;
+    padding-right: 14px;
+    background-size: 15px;
+}
+
+.change-table .change-table-form > div > form > div > .form-input .waring {
+    background-color: red;
+    opacity: 0.4;
+    color: black;
+    border: 0;
+}
+
+.change .change-table-footer {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    border-top: 1px solid #e8e8e8;
+    text-align: center;
+    background: #fff;
+    z-index: 2;
+    line-height: 108px;
+    margin-bottom: -16px;
+}
+
+.change-table-footer > button {
+    padding: 0 55px;
+    border-radius: 2px;
+    height: 36px;
+    border: 1px solid transparent;
+    display: inline-block;
+    font-weight: 400;
+    font: icon;
+}
+
+.change-table-footer > button > span {
     vertical-align: middle;
 }
 
-.ivu-poptip-rel {
-    position: relative;
-}
-
-.ivu-poptip,
-.ivu-poptip-rel {
-    display: inline-block;
-}
-
-.ivu-poptip-arrow {
-    border-width: 8px;
-}
-
-.ivu-poptip-arrow,
-.ivu-poptip-arrow:after {
-    display: block;
-    width: 0;
-    height: 0;
-    position: absolute;
-    border-color: transparent;
-    border-style: solid;
-}
-
-.ivu-poptip-confirm .ivu-poptip-inner {
-    white-space: normal;
-}
-
-.ivu-poptip-confirm .ivu-poptip-inner {
-    white-space: normal;
-}
-
-.ivu-poptip-inner {
-    width: 100%;
-    background-color: #fff;
-    background-clip: padding-box;
-    border-radius: 4px;
-    box-shadow: 0 1px 6px rgba(0, 0, 0, .2);
-    white-space: nowrap;
-}
-
-body .ivu-poptip-confirm .ivu-poptip-body {
-    padding: 16px 16px 24px;
-}
-
-.ivu-poptip-confirm .ivu-poptip-body {
-    padding: 16px 16px 8px;
+.change-table-footer .sent {
+    color: #fff;
+    background-color: #57a2ff;
+    border-color: #57a2ff;
 }
