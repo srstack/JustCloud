@@ -75,7 +75,7 @@
                         </th>
                         <th>
                             <div>
-                                <span>最后在线时间</span>
+                                <span>最后时间</span>
                             </div>
                         </th>
                         <th>
@@ -145,7 +145,10 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <div><a onclick="loadingIn();showremove(this)" did={{ device.id }}>删除</a></div>
+                                    <div>
+                                        <a href="/system/{{ user_obj.username }}/{{ device.system.platform }}/{{ device.system.id }}/device/{{ device.id }}"
+                                           onclick="loadingIn()">详情</a><a onclick="loadingIn();showremove(this)"
+                                                                          did={{ device.id }}>删除</a></div>
                                 </td>
                             </tr>
                         {% endfor %}

@@ -20,6 +20,7 @@ from Detritus import views as detritus
 from Keystone import views as keystone
 from Lumiere import views as lumiere
 from Parquer import views as parquer
+from Jinger import views as jinger
 
 urlpatterns = [
     path('databaseadmin/', admin.site.urls),
@@ -46,4 +47,5 @@ urlpatterns = [
     path('home/<username>/auth/adminremove/', keystone.adminRemove, name='adminRemove'),
     path('home/<username>/auth/adminadd/', keystone.adminAdd, name='adminAdd'),
     path('home/<username>/center/passwordchange/', keystone.passwordChange, name='passwordChange'),
+    path('system/<username>/Jinger/<int:sid>/', jinger.systemMain, name='JingerMain'),
 ]

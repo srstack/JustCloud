@@ -62,8 +62,8 @@ class Data(models.Model):
     # JSON格式数据存储，采用字典（JS中的对象）格式；
     data = models.CharField(max_length=200, verbose_name="设备数据", null=False)
     date = models.DateTimeField(verbose_name="接收时间", auto_now_add=True)
-    model = models.BooleanField(verbose_name="推送/下发", default=0)
-    # 0:推送 1:下发
+    model = models.BooleanField(verbose_name="订阅/推送", default=0)
+    # 0:订阅(pull) 1:推送(push)
     waring = models.NullBooleanField(verbose_name="正常/异常", default=None, null=True)
     # null:正常 0:解除异常 1:异常
 

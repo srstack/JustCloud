@@ -1,0 +1,84 @@
+{% extends 'type/controlboard.html' %}
+{% block title %}JustCloud-Jinger系统管理{% endblock %}
+
+{% block menu %}
+    {% include 'Jinger/jingerType.html' %}
+{% endblock %}
+
+{% block wrapper %}
+    <script src="/static/js/jquery.validate.min.js"></script>
+    <link href="/static/css/Jinger/jingerMain.css" rel="stylesheet" type="text/css"/>
+
+    <div class="baseinfo">
+        <div class="grid">
+            <div class="baseinfo-user">
+                <h2>{{ system_obj.name }}</h2>
+                <span>{{ system_obj.platform }}</span>
+            </div>
+            <div class="baseinfo-uid" style="width: 15%">
+                <h3>系统ID</h3>
+                <span>{{ system_obj.id }}</span>
+            </div>
+            <div class="baseinfo-aid">
+                <h3>所属域</h3>
+                <span>{{ system_obj.domain.name }}</span>
+            </div>
+            <div class="baseinfo-uid">
+                <h3>设备注册码</h3>
+                <span>{{ system_obj.devicecode }}</span>
+            </div>
+            <div class="baseinfo-subuser">
+                <h3>创建者</h3>
+                {% if system_obj.createuser %}
+                    <span>{{ system_obj.createuser.name }}</span>
+                {% else %}
+                    <span>创建者已被删除}</span>
+                {% endif %}
+            </div>
+            <div class="baseinfo-system">
+                <h3>设备接入协议</h3>
+                <span>{{ system_obj.protocol }}</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="system-wrap">
+        <div class="item">
+            <div class="system-left">
+                <i class="fa fa-server"></i>
+                <p>设备接入总数</p>
+                <b>{{ device_count }}</b>
+            </div>
+            <div class="system-right">
+                <div class="system-top">
+                    <p>当前在线设备数</p>
+                    <b>{{ device_active_count }}</b>
+                </div>
+                <div class="system-bottom">
+                    <p>今日新增设备数</p>
+                    <b>{{ new_devices }}</b>
+                </div>
+            </div>
+        </div>
+        <div class="item" style="margin-left: 20px;">
+            <div class="system-left">
+                <i class="fa fa-joomla"></i>
+                <p>数据总条数</p>
+                <b>{{ device_count }}</b>
+            </div>
+            <div class="system-right">
+                <div class="system-top">
+                    <p>订阅数据量</p>
+                    <b>{{ pull_count }}</b>
+                    <p style="margin-top: 32px">推送数据量</p>
+                    <b>{{ push_count }}</b>
+                </div>
+                <div class="system-bottom" style="margin-top: 32px">
+                    <p>今日新增数据量</p>
+                    <b>{{ new_data_count }}</b>
+                </div>
+        </div>
+    </div>
+
+    <script src="/static/js/admin.js"></script>
+{% endblock %}

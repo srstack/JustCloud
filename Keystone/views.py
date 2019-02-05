@@ -82,23 +82,23 @@ def mainAdmin(request, username):
             system_count = system_list.count()
             # 今日时间
             now_date = str(datetime.datetime.now().date())
-            # 今日下发数据列表
-            today_sent_data = []
             # 今日推送数据列表
-            today_receive_data = []
+            today_push_data = []
+            # 今日订阅数据列表
+            today_pull_data = []
             for device_obj in devices:
                 for data_obj in device_obj.data.all():
                     if str(data_obj.date).split()[0] == now_date:
                         if data_obj.model:
-                            today_sent_data.append(data_obj)
+                            today_push_data.append(data_obj)
                         else:
-                            today_receive_data.append(data_obj)
+                            today_pull_data.append(data_obj)
 
-            # 今日下发数据数
-            today_sent_data_count = len(today_sent_data)
+            # 今日推送数据数
+            today_push_data_count = len(today_push_data)
 
-            # 今日推送消息数
-            today_receive_data_count = len(today_receive_data)
+            # 今日订阅消息数
+            today_pull_data_count = len(today_pull_data)
 
             # 子系统饼状图
             system_type_dict = {'Jinger': 0, 'Detritus': 0, 'Lumiere': 0, 'Parquer': 0, 'Other': 0, }
