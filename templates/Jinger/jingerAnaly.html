@@ -7,6 +7,17 @@
 
 {% block wrapper %}
     <link href="/static/css/Jinger/jingerAnaly.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript"
+            src="http://api.map.baidu.com/api?v=3.0&ak=U7SFiLeoxrhVv3M2C8gbU7TzOhKXcDB2"></script>
+    <div class="navigation" style="margin: 30px 20px 0 20px;text-align: center">设备LBS位置服务</div>
+
+    <div class="map">
+        <div class="map-body">
+            <div id="allmap"></div>
+        </div>
+    </div>
+
+
 
     <script src="/static/js/Jinger/jingerAnaly.js"></script>
     <script src="/static/plugins/highcharts/highcharts.js"></script>
@@ -14,8 +25,16 @@
     <script src="/static/plugins/highcharts/highcharts-zh_CN.js"></script>
     <script src="/static/plugins/highcharts/grid-light.js"></script>
     <script src="/static/plugins/highcharts/highcharts-more.js"></script>
-    <script>
+    <script src="/static/js/baiduLBS.js"></script>
+    <script type="text/javascript">
+        var map = new BMap.Map('allmap');
+        var point = new GpsToBaiduPoint(new BMap.Point(119.468, 32.195));
 
+        map.centerAndZoom(point, 18);
 
+        map.setMapStyleV2({styleJson: styleJson});
+        //开启地图拖动以及缩放；
+        map.enableScrollWheelZoom(true);
     </script>
 {% endblock %}
+

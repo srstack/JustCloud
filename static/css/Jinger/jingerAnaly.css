@@ -1,0 +1,33 @@
+.map {
+    margin: 0 20px 0 20px;
+}
+
+.map-body {
+    background: #fff;
+    -webkit-box-shadow: 0 0 0 0 #eee;
+    box-shadow: 0 0 0 0 #eee;
+    position: relative;
+    overflow: hidden;
+    height: 500px;
+    padding-bottom: 20px;
+}
+
+#allmap {
+    width: -webkit-fill-available;
+    height: -webkit-fill-available;
+    width: available;
+    height: available;
+    margin: 0px 20px 0 20px;
+    width: -moz-available;
+    position: absolute !important;
+    text-align: center !important;
+    float: none !important;
+}
+
+[_cid="1"] {
+    display: none !important;
+}
+
+[class=" anchorBL"] {
+    display: none !important;
+}

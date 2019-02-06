@@ -1,6 +1,7 @@
 from django.shortcuts import render, HttpResponse, redirect
 from SqlMaster.models import *
 import datetime
+import json
 
 
 def waringDevice(user_obj):
@@ -94,7 +95,8 @@ def systemMain(request, username, sid):
                 # 今日时间
                 now_time = datetime.datetime.now().date()
                 now_date = str(now_time)
-
+                # 运行天数
+                running_days = (now_time - system_obj.date.date()).days
                 # 最近五天
                 time_list = [now_date, ]
                 tmp_time = now_time
@@ -170,10 +172,22 @@ def systemAnaly(request, username, sid):
             # 系统对象
             system_obj = System.objects.filter(id=sid)[0]
             # 判断是否有管理权限
+
             if user_obj in system_obj.admin.all() and system_obj.platform == 'Jinger':
                 # 设备queryset
                 devices = system_obj.device.all()
-                device_count = len(devices)
+
+                data_type = tuple(eval(system_obj.type))
+                device_map = {}
+                data_map = {}
+                # 地图数据
+                for device in devices:
+                    if device.data.all():
+                        data = eval(str(device.data.all().last()))
+                        for key_data, value_data in data.items():
+                            if key_data in data_type:
+                                data_map[key_data] = value_data
+                        device_map[device.name] = data_map
                 return render(request, 'Jinger/jingerAnaly.html', locals())
             else:
                 return redirect('/admin/' + request.session.get('USERNAME'))
