@@ -182,7 +182,7 @@ def deviceRemove(request, username):
                 device_obj = Device.objects.filter(id=did)[0]
 
                 # 判断是否有管理权限(系统创建者和管理员)
-                if device_obj.system.createuser == user_obj or not user_obj.rely:
+                if (device_obj.system.createuser == user_obj and user_obj in device_obj.system.admin.all()) or not user_obj.rely:
                     # 删除设备
                     device_obj.delete()
                     Operation.objects.create(
@@ -259,7 +259,7 @@ def systemRemove(request, username):
                 sys_obj = System.objects.filter(id=sid)[0]
 
                 # 确定是否有权限删除系统（创建者或者管理员用户）
-                if sys_obj.createuser == user_obj or not user_obj.rely:
+                if (sys_obj.createuser == user_obj and user_obj in sys_obj.admin.all()) or not user_obj.rely:
                     # 删除子用户
                     sys_obj.admin.clear()
                     sys_obj.delete()

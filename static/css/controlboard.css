@@ -277,7 +277,7 @@ ul {
     cursor: pointer;
 }
 
-.header .header-body .header-menu > ul > li > a.active {
+.header .header-body .header-menu > ul > li > a.active,.header .header-body .header-menu > ul > li > a.active:hover {
     color: #19bbff;
 }
 
@@ -421,7 +421,7 @@ ul {
     color: #999;
 }
 
-.change {
+.waringchange {
     position: fixed;
     top: 0;
     right: 0;
@@ -436,7 +436,7 @@ ul {
     display: none !important;
 }
 
-.change .change-table {
+.waringchange .change-table {
     width: 500px;
     box-sizing: border-box;
     -webkit-tap-highlight-color: transparent;
@@ -451,13 +451,13 @@ ul {
     box-shadow: 0 4px 12px rgba(0, 0, 0, .15);
 }
 
-.change .change-table .change-table-close {
+.waringchange .change-table .change-table-close {
     right: 32px;
     top: 32px;
     position: absolute;
 }
 
-.change .change-table .change-table-close > i {
+.waringchange .change-table .change-table-close > i {
     font-size: 21px;
     color: #999;
     transition: color .2s ease;
@@ -465,7 +465,7 @@ ul {
     top: 1px;
 }
 
-.change .change-table .change-table-header {
+.waringchange .change-table .change-table-header {
     padding: 36px;
     border-bottom: 1px solid #e8eaec;
     line-height: 1;
@@ -478,7 +478,7 @@ ul {
     font-weight: 600;
 }
 
-.change .change-table .change-table-form {
+.waringchange .change-table .change-table-form {
     overflow: auto;
     position: static;
     padding-right: 55px;
@@ -505,87 +505,10 @@ ul {
     padding-bottom: 30px;
 }
 
-.change-table .change-table-form > div > form > div > .form-item {
-    text-align: right;
-    width: 124px;
-    vertical-align: middle;
-    float: left;
-    font-size: 12px;
-    color: #666;
-    line-height: 1;
-    padding: 10px 12px 10px 0;
-    box-sizing: border-box;
-}
-
 .change-table .change-table-form > div > form > div > .form-input {
     position: relative;
     line-height: 32px;
     font-size: 12px;
-}
-
-.change-table .change-table-form > div > form > div > .form-input > input, .change-table .change-table-form > div > form > div > .form-input > select {
-    color: #333;
-    font-size: 12px;
-    border-radius: 2px;
-    border: 1px solid #d9d9d9;
-    padding-left: 15px;
-    height: 36px;
-    margin-left: 24px;
-    width: 240px;
-    display: inline-block;
-}
-
-.change-table .change-table-form > div > form > div > .form-input > input :hover, .change-table .change-table-form > div > form > div > .form-input > select:hover {
-    border: 1px solid #49d9ff;
-}
-
-select {
-    appearance: none;
-    -moz-appearance: none;
-    -webkit-appearance: none;
-    background: url("/static/img/arrow.png") no-repeat scroll 368px center transparent;
-    padding-right: 14px;
-    background-size: 15px;
-}
-
-.change-table .change-table-form > div > form > div > .form-input .waring {
-    background-color: red;
-    opacity: 0.4;
-    color: black;
-    border: 0;
-}
-
-.change .change-table-footer {
-    width: 100%;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    border-top: 1px solid #e8e8e8;
-    text-align: center;
-    background: #fff;
-    z-index: 2;
-    line-height: 108px;
-    margin-bottom: -16px;
-}
-
-.change-table-footer > button {
-    padding: 0 55px;
-    border-radius: 2px;
-    height: 36px;
-    border: 1px solid transparent;
-    display: inline-block;
-    font-weight: 400;
-    font: icon;
-}
-
-.change-table-footer > button > span {
-    vertical-align: middle;
-}
-
-.change-table-footer .sent {
-    color: #fff;
-    background-color: #57a2ff;
-    border-color: #57a2ff;
 }
 
 #device_waring .grid .reuser-table {
@@ -642,4 +565,8 @@ select {
     background-color: #24bdfd;
     border: 0;
     outline: none;
+}
+
+.header .header-body .header-menu > ul > li > a:hover{
+    color: white;
 }

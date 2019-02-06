@@ -48,4 +48,5 @@ urlpatterns = [
     path('home/<username>/auth/adminadd/', keystone.adminAdd, name='adminAdd'),
     path('home/<username>/center/passwordchange/', keystone.passwordChange, name='passwordChange'),
     path('system/<username>/Jinger/<int:sid>/', jinger.systemMain, name='JingerMain'),
+    path('system/<username>/Jinger/<int:sid>/analy/', jinger.systemAnaly, name='JingerAnaly'),
 ]

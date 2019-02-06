@@ -1,12 +1,11 @@
 {% extends 'type/controlboard.html' %}
-{% block title %}JustCloud-Jinger系统管理{% endblock %}
+{% block title %}Jinger系统管理{% endblock %}
 
 {% block menu %}
     {% include 'Jinger/jingerType.html' %}
 {% endblock %}
 
 {% block wrapper %}
-    <script src="/static/js/jquery.validate.min.js"></script>
     <link href="/static/css/Jinger/jingerMain.css" rel="stylesheet" type="text/css"/>
 
     <div class="baseinfo">
@@ -42,6 +41,7 @@
         </div>
     </div>
 
+
     <div class="system-wrap">
         <div class="item">
             <div class="system-left">
@@ -56,15 +56,21 @@
                 </div>
                 <div class="system-bottom">
                     <p>今日新增设备数</p>
-                    <b>{{ new_devices }}</b>
+                    <b>{{ new_devices_count }}</b>
                 </div>
             </div>
         </div>
-        <div class="item" style="margin-left: 20px;">
+        <div class="item item-right" style="margin-left: 20px;">
+            <div id="device-charts"></div>
+        </div>
+    </div>
+
+    <div class="system-wrap">
+        <div class="item">
             <div class="system-left">
                 <i class="fa fa-joomla"></i>
                 <p>数据总条数</p>
-                <b>{{ device_count }}</b>
+                <b>{{ data_count }}</b>
             </div>
             <div class="system-right">
                 <div class="system-top">
@@ -77,8 +83,125 @@
                     <p>今日新增数据量</p>
                     <b>{{ new_data_count }}</b>
                 </div>
+            </div>
+        </div>
+        <div class="item item-right" style="margin-left: 20px;">
+            <div id="data-charts"></div>
         </div>
     </div>
+    <script src="/static/js/Jinger/jingerMain.js"></script>
+    <script src="/static/plugins/highcharts/highcharts.js"></script>
+    <script src="/static/plugins/highcharts/exporting.js"></script>
+    <script src="/static/plugins/highcharts/highcharts-zh_CN.js"></script>
+    <script src="/static/plugins/highcharts/grid-light.js"></script>
+    <script src="/static/plugins/highcharts/highcharts-more.js"></script>
+    <script>
+        var chart = Highcharts.chart('device-charts', {
+            chart: {
+                spacing: [0, 0, 0, 0]
+            },
+            title: {
+                floating: true,
+                text: '设备状态'
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                        style: {
+                            color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                        }
+                    },
+                    point: {
+                        events: {
+                            mouseOver: function (e) {  // 鼠标滑过时动态更新标题
+                                chart.setTitle({
+                                    text: e.target.name + '\t' + e.target.y + '台'
+                                });
+                            }
+                        }
+                    },
+                }
+            },
+            series: [{
+                type: 'pie',
+                innerSize: '56%',
+                name: '设备状态',
+                data: [
+                    ['新增离线', {{ new_device_inactive }}],
+                    ['新增在线', {{ new_device_active }}],
+                    ['在线设备', {{ device_active_count }}],
+                    ['离线设备', {{ device_inactive_count }}],
+                ]
+            }]
+        }, function (c) { // 图表初始化完毕后的会掉函数
+            // 环形图圆心
+            var centerY = c.series[0].center[1],
+                titleHeight = parseInt(c.title.styles.fontSize);
+            // 动态设置标题位置
+            c.setTitle({
+                y: centerY + titleHeight / 2
+            });
+        });
+        Highcharts.chart('data-charts', {
+            chart: {
+                type: 'spline'
+            },
+            title: {
+                text: null
+            },
+            subtitle: {
+                text: null
+            },
+            xAxis: {
+                gridLineWidth: 0,
+                categories: [getDay(-4), getDay(-3), getDay(-2), getDay(-1), getDay(0)]
+            },
+            yAxis: {
+                title: {
+                    text: '数据量 (条)'
+                },
+                labels: {
+                    formatter: function () {
+                        return this.value + '条';
+                    }
+                }
+            },
+            tooltip: {
+                crosshairs: true,
+                shared: true
+            },
+            plotOptions: {
+                spline: {
+                    marker: {
+                        radius: 4,
+                        lineColor: '#666666',
+                        lineWidth: 1
+                    }
+                }
+            },
+            series: [{
+                name: '订阅',
+                data: [
+                    {% for count in data_pull_list %}
+                        {{ count }},
+                    {% endfor %}
+                ]
+            }, {
+                name: '推送',
+                data: [
+                    {% for count in data_push_list %}
+                        {{ count }},
+                    {% endfor %}
+                ]
+            }]
+        });
 
-    <script src="/static/js/admin.js"></script>
+    </script>
 {% endblock %}
