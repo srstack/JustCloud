@@ -53,6 +53,10 @@
                 <div class="system-top">
                     <p>当前在线设备数</p>
                     <b>{{ device_active_count }}</b>
+                    {% if system_waring_devices %}
+                        <p style="margin-top: 32px;color: #EB3C22">当前异常设备数</p>
+                        <b style="color: #EB3C22">{{ system_waring_device_count }}</b>
+                    {% endif %}
                 </div>
                 <div class="system-bottom">
                     <p>今日新增设备数</p>
@@ -138,9 +142,10 @@
                 name: '设备状态',
                 data: [
                     ['新增离线', {{ new_device_inactive }}],
+                    ['异常设备', {{ system_waring_device_count }}],
+                    ['在线设备', {{ device_active_count }}-{{ new_device_active }}-{{ system_waring_device_count }}],
+                    ['离线设备', {{ device_inactive_count }}-{{ new_device_inactive }}],
                     ['新增在线', {{ new_device_active }}],
-                    ['在线设备', {{ device_active_count }}],
-                    ['离线设备', {{ device_inactive_count }}],
                 ]
             }]
         }, function (c) { // 图表初始化完毕后的会掉函数
@@ -190,20 +195,27 @@
                 }
             },
             series: [{
-                name: '订阅',
-                data: [
-                    {% for count in data_pull_list %}
-                        {{ count }},
-                    {% endfor %}
-                ]
-            }, {
                 name: '推送',
                 data: [
                     {% for count in data_push_list %}
                         {{ count }},
                     {% endfor %}
                 ]
-            }]
+            }, {
+                name: '异常',
+                data: [
+                    {% for count in data_waring_list %}
+                        {{ count }},
+                    {% endfor %}
+                ]
+            }, {
+                name: '订阅',
+                data: [
+                    {% for count in data_pull_list %}
+                        {{ count }},
+                    {% endfor %}
+                ]
+            },]
         });
 
     </script>

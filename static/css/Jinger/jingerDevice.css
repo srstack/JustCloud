@@ -45,7 +45,7 @@
     font-size: 18px;
     color: #333;
     font-weight: 700;
-    margin-bottom: 0;
+    margin-top: 12px;
 }
 
 .overview-nav .overview-ul li .li-item .online-wrap p {
@@ -63,6 +63,27 @@
 .overview-nav .overview-ul li .li-item .txt-blue {
     color: #099fde;
 }
+
+.map {
+    margin: 0 20px 0 20px;
+}
+
+.map-body {
+    background: #fff;
+    overflow: hidden;
+    height: 460px;
+    padding-top: 36px;
+}
+
+.highcharts-credits, .highcharts-button-normal, .highcharts-contextbutton{
+    display: none !important;
+}
+
+[stroke="#f2f2f2"] {
+    display: none;
+!important;
+}
+
 
 .wrapper .devicelist {
     margin: 20px 20px 0 20px;

@@ -1,12 +1,12 @@
 {% extends 'type/controlboard.html' %}
-{% block title %}JustCloud-设备管理{% endblock %}
+{% block title %}Jinger设备列表{% endblock %}
 
 {% block menu %}
-    {% include 'type/admintype.html' %}
+    {% include 'Jinger/jingerType.html' %}
 {% endblock %}
 
 {% block wrapper %}
-    <link href="/static/css/deviceAdmin.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/css/Jinger/jingerDevice.css" rel="stylesheet" type="text/css"/>
     <script src="/static/js/jquery.validate.min.js"></script>
 
     <div class="device-overview-body">
@@ -14,29 +14,45 @@
             <div class="overview-nav">
                 <ul class="overview-ul">
                     <li>
-                        <div class="li-item"><label class="overview-nav-title">所属域</label>
-                            <p class="number">{{ user_obj.domain.name }}</p>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="li-item"><label class="overview-nav-title">所属设备总数(个)</label>
+                        <div class="li-item"><label class="overview-nav-title">设备总数(个)</label>
                             <p class="number">{{ device_count }}</p>
                         </div>
                     </li>
                     <li>
-                        <div class="li-item"><label class="overview-nav-title">今日活跃设备数(个)</label>
+                        <div class="li-item"><label class="overview-nav-title">在线设备(个)</label>
                             <p class="number">{{ device_active_count }}</p>
                         </div>
                     </li>
                     <li>
-                        <div class="li-item"><label class="overview-nav-title">异常状况设备数(个)</label>
-                            <p class="number">{{ device_waring_count }}</p>
+                        <div class="li-item"><label class="overview-nav-title">离线设备(个)</label>
+                            <p class="number">{{ device_inactive_count }}</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="li-item"><label class="overview-nav-title">新增设备(个)</label>
+                            <p class="number">{{ new_devices_count }}</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="li-item"><label class="overview-nav-title">异常设备(个)</label>
+                            <p class="number">{{ system_waring_device_count }}</p>
                         </div>
                     </li>
                 </ul>
             </div>
         </div>
     </div>
+
+    <div class="navigation" style="margin: 30px 20px 0 20px;text-align: center">设备分析</div>
+
+    <div class="map">
+        <div class="map-body">
+            <div id="device"></div>
+        </div>
+    </div>
+
+    <div class="navigation" style="margin: 30px 20px 0 20px;text-align: center">设备列表</div>
+
     <div class="devicelist">
         <div class="device-table">
             <div class="t-header">
@@ -56,16 +72,6 @@
                         <th>
                             <div>
                                 <span>设备状态</span>
-                            </div>
-                        </th>
-                        <th>
-                            <div>
-                                <span>所属系统</span>
-                            </div>
-                        </th>
-                        <th>
-                            <div>
-                                <span>接入协议</span>
                             </div>
                         </th>
                         <th>
@@ -124,12 +130,6 @@
                                     {% endif %}
                                 </td>
                                 <td>
-                                    <div><span>{{ device.system.name }}</span></div>
-                                </td>
-                                <td>
-                                    <div><span>{{ device.system.protocol }}</span></div>
-                                </td>
-                                <td>
                                     <div><span
                                             style="font-size: 10px;font-weight: 600">{{ device.date|date:"Y-m-d H:i" }}</span>
                                     </div>
@@ -146,7 +146,8 @@
                                 </td>
                                 <td>
                                     <div>
-                                        <a class="a-green" href="/system/{{ user_obj.username }}/{{ device.system.platform }}/{{ device.system.id }}/pull/{{ device.id }}"
+                                        <a class="a-green"
+                                           href="/system/{{ user_obj.username }}/{{ device.system.platform }}/{{ device.system.id }}/pull/{{ device.id }}"
                                            onclick="loadingIn()">详情</a>
                                         <a class="a-red" onclick="loadingIn();showremove(this)"
                                            did={{ device.id }}>删除</a></div>
@@ -223,16 +224,6 @@
                             </div>
                         </div>
                         <div style="margin-bottom: 24px">
-                            <label class="form-item">请选中系统:</label>
-                            <div class="form-input">
-                                <select id="sid" name="sid" onclick="reWaring(this)">
-                                    {% for system in system_list %}
-                                        <option value={{ system.id }}>{{ system.name }}</option>
-                                    {% endfor %}
-                                </select>
-                            </div>
-                        </div>
-                        <div style="margin-bottom: 24px">
                             <label class="form-item">序列号:</label>
                             <div class="form-input">
                                 <input type="text" placeholder="请输入15位序列号(IMEI)" id="IMEI" name="IMEI"
@@ -256,5 +247,65 @@
         </div>
     </div>
 
-    <script src="/static/js/deviceAdmin.js"></script>
+
+
+    <script src="/static/js/Jinger/jingerDevice.js"></script>
+    <script src="/static/plugins/highcharts/highcharts.js"></script>
+    <script src="/static/plugins/highcharts/exporting.js"></script>
+    <script src="/static/plugins/highcharts/highcharts-zh_CN.js"></script>
+    <script src="/static/plugins/highcharts/grid-light.js"></script>
+    <script src="/static/plugins/highcharts/highcharts-more.js"></script>
+    <script>
+        Highcharts.chart('device', {
+            chart: {
+                type: 'areaspline'
+            },
+            title: {
+                text: null
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'left',
+                verticalAlign: 'top',
+                x: 150,
+                y: 100,
+                floating: true,
+                borderWidth: 1,
+                backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'
+            },
+            xAxis: {
+                gridLineWidth: 0,
+                categories: [getDay(-4), getDay(-3), getDay(-2), getDay(-1), getDay(0)],
+            },
+            yAxis: {
+                title: {
+                    text: '设备数/台'
+                }
+            },
+            tooltip: {
+                shared: true,
+                valueSuffix: ' 台'
+            },
+            plotOptions: {
+                areaspline: {
+                    fillOpacity: 0.5
+                }
+            },
+            series: [{
+                name: '新增设备',
+                data: [
+                    {% for count in device_new_change_list %}
+                        {{ count }},
+                    {% endfor %}
+                ]
+            }, {
+                name: '异常设备',
+                data: [
+                    {% for count in device_waring_change_list %}
+                        {{ count }},
+                    {% endfor %}
+                ]
+            }]
+        });
+    </script>
 {% endblock %}

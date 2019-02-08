@@ -49,4 +49,8 @@ urlpatterns = [
     path('home/<username>/center/passwordchange/', keystone.passwordChange, name='passwordChange'),
     path('system/<username>/Jinger/<int:sid>/', jinger.systemMain, name='JingerMain'),
     path('system/<username>/Jinger/<int:sid>/analy/', jinger.systemAnaly, name='JingerAnaly'),
+    path('system/<username>/Jinger/<int:sid>/analy/waringremove/', jinger.waringRemove, name='waringRemove'),
+    path('system/<username>/Jinger/<int:sid>/device/', jinger.systemDevice, name='systemDevice'),
+    path('system/<username>/Jinger/<int:sid>/device/deviceremove/', jinger.deviceRemove, name='deviceRemove'),
+    path('system/<username>/Jinger/<int:sid>/device/deviceadd/', jinger.deviceAdd, name='deviceAdd'),
 ]

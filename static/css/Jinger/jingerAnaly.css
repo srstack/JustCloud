@@ -9,7 +9,7 @@
     position: relative;
     overflow: hidden;
     height: 500px;
-    padding-bottom: 20px;
+    padding-bottom: 36px;
 }
 
 #allmap {
@@ -17,7 +17,7 @@
     height: -webkit-fill-available;
     width: available;
     height: available;
-    margin: 0px 20px 0 20px;
+    margin: 0 36px 0 36px;
     width: -moz-available;
     position: absolute !important;
     text-align: center !important;
@@ -30,4 +30,178 @@
 
 [class=" anchorBL"] {
     display: none !important;
+}
+
+.BMapLabel {
+    border: 0 !important;
+    background-color: rgba(000, 000, 000, 0) !important;
+    font-weight: 600 !important;
+}
+
+.wrapper .waring-datalist {
+    margin: 20px 20px 0 20px;
+}
+
+.wrapper .waring-datalist .data-table {
+    position: relative;
+    border-bottom: 0;
+    border-right: 0;
+}
+
+.data-table:before {
+    content: "";
+    position: absolute;
+    background-color: #f5f6f7;
+    width: 100%;
+    height: 1px;
+    left: 0;
+    bottom: 0;
+    z-index: 1;
+}
+
+.t-header > table > thead > tr > th {
+    height: 60px;
+    background-color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    box-sizing: border-box;
+    text-align: center;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+}
+
+.t-header > table > thead > tr > th > div, .t-body > table > tbody > tr > td > div {
+    display: inline-block;
+    word-wrap: normal;
+    vertical-align: middle;
+    padding-left: 36px;
+    padding-right: 36px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    word-break: break-all;
+    box-sizing: border-box;
+    font-weight: 600;
+}
+
+.t-header > table > thead > tr > th > div > span {
+    color: #333;
+    font-weight: 600;
+    font-size: 12px;
+}
+
+.t-body > table > tbody > tr > td > div > a {
+    color: #00c0f1;
+    font-size: small;
+    margin: 0 5px;
+    cursor: default;
+    font-weight: 500;
+}
+
+.t-body > table > tbody > tr > td {
+    border-bottom: 1px solid #f5f6f7;
+    height: 72px;
+    color: #303030;
+    background-color: #fff;
+    text-align: center;
+}
+
+.t-footer {
+    padding: 17px 0;
+    text-align: center;
+    position: relative;
+    line-height: 32px;
+    border-top: none;
+    background-color: #fff;
+    box-sizing: border-box;
+}
+
+.data-status {
+    display: inline-block;
+    width: 80px;
+    height: 26px;
+    background: rgb(196, 201, 205);
+    font-size: 12px;
+    color: rgb(255, 255, 255);
+    line-height: 26px;
+    text-align: center;
+    border-radius: 3px;
+}
+
+.t-body > table > tbody > tr > td > div .a-green:hover {
+    color: #61d16c;
+}
+
+.t-body > table > tbody > tr > td > div .a-red {
+    color: red;
+}
+
+.t-body > table > tbody > tr > td > div .a-red:hover {
+    color: #ff6120;
+}
+
+.change {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 2040;
+    display: none;
+    background-color: rgba(1, 1, 1, 0.5);
+}
+
+#remove .grid .reuser-table {
+    position: relative;
+    background-color: #fff;
+    border-radius: 18px;
+    border: 1px solid #fff;
+}
+
+#remove .grid .reuser-table .re-header {
+    padding: 10px;
+}
+
+#remove .grid .reuser-table .re-header .re-title {
+    text-align: center;
+    color: black;
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 8px;
+}
+
+#remove .grid .reuser-table .re-body {
+    text-align: center;
+    color: #585858;
+}
+
+#remove .grid .reuser-table .re-footer {
+    padding-top: 10px;
+    padding-bottom: 24px;
+    position: relative;
+    text-align: center;
+}
+
+#remove .grid .reuser-table .re-footer > button {
+    font-size: 14px;
+    width: 72px;
+    height: 32px;
+    cursor: pointer;
+    font-family: "Microsoft YaHei", sans-serif;
+    font-weight: 400;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    background-color: #00c0f1;
+    color: #fff;
+    border-width: 0;
+    transition: all .2s ease-in;
+    border-radius: 12px;
+    margin: 0 12px;
+}
+
+#remove .grid .reuser-table .re-footer > button:hover, #remove .grid .reuser-table .re-footer > button:focus {
+    background-color: #24bdfd;
+    border: 0;
+    outline: none;
 }

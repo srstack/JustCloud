@@ -1,3 +1,23 @@
+function getDay(day) {
+    var today = new Date();
+    var targetday_milliseconds = today.getTime() + 1000 * 60 * 60 * 24 * day;
+    today.setTime(targetday_milliseconds); //注意，这行是关键代码
+    var tYear = today.getFullYear();
+    var tMonth = today.getMonth();
+    var tDate = today.getDate();
+    tMonth = doHandleMonth(tMonth + 1);
+    tDate = doHandleMonth(tDate);
+    return tYear + "-" + tMonth + "-" + tDate;
+}
+
+function doHandleMonth(month) {
+    var m = month;
+    if (month.toString().length == 1) {
+        m = "0" + month;
+    }
+    return m;
+}
+
 function showremove(that) {
     loadingOut();
     $('#remove .grid .re-body div .id').html($(that).attr('did'));
@@ -12,7 +32,7 @@ function reClose() {
 }
 
 function deviceRemove() {
-    var did = $('#remove').attr('did')
+    var did = $('#remove').attr('did');
     loadingIn();
     $.ajax({
         url: 'deviceremove/',
@@ -26,7 +46,7 @@ function deviceRemove() {
                 loadingOut();
                 window.location.reload()
             }
-            else if (data === '555') {
+            else if (data === '444') {
                 $('#remove .grid .re-body div').html('无权限删除').css('color', 'red');
                 setTimeout(function () {
                     window.location.reload();
