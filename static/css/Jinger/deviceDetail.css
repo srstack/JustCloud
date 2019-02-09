@@ -1,0 +1,356 @@
+[stroke="#f2f2f2"] {
+    display: none;
+!important;
+}
+
+.map {
+    margin: 0 20px 0 20px;
+}
+
+.map-body {
+    background: #fff;
+    -webkit-box-shadow: 0 0 0 0 #eee;
+    box-shadow: 0 0 0 0 #eee;
+    position: relative;
+    overflow: hidden;
+    height: 500px;
+    padding-bottom: 36px;
+}
+
+#allmap {
+    width: -webkit-fill-available;
+    height: -webkit-fill-available;
+    width: available;
+    height: available;
+    margin: 0 36px 0 36px;
+    width: -moz-available;
+    position: absolute !important;
+    text-align: center !important;
+    float: none !important;
+}
+
+[_cid="1"] {
+    display: none !important;
+}
+
+[class=" anchorBL"] {
+    display: none !important;
+}
+
+.BMapLabel {
+    border: 0 !important;
+    background-color: rgba(000, 000, 000, 0) !important;
+    font-weight: 600 !important;
+}
+
+.content .wrapper .baseinfo {
+    margin-top: 20px;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    background-color: #fff;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.content .wrapper .baseinfo {
+    height: 130px;
+}
+
+.content .wrapper .baseinfo .grid, .content .wrapper .domaninfo .grid, .content .wrapper .usersinfo .grid {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    height: 100%;
+    max-width: 1440px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.content .wrapper .baseinfo .grid > div {
+    padding-top: 30px;
+}
+
+.content .wrapper .baseinfo .grid .baseinfo-user {
+    position: relative;
+    display: inline-block;
+    width: 25%;
+    -webkit-box-flex: 0;
+    flex-grow: 0;
+    height: 100%;
+    padding-left: 40px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    border-right: 1px solid #f3f4f5;
+}
+
+.content .wrapper .baseinfo .grid .baseinfo-user > h2 {
+    font-size: 24px;
+    color: #1d2028;
+    line-height: 100%;
+    margin-bottom: 21px;
+    margin-top: 0;
+}
+
+.content .wrapper .baseinfo .grid .baseinfo-user > span {
+    display: inline-block;
+    color: #57a2ff;
+    font-size: 12px;
+    line-height: 100%;
+    padding: 5px 20px;
+    background-color: #e3f1ff;
+}
+
+.content .wrapper .baseinfo .grid .baseinfo-user > a {
+    font-size: 12px;
+    margin-left: 14px;
+    color: #17a6f1;
+}
+
+.content .wrapper .baseinfo .grid .baseinfo-user > a:hover {
+    color: #24bdfd;
+}
+
+.content .wrapper .baseinfo .grid .baseinfo-aid > h3, .content .wrapper .baseinfo .grid .baseinfo-uid > h3, .content .wrapper .baseinfo .grid .baseinfo-subuser > h3, .content .wrapper .baseinfo .grid .baseinfo-system > h3 {
+    margin: 0;
+    font-size: 14px;
+    color: #666;
+    font-weight: 700;
+}
+
+.content .wrapper .baseinfo .grid .baseinfo-aid, .content .wrapper .baseinfo .grid .baseinfo-uid, .content .wrapper .baseinfo .grid .baseinfo-subuser, .content .wrapper .baseinfo .grid .baseinfo-system {
+    border-right: 1px solid #f3f4f5;
+    text-align: center;
+    line-height: 100%;
+    width: 20%;
+    padding-top: 35px;
+}
+
+.content .wrapper .baseinfo .grid .baseinfo-aid > span, .content .wrapper .baseinfo .grid .baseinfo-uid > span, .content .wrapper .baseinfo .grid .baseinfo-subuser > span, .content .wrapper .baseinfo .grid .baseinfo-system > span {
+    display: inline-block;
+    color: #1e2027;
+    margin-top: 28px;
+    font-weight: 900;
+}
+
+.content .wrapper .domaninfo {
+    height: 125px;
+}
+
+.content .wrapper .domaninfo .grid .domaninfo-name {
+    height: 57px;
+    border-right: 1px solid #f4f5f6;
+    margin-top: 36px;
+    font-size: 12px;
+    font-weight: 300;
+    color: #666;
+    line-height: 24px;
+    padding: 0 30px;
+    text-align: center;
+    display: inline-block;
+    width: 18%;
+    vertical-align: top;
+}
+
+.content .wrapper .domaninfo .grid .domaninfo-name > label {
+    margin-right: 5px;
+    width: 100%;
+}
+
+.content .wrapper .domaninfo .grid .domaninfo-name > h2 {
+    color: #333;
+    font-weight: 400;
+    margin-top: 5px;
+    display: inline-block;
+}
+
+.content .wrapper .domaninfo .grid .domaninfo-chenge > a {
+    padding-left: 18px;
+    margin: 45px 0 40px 80px;
+    color: #fff;
+    background-color: #57a2ff;
+    border-color: #57a2ff;
+    height: 36px;
+    width: 128px;
+    line-height: 36px;
+    font-size: 14px;
+    border-radius: 9px;
+    display: inline-block;
+    font-weight: 400;
+}
+
+.content .wrapper .domaninfo .grid .domaninfo-chenge > a > span {
+    margin-left: 4px;
+}
+
+.content .wrapper .domaninfo .grid .domaninfo-chenge :hover {
+    background-color: #24bdfd;
+    border-color: #24bdfd;
+}
+
+.wrapper .waring-datalist {
+    margin: 20px 20px 0 20px;
+}
+
+.wrapper .waring-datalist .data-table {
+    position: relative;
+    border-bottom: 0;
+    border-right: 0;
+}
+
+.data-table:before {
+    content: "";
+    position: absolute;
+    background-color: #f5f6f7;
+    width: 100%;
+    height: 1px;
+    left: 0;
+    bottom: 0;
+    z-index: 1;
+}
+
+.t-header > table > thead > tr > th {
+    height: 60px;
+    background-color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    box-sizing: border-box;
+    text-align: center;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+}
+
+.t-header > table > thead > tr > th > div, .t-body > table > tbody > tr > td > div {
+    display: inline-block;
+    word-wrap: normal;
+    vertical-align: middle;
+    padding-left: 36px;
+    padding-right: 36px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    word-break: break-all;
+    box-sizing: border-box;
+    font-weight: 600;
+}
+
+.t-header > table > thead > tr > th > div > span {
+    color: #333;
+    font-weight: 600;
+    font-size: 12px;
+}
+
+.t-body > table > tbody > tr > td > div > a {
+    color: #00c0f1;
+    font-size: small;
+    margin: 0 5px;
+    cursor: default;
+    font-weight: 500;
+}
+
+.t-body > table > tbody > tr > td {
+    border-bottom: 1px solid #f5f6f7;
+    height: 72px;
+    color: #303030;
+    background-color: #fff;
+    text-align: center;
+}
+
+.t-footer {
+    padding: 17px 0;
+    text-align: center;
+    position: relative;
+    line-height: 32px;
+    border-top: none;
+    background-color: #fff;
+    box-sizing: border-box;
+}
+
+.data-status {
+    display: inline-block;
+    width: 80px;
+    height: 26px;
+    background: rgb(196, 201, 205);
+    font-size: 12px;
+    color: rgb(255, 255, 255);
+    line-height: 26px;
+    text-align: center;
+    border-radius: 3px;
+}
+
+.t-body > table > tbody > tr > td > div .a-green:hover {
+    color: #61d16c;
+}
+
+.t-body > table > tbody > tr > td > div .a-red {
+    color: red;
+}
+
+.t-body > table > tbody > tr > td > div .a-red:hover {
+    color: #ff6120;
+}
+
+.change {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 2040;
+    display: none;
+    background-color: rgba(1, 1, 1, 0.5);
+}
+
+#remove .grid .reuser-table {
+    position: relative;
+    background-color: #fff;
+    border-radius: 18px;
+    border: 1px solid #fff;
+}
+
+#remove .grid .reuser-table .re-header {
+    padding: 10px;
+}
+
+#remove .grid .reuser-table .re-header .re-title {
+    text-align: center;
+    color: black;
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 8px;
+}
+
+#remove .grid .reuser-table .re-body {
+    text-align: center;
+    color: #585858;
+}
+
+#remove .grid .reuser-table .re-footer {
+    padding-top: 10px;
+    padding-bottom: 24px;
+    position: relative;
+    text-align: center;
+}
+
+#remove .grid .reuser-table .re-footer > button {
+    font-size: 14px;
+    width: 72px;
+    height: 32px;
+    cursor: pointer;
+    font-family: "Microsoft YaHei", sans-serif;
+    font-weight: 400;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    background-color: #00c0f1;
+    color: #fff;
+    border-width: 0;
+    transition: all .2s ease-in;
+    border-radius: 12px;
+    margin: 0 12px;
+}
+
+#remove .grid .reuser-table .re-footer > button:hover, #remove .grid .reuser-table .re-footer > button:focus {
+    background-color: #24bdfd;
+    border: 0;
+    outline: none;
+}

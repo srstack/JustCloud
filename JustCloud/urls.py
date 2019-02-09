@@ -53,4 +53,6 @@ urlpatterns = [
     path('system/<username>/Jinger/<int:sid>/device/', jinger.systemDevice, name='systemDevice'),
     path('system/<username>/Jinger/<int:sid>/device/deviceremove/', jinger.deviceRemove, name='deviceRemove'),
     path('system/<username>/Jinger/<int:sid>/device/deviceadd/', jinger.deviceAdd, name='deviceAdd'),
+    path('system/<username>/Jinger/<int:sid>/device/<int:did>/', jinger.deviceDetail, name='deviceDetail'),
+    path('system/<username>/Jinger/<int:sid>/device/<int:did>/waringremove/', jinger.waringRemove, name='waringRemove'),
 ]

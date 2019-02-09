@@ -147,7 +147,7 @@
                                 <td>
                                     <div>
                                         <a class="a-green"
-                                           href="/system/{{ user_obj.username }}/{{ device.system.platform }}/{{ device.system.id }}/pull/{{ device.id }}"
+                                           href="/system/{{ user_obj.username }}/{{ device.system.platform }}/{{ device.system.id }}/device/{{ device.id }}"
                                            onclick="loadingIn()">详情</a>
                                         <a class="a-red" onclick="loadingIn();showremove(this)"
                                            did={{ device.id }}>删除</a></div>
@@ -258,20 +258,10 @@
     <script>
         Highcharts.chart('device', {
             chart: {
-                type: 'areaspline'
+                type: 'column'
             },
             title: {
                 text: null
-            },
-            legend: {
-                layout: 'vertical',
-                align: 'left',
-                verticalAlign: 'top',
-                x: 150,
-                y: 100,
-                floating: true,
-                borderWidth: 1,
-                backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'
             },
             xAxis: {
                 gridLineWidth: 0,
@@ -283,12 +273,17 @@
                 }
             },
             tooltip: {
+                // head + 每个 point + footer 拼接成完整的 table
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                '<td style="padding:0"><b>{point.y} 台</b></td></tr>',
+                footerFormat: '</table>',
                 shared: true,
-                valueSuffix: ' 台'
+                useHTML: true
             },
             plotOptions: {
-                areaspline: {
-                    fillOpacity: 0.5
+                column: {
+                    borderWidth: 0
                 }
             },
             series: [{

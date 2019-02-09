@@ -359,7 +359,72 @@ def systemDevice(request, username, sid):
         return redirect('/')
 
 
-def waringRemove(request, username, sid):
+def deviceDetail(request, username, sid, did):
+    is_login = request.session.get('IS_LOGIN', False)
+    if is_login:
+        if request.session.get('USERNAME') == username:
+            # 判断是否为此用户
+
+            # 拿到用户ORM对象
+            user_obj = Users.objects.filter(username=username, domain_id=request.session.get('DOMAIN_ID'))[0]
+            # 有无异常设备
+            waring_system_list, waring_device_list = waringDevice(user_obj)
+            user_name = user_obj.name
+            first_name = user_name[0]
+            # 确定header选中
+            plat_admin_chose = 'active'
+            # 确定menu选中
+            device_admin = 'active'
+            # 主体栏显示的部分
+            exhibition_name = '设备详情'
+            # 系统对象
+            system_obj = System.objects.filter(id=sid).all()
+            if system_obj:
+                system_obj = system_obj[0]
+            else:
+                return redirect('/admin/' + request.session.get('USERNAME'))
+
+            # 设备对象
+            device_obj = Device.objects.filter(id=did).all()
+            if device_obj:
+                device_obj = device_obj[0]
+            else:
+                return redirect('/admin/' + request.session.get('USERNAME'))
+
+            # 判断是否有管理权限
+
+            if device_obj.system == system_obj:
+                pass
+            else:
+                return redirect('/admin/' + request.session.get('USERNAME'))
+
+            if user_obj in device_obj.system.admin.all() and system_obj.platform == 'Jinger':
+
+                data_type = tuple(eval(system_obj.type))
+                device_map = {}
+                data_name = ['经度', '纬度', '设备状态', '订阅周期', '是否翻转']
+
+                # 地图数据
+                data = eval(str(device_obj.data.all().last()))
+                for key_data, value_data in data.items():
+                    if key_data in data_type:
+                        device_map[key_data] = value_data
+
+                if device_obj.data.filter(waring=1).all():
+                    waring_data = device_obj.data.filter(waring=1).all().last()
+
+                data_had_waring = device_obj.data.filter(Q(waring=1) | Q(waring=0)).all()
+                data_had_waring_count = len(data_had_waring)
+                return render(request, 'Jinger/deviceDetail.html', locals())
+            else:
+                return redirect('/admin/' + request.session.get('USERNAME'))
+        else:
+            return redirect('/admin/' + request.session.get('USERNAME'))
+    else:
+        return redirect('/')
+
+
+def waringRemove(request, username, sid, did=0):
     if request.method == 'POST':
         is_login = request.session.get('IS_LOGIN', False)
         if is_login:
