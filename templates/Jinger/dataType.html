@@ -1,0 +1,96 @@
+{% extends 'type/controlboard.html' %}
+{% block title %}Jinger数据模板{% endblock %}
+
+{% block menu %}
+    {% include 'Jinger/jingerType.html' %}
+{% endblock %}
+
+{% block wrapper %}
+    <link href="/static/css/Jinger/dataType.css" rel="stylesheet" type="text/css"/>
+    <script src="/static/js/jquery.validate.min.js"></script>
+
+    <div class="navigation" style="margin: 30px 20px 0 20px;text-align: center">{{ system_obj.name }}数据模板</div>
+
+    <div class="navigation" style="margin: 30px 20px 0 20px;height: 108px">
+        <div class="data-body">
+            <div class="type-body">
+                <label style="margin-right: 3px;">数据流数量</label>
+                <label class="type-count">{{ data_type_count }}</label>
+            </div>
+            <div class="type-add">
+                <a onclick="loadingIn();showAdd(this)">
+                    <i class="fa fa-share-alt"></i>
+                    <span style="margin-left: 4px;">添加数据模板</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="typelist">
+        <div class="data-table">
+            <div class="t-header">
+                <table style="width: 100%;table-layout: fixed;">
+                    <thead>
+                    <tr>
+                        <th>
+                            <div>
+                                <span>序号</span>
+                            </div>
+                        </th>
+                        <th>
+                            <div>
+                                <span>数据流名称</span>
+                            </div>
+                        </th>
+                        <th>
+                            <div>
+                                <span>单位名称</span>
+                            </div>
+                        </th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+            {% if data_type_count > 0 %}
+                <div class="t-body">
+                    <table style="width: 100%;table-layout: fixed;">
+                        <tbody>
+                        {% for type,name in data_name.items %}
+                            <tr>
+                                <td>
+                                    <div><span>{{ forloop.counter }}</span></div>
+                                </td>
+                                <td>
+                                    <div><span>{{ type }}</span></div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>{{ name }}</span>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <div class="t-body">
+                    <table style="width: 100%;table-layout: fixed;height: 145px;">
+                        <tbody>
+                        <tr>
+                            <td>
+                                <div><span>暂无数据模板</span></div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            {% endif %}
+            <div class="t-footer">
+                <span style="font-size: 12px;color: #999;">共{{ data_type_count }}项数据</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/js/Jinger/dataType.js"></script>
+{% endblock %}

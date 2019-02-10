@@ -43,7 +43,7 @@
         </div>
     </div>
 
-    <div class="navigation" style="margin: 30px 20px 0 20px;text-align: center">设备分析</div>
+    <div class="navigation" style="margin: 30px 20px 0 20px;text-align: center">设备变化情况</div>
 
     <div class="map">
         <div class="map-body">
@@ -265,7 +265,7 @@
             },
             xAxis: {
                 gridLineWidth: 0,
-                categories: [getDay(-4), getDay(-3), getDay(-2), getDay(-1), getDay(0)],
+                categories: [getDay(-9), getDay(-8), getDay(-7), getDay(-6), getDay(-5), getDay(-4), getDay(-3), getDay(-2), getDay(-1), getDay(0)],
             },
             yAxis: {
                 title: {
@@ -287,9 +287,9 @@
                 }
             },
             series: [{
-                name: '新增设备',
+                name: '设备总数',
                 data: [
-                    {% for count in device_new_change_list %}
+                    {% for count in device_count_list %}
                         {{ count }},
                     {% endfor %}
                 ]
@@ -297,6 +297,13 @@
                 name: '异常设备',
                 data: [
                     {% for count in device_waring_change_list %}
+                        {{ count }},
+                    {% endfor %}
+                ]
+            }, {
+                name: '新增设备',
+                data: [
+                    {% for count in device_new_change_list %}
                         {{ count }},
                     {% endfor %}
                 ]

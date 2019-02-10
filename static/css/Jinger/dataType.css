@@ -1,0 +1,147 @@
+.data-body {
+    position: relative;
+    max-width: 1440px;
+    margin: 0 auto;
+}
+
+.data-body .type-body {
+    list-style: none;
+    height: 57px;
+    margin-top: 24px;
+    font-size: 12px;
+    font-weight: 300;
+    color: #666;
+    line-height: 24px;
+    padding: 0 30px;
+    text-align: center;
+    display: inline-block;
+    width: 17%;
+    vertical-align: top;
+}
+
+.data-body .type-body .type-count {
+    font-size: 24px;
+    color: #333;
+    font-weight: 400;
+    margin-top: 6px;
+    display: block;
+}
+
+.data-body .type-add {
+    height: 108px;
+    line-height: 108px;
+    position: absolute;
+    right: 20px;
+    top: 0;
+}
+
+.data-body .type-add > a {
+    color: #fff;
+    background-color: #57a2ff;
+    border-color: #57a2ff;
+    height: 36px;
+    width: 126px;
+    line-height: 36px;
+    font-size: 14px;
+    border-radius: 3px;
+    display: inline-block;
+    font-weight: 400;
+    text-align: center;
+}
+
+.data-body .type-add > a:hover {
+    background-color: #24bdfd;
+    border-color: #24bdfd;
+}
+
+.wrapper .typelist {
+    margin: 20px 20px 0 20px;
+}
+
+.wrapper .typelist .data-table {
+    position: relative;
+    border-bottom: 0;
+    border-right: 0;
+}
+
+.data-table:before {
+    content: "";
+    position: absolute;
+    background-color: #f5f6f7;
+    width: 100%;
+    height: 1px;
+    left: 0;
+    bottom: 0;
+    z-index: 1;
+}
+
+.t-header > table > thead > tr > th {
+    height: 60px;
+    background-color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    box-sizing: border-box;
+    text-align: center;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+}
+
+.t-header > table > thead > tr > th > div, .t-body > table > tbody > tr > td > div {
+    display: inline-block;
+    word-wrap: normal;
+    vertical-align: middle;
+    padding-left: 36px;
+    padding-right: 36px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    word-break: break-all;
+    box-sizing: border-box;
+    font-weight: 600;
+}
+
+.t-header > table > thead > tr > th > div > span {
+    color: #333;
+    font-weight: 600;
+    font-size: 12px;
+}
+
+.t-body > table > tbody > tr > td > div > a {
+    color: #00c0f1;
+    font-size: small;
+    margin: 0 5px;
+    cursor: default;
+    font-weight: 500;
+}
+
+.t-body > table > tbody > tr > td {
+    border-bottom: 1px solid #f5f6f7;
+    height: 72px;
+    color: #303030;
+    background-color: #fff;
+    text-align: center;
+}
+
+.t-footer {
+    padding: 17px 0;
+    text-align: center;
+    position: relative;
+    line-height: 32px;
+    border-top: none;
+    background-color: #fff;
+    box-sizing: border-box;
+}
+
+.t-body > table > tbody > tr > td > div .a-green:hover {
+    color: #61d16c;
+}
+
+.t-body > table > tbody > tr > td > div .a-red {
+    color: red;
+}
+
+.t-body > table > tbody > tr > td > div .a-red:hover {
+    color: #ff6120;
+}
+
+

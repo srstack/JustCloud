@@ -307,36 +307,44 @@ def systemDevice(request, username, sid):
                 now_time = datetime.datetime.now().date()
                 now_date = str(now_time)
 
-                # 最近五天
+                # 最近十天
                 time_list = [now_time, ]
                 tmp_time = now_time
                 yes_time = datetime.timedelta(days=-1)
-                for i in range(0, 4):
+                for i in range(0, 9):
                     time_list.append(tmp_time + yes_time)
                     tmp_time = tmp_time + yes_time
                 time_list.reverse()
 
-                device_new_change_list = [0, 0, 0, 0, 0]
-                device_waring_change_list = [0, 0, 0, 0, 0]
+                device_new_change_list = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                device_waring_change_list = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                device_count_list = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
                 new_devices = []
                 # 该系统的异常设备
+
                 system_waring_devices = []
                 for device in devices:
+                    data_lits = []
+                    data_exist = False
                     if device.data.all():
+                        data_exist = True
+                        data_lits = device.data.all()
                         device_active_list.append(device)
                     else:
                         device_inactive_list.append(device)
-                    if str(device.date).split()[0] == now_date:
+                    if device.date.date() == now_time:
                         new_devices.append(device)
                     for data in device.data.all():
                         if data.waring == 1:
                             system_waring_devices.append(device)
-                    for i in range(0, 5):
+                    for i in range(0, 10):
                         if device.date.date() == time_list[i]:
                             device_new_change_list[i] = device_new_change_list[i] + 1
-                        if device.data.all():
-                            for data in device.data.all():
+                        if device.date.date() <= time_list[i]:
+                            device_count_list[i] = device_count_list[i] + 1
+                        if data_exist:
+                            for data in data_lits:
                                 if device.data.filter(Q(waring=1) | Q(waring=0)).all():
                                     if device.data.filter(Q(waring=1) | Q(waring=0))[0].date.date() == time_list[i]:
                                         device_waring_change_list[i] = device_waring_change_list[i] + 1
@@ -416,6 +424,48 @@ def deviceDetail(request, username, sid, did):
                 data_had_waring = device_obj.data.filter(Q(waring=1) | Q(waring=0)).all()
                 data_had_waring_count = len(data_had_waring)
                 return render(request, 'Jinger/deviceDetail.html', locals())
+            else:
+                return redirect('/admin/' + request.session.get('USERNAME'))
+        else:
+            return redirect('/admin/' + request.session.get('USERNAME'))
+    else:
+        return redirect('/')
+
+
+def dataType(request, username, sid):
+    is_login = request.session.get('IS_LOGIN', False)
+    if is_login:
+        if request.session.get('USERNAME') == username:
+            # 判断是否为此用户
+
+            # 拿到用户ORM对象
+            user_obj = Users.objects.filter(username=username, domain_id=request.session.get('DOMAIN_ID'))[0]
+            # 有无异常设备
+            waring_system_list, waring_device_list = waringDevice(user_obj)
+            user_name = user_obj.name
+            first_name = user_name[0]
+            # 确定header选中
+            plat_admin_chose = 'active'
+            # 确定menu选中
+            type_admin = 'active'
+            # 主体栏显示的部分
+            exhibition_name = '数据模板'
+
+            # 系统对象
+            system_obj = System.objects.filter(id=sid).all()
+            if system_obj:
+                system_obj = system_obj[0]
+            else:
+                return redirect('/admin/' + request.session.get('USERNAME'))
+
+            # 判断是否有管理权限
+            if user_obj in system_obj.admin.all() and system_obj.platform == 'Jinger':
+                data_type = tuple(eval(system_obj.type))
+                data_type_count = len(data_type)
+
+                data_name = {'Lon': '经度', 'Lat': '纬度', 'Switch': '设备状态', 'Cycle': '订阅周期', 'Turn': '是否翻转'}
+
+                return render(request, 'Jinger/dataType.html', locals())
             else:
                 return redirect('/admin/' + request.session.get('USERNAME'))
         else:

@@ -35,7 +35,7 @@ class System(models.Model):
     name = models.CharField(max_length=10, verbose_name="系统名称", null=False)
     platform = models.CharField(max_length=8, verbose_name="系统平台", null=False, default="Others")
     createuser = models.ForeignKey("Users", verbose_name="创建者", on_delete=models.SET_NULL, null=True,
-                                   related_name="ownsystem")
+                                   related_name="ownsystem" , db_index=True)
     protocol = models.CharField(max_length=4, verbose_name="接入协议", default="CoAP")
     devicecode = models.CharField(max_length=20, verbose_name="设备注册码", null=True)
     domain = models.ForeignKey("Domain", verbose_name="所属域", on_delete=models.CASCADE, related_name="system")
@@ -62,9 +62,9 @@ class Data(models.Model):
     # JSON格式数据存储，采用字典（JS中的对象）格式；
     data = models.CharField(max_length=200, verbose_name="设备数据", null=False)
     date = models.DateTimeField(verbose_name="接收时间", auto_now_add=True)
-    model = models.BooleanField(verbose_name="订阅/推送", default=0)
+    model = models.BooleanField(verbose_name="订阅/推送", default=0, db_index=True)
     # 0:订阅(pull) 1:推送(push)
-    waring = models.NullBooleanField(verbose_name="正常/异常", default=None, null=True)
+    waring = models.NullBooleanField(verbose_name="正常/异常", default=None, null=True, db_index=True)
     # null:正常 0:解除异常 1:异常
 
     def __str__(self):
