@@ -29,19 +29,19 @@ function reWaring(that) {
 // 自动生成模板
 function showtype() {
     if ($('#platform').val() === 'Jinger') {
-        $('#type').val('(\'Lon\',\'Lat\',\'Switch\',\'Cycle\',\'Turn\',)')
+        $('#type').val('{\'Lon\':\'经度\',\'Lat\':\'纬度\',\'Switch\':\'设备状态\',\'Cycle\':\'订阅周期\',\'Turn\':\'是否翻转\',}')
     }
     else if ($('#platform').val() === 'Detritus') {
-        $('#type').val('(\'Lon\',\'Lat\',\'Switch\',\'Cycle\',\'Full\',)')
+        $('#type').val('{\'Lon\':\'经度\',\'Lat\':\'纬度\',\'Switch\':\'设备状态\',\'Cycle\':\'订阅周期\',\'Full\':\'是否满载\',}')
     }
     else if ($('#platform').val() === 'Lumiere') {
-        $('#type').val('(\'Lon\',\'Lat\',\'Switch\',\'Cycle\',\'Switch-Light\',\'Top-Light\',\'Bottom-Light\',)')
+        $('#type').val('{\'Lon\':\'经度\',\'Lat\':\'纬度\',\'Switch\':\'设备状态\',\'Cycle\':\'订阅周期\',\'Switch-Light\':\'路灯状态\',\'Top-Light\':\'光照状态\',\'Bottom-Light\':\'照明状态\',}')
     }
     else if ($('#platform').val() === 'Parquer') {
-        $('#type').val('(\'Lon\',\'Lat\',\'Switch\',\'Cycle\',\'Park\',)')
+        $('#type').val('{\'Lon\':\'经度\',\'Lat\':\'纬度\',\'Switch\':\'设备状态\',\'Cycle\':\'订阅周期\',\'Park\':\'是否停车\',}')
     }
     else {
-        $('#type').val('(\'\',)')
+        $('#type').val('{\'Lon\':\'经度\',\'Lat\':\'纬度\',\'Switch\':\'设备状态\',\'Cycle\':\'订阅周期\',}')
     }
 }
 

@@ -13,7 +13,7 @@ def waringDevice(user_obj):
         for device_obj in system_obj.device.all():
             devices.append(device_obj)
     for device_obj in devices:
-        if device_obj.data.filter(waring=1).all():
+        if device_obj.data.filter(waring=1):
             system.append(device_obj.system)
             waring_devices.append(device_obj)
     return system, waring_devices
@@ -42,7 +42,7 @@ def systemType(request, username, sid):
             exhibition_name = '系统分析'
 
             # 系统对象
-            system_obj = System.objects.filter(id=sid).all()
+            system_obj = System.objects.filter(id=sid)
             if system_obj:
                 system_obj = system_obj[0]
             else:
@@ -57,7 +57,7 @@ def systemType(request, username, sid):
                 # 该系统的异常设备
                 system_waring_devices = []
                 for device in system_obj.device.all():
-                    for data in device.data.all():
+                    for data in device.data.filter(model=0):
                         if data.waring == 1:
                             system_waring_devices.append(device)
 
@@ -94,7 +94,7 @@ def systemMain(request, username, sid):
             exhibition_name = '系统概况'
 
             # 系统对象
-            system_obj = System.objects.filter(id=sid).all()
+            system_obj = System.objects.filter(id=sid)
             if system_obj:
                 system_obj = system_obj[0]
             else:
@@ -145,7 +145,7 @@ def systemMain(request, username, sid):
                         new_devices.append(device)
                     data_count = data_count + len(device.data.all())
                     for data in device.data.all():
-                        if data.waring == 1:
+                        if data.waring == 1 and data.model == 0:
                             system_waring_devices.append(device)
                         if data.model:
                             push_count = push_count + 1
@@ -210,7 +210,7 @@ def systemAnaly(request, username, sid):
             # 主体栏显示的部分
             exhibition_name = '系统分析'
             # 系统对象
-            system_obj = System.objects.filter(id=sid).all()
+            system_obj = System.objects.filter(id=sid)
             if system_obj:
                 system_obj = system_obj[0]
             else:
@@ -228,7 +228,7 @@ def systemAnaly(request, username, sid):
                 system_waring_devices = []
                 system_waring_datas = []
                 for device in system_obj.device.all():
-                    for data in device.data.all():
+                    for data in device.data.filter(model=0).all():
                         if data.waring == 1:
                             system_waring_devices.append(device)
                         if data.waring == 1 or data.waring == 0:
@@ -239,20 +239,25 @@ def systemAnaly(request, username, sid):
                 system_waring_device_count = len(system_waring_devices)
                 system_waring_data_count = len(system_waring_datas)
 
-                data_type = tuple(eval(system_obj.type))
+                # 数据模板
+                type_name = eval(str(system_obj.type))
+                data_type = type_name.keys()
+                data_type_count = len(data_type)
+
+                print(data_type)
                 device_map = {}
                 waring_device_map = {}
                 # 地图数据
                 for device in devices:
                     if device.data.filter(model=0).all() and device not in system_waring_devices:
-                        data = eval(str(device.data.all().last()))
+                        data = eval(str(device.data.filter(model=0).last()))
                         device_map[device.name] = {}
                         for key_data, value_data in data.items():
                             if key_data in data_type:
                                 device_map[device.name][key_data] = value_data
                 # 异常设备地图数据
                 for device in system_waring_devices:
-                    data = eval(str(device.data.all().last()))
+                    data = eval(str(device.data.filter(model=0).last()))
                     waring_device_map[device.name] = {}
                     for key_data, value_data in data.items():
                         if key_data in data_type:
@@ -287,7 +292,7 @@ def systemDevice(request, username, sid):
             exhibition_name = '设备列表'
 
             # 系统对象
-            system_obj = System.objects.filter(id=sid).all()
+            system_obj = System.objects.filter(id=sid)
             if system_obj:
                 system_obj = system_obj[0]
             else:
@@ -335,7 +340,7 @@ def systemDevice(request, username, sid):
                         device_inactive_list.append(device)
                     if device.date.date() == now_time:
                         new_devices.append(device)
-                    for data in device.data.all():
+                    for data in device.data.filter(model=0).all():
                         if data.waring == 1:
                             system_waring_devices.append(device)
                     for i in range(0, 10):
@@ -345,8 +350,9 @@ def systemDevice(request, username, sid):
                             device_count_list[i] = device_count_list[i] + 1
                         if data_exist:
                             for data in data_lits:
-                                if device.data.filter(Q(waring=1) | Q(waring=0)).all():
-                                    if device.data.filter(Q(waring=1) | Q(waring=0))[0].date.date() == time_list[i]:
+                                if device.data.filter(Q(waring=1, model=0) | Q(waring=0, model=0)):
+                                    if device.data.filter(Q(waring=1, model=0) | Q(waring=0, model=0))[0].date.date() == \
+                                            time_list[i]:
                                         device_waring_change_list[i] = device_waring_change_list[i] + 1
                                         break
 
@@ -386,14 +392,14 @@ def deviceDetail(request, username, sid, did):
             # 主体栏显示的部分
             exhibition_name = '设备详情'
             # 系统对象
-            system_obj = System.objects.filter(id=sid).all()
+            system_obj = System.objects.filter(id=sid)
             if system_obj:
                 system_obj = system_obj[0]
             else:
                 return redirect('/admin/' + request.session.get('USERNAME'))
 
             # 设备对象
-            device_obj = Device.objects.filter(id=did).all()
+            device_obj = Device.objects.filter(id=did)
             if device_obj:
                 device_obj = device_obj[0]
             else:
@@ -408,21 +414,35 @@ def deviceDetail(request, username, sid, did):
 
             if user_obj in device_obj.system.admin.all() and system_obj.platform == 'Jinger':
 
-                data_type = tuple(eval(system_obj.type))
+                # 数据模板
+                type_name = eval(str(system_obj.type))
+                data_type = type_name.keys()
+
                 device_map = {}
-                data_name = ['经度', '纬度', '设备状态', '订阅周期', '是否翻转']
 
                 # 地图数据
-                data = eval(str(device_obj.data.all().last()))
+                data = eval(str(device_obj.data.filter(model=0).all().last()))
+
+                if data:
+                    pass
+                else:
+                    return redirect('/admin/' + request.session.get('USERNAME'))
+
                 for key_data, value_data in data.items():
                     if key_data in data_type:
                         device_map[key_data] = value_data
 
-                if device_obj.data.filter(waring=1).all():
-                    waring_data = device_obj.data.filter(waring=1).all().last()
+                if device_obj.data.filter(waring=1, model=0):
+                    waring_data = device_obj.data.filter(waring=1, model=0).last()
 
-                data_had_waring = device_obj.data.filter(Q(waring=1) | Q(waring=0)).all()
+                data_had_waring = device_obj.data.filter(Q(waring=1, model=0) | Q(waring=0, model=0)).reverse()
                 data_had_waring_count = len(data_had_waring)
+
+                # 历史异常数据
+                data_waring_dict = {}
+                for data in data_had_waring:
+                    data_waring_dict[data.id] = eval(str(data.data))
+
                 return render(request, 'Jinger/deviceDetail.html', locals())
             else:
                 return redirect('/admin/' + request.session.get('USERNAME'))
@@ -452,7 +472,7 @@ def dataType(request, username, sid):
             exhibition_name = '数据模板'
 
             # 系统对象
-            system_obj = System.objects.filter(id=sid).all()
+            system_obj = System.objects.filter(id=sid)
             if system_obj:
                 system_obj = system_obj[0]
             else:
@@ -460,12 +480,133 @@ def dataType(request, username, sid):
 
             # 判断是否有管理权限
             if user_obj in system_obj.admin.all() and system_obj.platform == 'Jinger':
-                data_type = tuple(eval(system_obj.type))
+
+                # 数据模板
+                type_name = eval(str(system_obj.type))
+                data_type = type_name.keys()
                 data_type_count = len(data_type)
 
-                data_name = {'Lon': '经度', 'Lat': '纬度', 'Switch': '设备状态', 'Cycle': '订阅周期', 'Turn': '是否翻转'}
-
                 return render(request, 'Jinger/dataType.html', locals())
+            else:
+                return redirect('/admin/' + request.session.get('USERNAME'))
+        else:
+            return redirect('/admin/' + request.session.get('USERNAME'))
+    else:
+        return redirect('/')
+
+
+def systemPush(request, username, sid):
+    is_login = request.session.get('IS_LOGIN', False)
+    if is_login:
+        if request.session.get('USERNAME') == username:
+            # 判断是否为此用户
+
+            # 拿到用户ORM对象
+            user_obj = Users.objects.filter(username=username, domain_id=request.session.get('DOMAIN_ID'))[0]
+            # 有无异常设备
+            waring_system_list, waring_device_list = waringDevice(user_obj)
+            user_name = user_obj.name
+            first_name = user_name[0]
+            # 确定header选中
+            plat_admin_chose = 'active'
+            # 确定menu选中
+            push_admin = 'active'
+            # 主体栏显示的部分
+            exhibition_name = '命令推送'
+
+            # 系统对象
+            system_obj = System.objects.filter(id=sid)
+            if system_obj:
+                system_obj = system_obj[0]
+            else:
+                return redirect('/admin/' + request.session.get('USERNAME'))
+
+            # 判断是否有管理权限
+            if user_obj in system_obj.admin.all() and system_obj.platform == 'Jinger':
+
+                # 设备queryset
+                devices = system_obj.device.all()
+
+                # 数据模板
+                type_name = eval(str(system_obj.type))
+                data_type = type_name.keys()
+
+                device_data_dict = {}
+                data_dict = {}
+
+                push_count = 0
+
+                # 推送数据
+                for device in devices:
+                    data_list = device.data.filter(model=1).all()
+                    device_data_dict[device] = []
+                    push_count = push_count + len(data_list)
+                    if data_list:
+                        for data in data_list:
+                            device_data_dict[device].insert(0, data)
+                            data_dict[data.id] = eval(str(data.data))
+
+                return render(request, 'Jinger/systemPush.html', locals())
+            else:
+                return redirect('/admin/' + request.session.get('USERNAME'))
+        else:
+            return redirect('/admin/' + request.session.get('USERNAME'))
+    else:
+        return redirect('/')
+
+
+def systemPull(request, username, sid):
+    is_login = request.session.get('IS_LOGIN', False)
+    if is_login:
+        if request.session.get('USERNAME') == username:
+            # 判断是否为此用户
+
+            # 拿到用户ORM对象
+            user_obj = Users.objects.filter(username=username, domain_id=request.session.get('DOMAIN_ID'))[0]
+            # 有无异常设备
+            waring_system_list, waring_device_list = waringDevice(user_obj)
+            user_name = user_obj.name
+            first_name = user_name[0]
+            # 确定header选中
+            plat_admin_chose = 'active'
+            # 确定menu选中
+            pull_admin = 'active'
+            # 主体栏显示的部分
+            exhibition_name = '数据订阅'
+
+            # 系统对象
+            system_obj = System.objects.filter(id=sid)
+            if system_obj:
+                system_obj = system_obj[0]
+            else:
+                return redirect('/admin/' + request.session.get('USERNAME'))
+
+            # 判断是否有管理权限
+            if user_obj in system_obj.admin.all() and system_obj.platform == 'Jinger':
+
+                # 设备queryset
+                devices = system_obj.device.all()
+
+                # 数据模板
+                type_name = eval(str(system_obj.type))
+                data_type = type_name.keys()
+
+                device_data_dict = {}
+                data_dict = {}
+
+                pull_count = 0
+
+                # 订阅数据
+                for device in devices:
+                    data_list = device.data.filter(model=0).all()
+                    device_data_dict[device] = []
+                    pull_count = pull_count + len(data_list)
+                    if data_list:
+                        for data in data_list:
+                            device_data_dict[device].insert(0, data)
+                            data_dict[data.id] = eval(str(data.data))
+
+                return render(request, 'Jinger/systemPull.html', locals())
             else:
                 return redirect('/admin/' + request.session.get('USERNAME'))
         else:
@@ -481,7 +622,7 @@ def waringRemove(request, username, sid, did=0):
             if request.session.get('USERNAME') == username:
                 # 判断是否为此用户
                 # 系统对象
-                system_obj = System.objects.filter(id=sid).all()
+                system_obj = System.objects.filter(id=sid)
                 if system_obj:
                     system_obj = system_obj[0]
                 else:
@@ -495,7 +636,7 @@ def waringRemove(request, username, sid, did=0):
                     device_id = request.POST.get('did')
                     data_id = request.POST.get('dataid')
 
-                    data_obj = Data.objects.filter(id=data_id, device_id=device_id, waring=1).all()
+                    data_obj = Data.objects.filter(id=data_id, device_id=device_id, waring=1)
                     if data_obj:
                         data_obj = data_obj[0]
                         data_obj.waring = 0
@@ -522,7 +663,7 @@ def deviceRemove(request, username, sid):
             if request.session.get('USERNAME') == username:
                 # 判断是否为此用户
                 # 系统对象
-                system_obj = System.objects.filter(id=sid).all()
+                system_obj = System.objects.filter(id=sid)
                 if system_obj:
                     system_obj = system_obj[0]
                 else:
@@ -561,7 +702,7 @@ def deviceAdd(request, username, sid):
             if request.session.get('USERNAME') == username:
                 # 判断是否为此用户
                 # 系统对象
-                system_obj = System.objects.filter(id=sid).all()
+                system_obj = System.objects.filter(id=sid)
                 if system_obj:
                     system_obj = system_obj[0]
                 else:
@@ -577,6 +718,92 @@ def deviceAdd(request, username, sid):
                     # 操作记录
                     Operation.objects.create(code=302, user=user_obj)
                 return HttpResponse('666')
+            else:
+                return redirect('/admin/' + request.session.get('USERNAME'))
+        else:
+            return redirect('/')
+    else:
+        return redirect('/')
+
+
+def pushAdd(request, username, sid):
+    if request.method == 'POST':
+        is_login = request.session.get('IS_LOGIN', False)
+        if is_login:
+            if request.session.get('USERNAME') == username:
+                # 判断是否为此用户
+                # 系统对象
+                system_obj = System.objects.filter(id=sid)
+                if system_obj:
+                    system_obj = system_obj[0]
+                else:
+                    return redirect('/admin/' + request.session.get('USERNAME'))
+                user_obj = Users.objects.filter(username=username, domain_id=request.session.get('DOMAIN_ID'))[0]
+                # 获得post数据
+                switch = request.POST.get('Switch')
+                cycle = request.POST.get('Cycle')
+                did = request.POST.get('did')
+                device_obj = Device.objects.filter(id=did)
+                if user_obj in system_obj.admin.all() or device_obj:
+                    # 数据模板
+                    type_name = eval(str(system_obj.type))
+                    data_type = type_name.keys()
+                    data = {}
+                    for type in data_type:
+                        if type == 'Switch':
+                            data[type] = int(switch)
+                        elif type == 'Cycle':
+                            data[type] = cycle
+                        else:
+                            data[type] = 0
+
+                    Data.objects.create(device=device_obj[0], model=1, data=str(data))
+                    Operation.objects.create(code=305, user=user_obj)
+                    return HttpResponse('666')
+                else:
+                    return HttpResponse('444')
+            else:
+                return redirect('/admin/' + request.session.get('USERNAME'))
+        else:
+            return redirect('/')
+    else:
+        return redirect('/')
+
+
+def pushAddAll(request, username, sid):
+    if request.method == 'POST':
+        is_login = request.session.get('IS_LOGIN', False)
+        if is_login:
+            if request.session.get('USERNAME') == username:
+                # 判断是否为此用户
+                # 系统对象
+                system_obj = System.objects.filter(id=sid)
+                if system_obj:
+                    system_obj = system_obj[0]
+                else:
+                    return redirect('/admin/' + request.session.get('USERNAME'))
+                user_obj = Users.objects.filter(username=username, domain_id=request.session.get('DOMAIN_ID'))[0]
+                # 获得post数据
+                switch = request.POST.get('Switch')
+                cycle = request.POST.get('Cycle')
+                if user_obj in system_obj.admin.all():
+                    # 数据模板
+                    type_name = eval(str(system_obj.type))
+                    data_type = type_name.keys()
+                    data = {}
+                    for type in data_type:
+                        if type == 'Switch':
+                            data[type] = int(switch)
+                        elif type == 'Cycle':
+                            data[type] = cycle
+                        else:
+                            data[type] = 0
+                    for device_obj in system_obj.device.all():
+                        Data.objects.create(device=device_obj, model=1, data=str(data))
+                    Operation.objects.create(code=305, user=user_obj)
+                    return HttpResponse('666')
+                else:
+                    return HttpResponse('444')
             else:
                 return redirect('/admin/' + request.session.get('USERNAME'))
         else:

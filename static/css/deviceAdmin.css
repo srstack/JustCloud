@@ -46,6 +46,7 @@
     color: #333;
     font-weight: 700;
     margin-bottom: 0;
+    margin-top: 12px;
 }
 
 .overview-nav .overview-ul li .li-item .online-wrap p {
@@ -394,12 +395,14 @@ select {
     border-color: #57a2ff;
 }
 
-.t-body > table > tbody > tr > td > div .a-green:hover{
+.t-body > table > tbody > tr > td > div .a-green:hover {
     color: #61d16c;
 }
-.t-body > table > tbody > tr > td > div .a-red{
+
+.t-body > table > tbody > tr > td > div .a-red {
     color: red;
 }
-.t-body > table > tbody > tr > td > div .a-red:hover{
+
+.t-body > table > tbody > tr > td > div .a-red:hover {
     color: #ff6120;
 }

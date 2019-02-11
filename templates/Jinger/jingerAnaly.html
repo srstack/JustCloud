@@ -85,12 +85,12 @@
                                 <td>
                                     <div>
                                         <a class="a-green"
-                                           href="/system/{{ user_obj.username }}/{{ data.device.system.platform }}/{{ data.device.system.id }}/pull/{{ data.device.id }}/{{ data.id }}"
+                                           href="/system/{{ user_obj.username }}/{{ data.device.system.platform }}/{{ data.device.system.id }}/device/{{ data.device.id }}/"
                                            onclick="loadingIn()">详情</a>
                                         {% if data.waring == 1 %}
                                             <a class="a-red" onclick="loadingIn();showremove(this)"
                                                dataid = {{ data.id }}
-                                               did={{ data.device.id }}>已处理</a></div>
+                                               did={{ data.device.id }}>处理</a></div>
                                         {% endif %}
                                 </td>
                             </tr>

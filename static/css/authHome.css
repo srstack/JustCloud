@@ -115,6 +115,16 @@
     cursor: context-menu;
 }
 
+.i-body > ul > li > a.system-detail {
+    margin-right: 0;
+    float: none;
+    color: #0f0f0f;
+}
+
+.i-body > ul > li > .system-detail:hover {
+    color: #49a6fd !important;
+}
+
 .i-body > ul > li > a:hover {
     color: #eb3c22;
 }

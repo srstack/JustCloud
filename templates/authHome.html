@@ -110,7 +110,7 @@
                                 <ul>
                                     {% for system in sub.system.all %}
                                         <li><i class="fa fa-viacoin"
-                                               aria-hidden="true"></i><span>{{ system.name }}</span>
+                                               aria-hidden="true"></i><a class="system-detail" onclick="loadingIn()" href="/system/{{ username }}/{{ system.platform }}/{{ system.id }}">{{ system.name }}</a>
                                             <a onclick="loadingIn(),showRemove(this)"
                                                sid={{ system.id }}  uid={{ sub.id }}>删除</a>
                                         </li>
@@ -151,7 +151,7 @@
 
     <div class="change" id="adminadd">
         <div class="change-table">
-            <a class="change-table-close" onclick="loadingIn(),closeadd()"><i class="fa fa-times"></i></a>
+            <a class="change-table-close" onclick="loadingIn();closeadd()"><i class="fa fa-times"></i></a>
             <div class="change-table-header">权限管理</div>
             <div class="change-table-form">
                 <div>

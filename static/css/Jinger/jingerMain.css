@@ -82,7 +82,6 @@
 }
 
 .content .wrapper .baseinfo .grid .baseinfo-aid, .content .wrapper .baseinfo .grid .baseinfo-uid, .content .wrapper .baseinfo .grid .baseinfo-subuser, .content .wrapper .baseinfo .grid .baseinfo-system {
-    border-right: 1px solid #f3f4f5;
     text-align: center;
     line-height: 100%;
     width: 20%;

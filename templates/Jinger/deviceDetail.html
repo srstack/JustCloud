@@ -1,4 +1,5 @@
 {% extends 'type/controlboard.html' %}
+{% load base %}
 {% block title %}Jinger设备详情{% endblock %}
 
 {% block menu %}
@@ -69,10 +70,10 @@
                                 <span>异常状态</span>
                             </div>
                         </th>
-                        {% for type in data_name %}
+                        {% for key,value in type_name.items %}
                             <th>
                                 <div>
-                                    <span>{{ type }}</span>
+                                    <span>{{ value }}</span>
                                 </div>
                             </th>
                         {% endfor %}
@@ -105,13 +106,13 @@
                                             <span class="data-status"
                                                   style="background-color: #EB3C22;font-weight: 500;">未处理</span>
                                         </div>
-                                    {% else %}
+                                    {% elif data.waring == 0 %}
                                         <div><span class="data-status"
                                                    style="background-color: #61d16c;font-weight: 500;">已处理</span>
                                         </div>
                                     {% endif %}
                                 </td>
-                                {% for type,value in device_map.items %}
+                                {% for type,value in data_waring_dict|key:data.id %}
                                     {% if type == 'Switch' %}
                                         {% if value == 1 %}
                                             <td>
@@ -120,7 +121,7 @@
                                                           style="background-color: #61d16c;font-weight: 500;">开启</span>
                                                 </div>
                                             </td>
-                                        {% else %}
+                                        {% elif value == 0 %}
                                             <td>
                                                 <div>
                                                     <span class="data-status"
@@ -129,7 +130,7 @@
                                             </td>
                                         {% endif %}
                                     {% elif type == 'Cycle' %}
-                                        <td style="width: 11%">
+                                        <td>
                                             <div><span>{{ value }}小时</span></div>
                                         </td>
                                     {% elif type == 'Turn' %}
@@ -140,11 +141,11 @@
                                                           style="background-color: #61d16c;font-weight: 500;">正常</span>
                                                 </div>
                                             </td>
-                                        {% else %}
+                                        {% elif value == 1 %}
                                             <td>
                                                 <div>
                                                     <span class="data-status"
-                                                          style="background-color: #61d16c;font-weight: 500;">翻转</span>
+                                                          style="background-color: #ea4215;font-weight: 500;">翻转</span>
                                                 </div>
                                             </td>
                                         {% endif %}
@@ -161,13 +162,12 @@
                                 </td>
                                 <td>
                                     <div>
-                                        <a class="a-green"
-                                           href="/system/{{ user_obj.username }}/{{ data.device.system.platform }}/{{ data.device.system.id }}/pull/{{ data.device.id }}/{{ data.id }}"
-                                           onclick="loadingIn()">详情</a>
                                         {% if data.waring == 1 %}
                                             <a class="a-red" onclick="loadingIn();showremove(this)"
                                                dataid={{ data.id }}
-                                                       did={{ data.device.id }}>已处理</a></div>
+                                                       did={{ data.device.id }}>处理</a></div>
+                                        {% else %}
+                                            <a class="a-green">已处理</a>
                                         {% endif %}
                                 </td>
                             </tr>

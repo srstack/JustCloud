@@ -1,0 +1,157 @@
+{% extends 'type/controlboard.html' %}
+{% load base %}
+{% block title %}Jinger数据订阅{% endblock %}
+
+{% block menu %}
+    {% include 'Jinger/jingerType.html' %}
+{% endblock %}
+
+{% block wrapper %}
+    <link href="/static/css/Jinger/systemPush.css" rel="stylesheet" type="text/css"/>
+    <script src="/static/js/jquery.validate.min.js"></script>
+
+    <div class="navigation" style="margin: 30px 20px 0 20px;height: 108px;text-align: center">
+        <div class="data-body">
+            <div class="push-body">
+                <label style="margin-right: 3px;">历史订阅数(条)</label>
+                <label class="push-count">{{ pull_count }}</label>
+            </div>
+            <div class="push-add">
+            </div>
+        </div>
+    </div>
+
+    {% for device,data in device_data_dict.items %}
+
+        <div class="baseinfo">
+            <div class="grid">
+                <div class="baseinfo-user">
+                    <h2>{{ device.name }}</h2>
+                    <span>{{ system_obj.platform }}</span>
+                </div>
+                <div class="baseinfo-uid" style="width: 25%;">
+                    <h3>设备ID</h3>
+                    <span>{{ device.id }}</span>
+                </div>
+                <div class="baseinfo-subuser" style="width: 25%;">
+                    <h3>创建时间</h3>
+                    <span>{{ device.date|date:"Y-m-d H:i" }}</span>
+                </div>
+                <div class="baseinfo-system" style="width: 25%;">
+                    <h3>设备接入协议</h3>
+                    <span>{{ system_obj.protocol }}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="waring-datalist">
+            <div class="data-table">
+                <div class="t-header">
+                    <table style="width: 100%;table-layout: fixed;">
+                        <thead>
+                        <tr>
+                            <th style="width: 11%">
+                                <div>
+                                    <span>数据ID</span>
+                                </div>
+                            </th>
+                            {% for type,name in type_name.items %}
+                                <th>
+                                    <div>
+                                        <span>{{ name }}</span>
+                                    </div>
+                                </th>
+                            {% endfor %}
+                            <th>
+                                <div>
+                                    <span>订阅时间</span>
+                                </div>
+                            </th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+                {% if data %}
+                    <div class="t-body">
+                        <table style="width: 100%;table-layout: fixed;">
+                            <tbody>
+                            {% for data in data %}
+                                <tr>
+                                    <td style="width: 11%">
+                                        <div><span>{{ data.id }}</span></div>
+                                    </td>
+                                    {% for type,value in data_dict|key:data.id %}
+                                        {% if type == 'Switch' %}
+                                            {% if value == 1 %}
+                                                <td>
+                                                    <div>
+                                                    <span class="data-status"
+                                                          style="background-color: #61d16c;font-weight: 500;">开启</span>
+                                                    </div>
+                                                </td>
+                                            {% elif value == 0 %}
+                                                <td>
+                                                    <div>
+                                                    <span class="data-status"
+                                                          style="background-color: #61d16c;font-weight: 500;">关闭</span>
+                                                    </div>
+                                                </td>
+                                            {% endif %}
+                                        {% elif type == 'Cycle' %}
+                                            <td>
+                                                <div><span>{{ value }}小时</span></div>
+                                            </td>
+                                        {% elif type == 'Turn' %}
+                                            {% if value == 0 %}
+                                                <td>
+                                                    <div>
+                                                    <span class="data-status"
+                                                          style="background-color: #61d16c;font-weight: 500;">正常</span>
+                                                    </div>
+                                                </td>
+                                            {% elif value == 1 %}
+                                                <td>
+                                                    <div>
+                                                    <span class="data-status"
+                                                          style="background-color: #ea4215;font-weight: 500;">翻转</span>
+                                                    </div>
+                                                </td>
+                                            {% endif %}
+                                        {% else %}
+                                            <td>
+                                                <div><span>{{ value }}</span></div>
+                                            </td>
+                                        {% endif %}
+                                    {% endfor %}
+                                    <td>
+                                        <div>
+                                            <span>{{ data.date|date:"Y-m-d H:i" }}</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <div class="t-body">
+                        <table style="width: 100%;table-layout: fixed;height: 145px;">
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <div><span>暂无历史订阅</span></div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                {% endif %}
+                <div class="t-footer">
+                    <span style="font-size: 12px;color: #999;">共{{ data|length }}项数据</span>
+                </div>
+            </div>
+        </div>
+
+    {% endfor %}
+
+{% endblock %}

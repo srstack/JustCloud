@@ -182,7 +182,8 @@ def deviceRemove(request, username):
                 device_obj = Device.objects.filter(id=did)[0]
 
                 # 判断是否有管理权限(系统创建者和管理员)
-                if (device_obj.system.createuser == user_obj and user_obj in device_obj.system.admin.all()) or not user_obj.rely:
+                if (
+                        device_obj.system.createuser == user_obj and user_obj in device_obj.system.admin.all()) or not user_obj.rely:
                     # 删除设备
                     device_obj.delete()
                     Operation.objects.create(
@@ -214,7 +215,7 @@ def systemCreate(request, username):
                 protocol = request.POST.get('protocol')
                 code = createCode()
                 # 判断模板
-                if str(type).startswith('(\'Lon\',\'Lat\',\'Switch\',\'Cycle\','):
+                if str(type).startswith('{\'Lon\':\'经度\',\'Lat\':\'纬度\',\'Switch\':\'设备状态\',\'Cycle\':\'订阅周期\','):
                     if System.objects.filter(domain_id=request.session.get('DOMAIN_ID'), name=name):
                         return HttpResponse('444')
                     else:
