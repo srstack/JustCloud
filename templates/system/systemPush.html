@@ -1,22 +1,26 @@
 {% extends 'type/controlboard.html' %}
 {% load base %}
-{% block title %}Jinger数据订阅{% endblock %}
+{% block title %}{{ system_obj.platform }}命令推送{% endblock %}
 
 {% block menu %}
-    {% include 'Jinger/jingerType.html' %}
+    {% include 'system/systemType.html' %}
 {% endblock %}
 
 {% block wrapper %}
-    <link href="/static/css/Jinger/systemPush.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/css/system/systemPush.css" rel="stylesheet" type="text/css"/>
     <script src="/static/js/jquery.validate.min.js"></script>
 
-    <div class="navigation" style="margin: 30px 20px 0 20px;height: 108px;text-align: center">
+    <div class="navigation" style="margin: 30px 20px 0 20px;height: 108px">
         <div class="data-body">
             <div class="push-body">
-                <label style="margin-right: 3px;">历史订阅数(条)</label>
-                <label class="push-count">{{ pull_count }}</label>
+                <label style="margin-right: 3px;">历史推送数(条)</label>
+                <label class="push-count">{{ push_count }}</label>
             </div>
             <div class="push-add">
+                <a onclick="loadingIn();showPushAll()">
+                    <i class="fa fa-rocket"></i>
+                    <span style="margin-left: 4px;">统一命令推送</span>
+                </a>
             </div>
         </div>
     </div>
@@ -29,17 +33,23 @@
                     <h2>{{ device.name }}</h2>
                     <span>{{ system_obj.platform }}</span>
                 </div>
-                <div class="baseinfo-uid" style="width: 25%;">
+                <div class="baseinfo-uid">
                     <h3>设备ID</h3>
                     <span>{{ device.id }}</span>
                 </div>
-                <div class="baseinfo-subuser" style="width: 25%;">
+                <div class="baseinfo-subuser">
                     <h3>创建时间</h3>
                     <span>{{ device.date|date:"Y-m-d H:i" }}</span>
                 </div>
-                <div class="baseinfo-system" style="width: 25%;">
+                <div class="baseinfo-system">
                     <h3>设备接入协议</h3>
                     <span>{{ system_obj.protocol }}</span>
+                </div>
+                <div class="push">
+                    <a onclick="loadingIn();showPush(this)" did="{{ device.id }}">
+                        <i class="fa fa-level-up"></i>
+                        <span style="margin-left: 4px;">命令推送</span>
+                    </a>
                 </div>
             </div>
         </div>
@@ -64,7 +74,7 @@
                             {% endfor %}
                             <th>
                                 <div>
-                                    <span>订阅时间</span>
+                                    <span>推送时间</span>
                                 </div>
                             </th>
                         </tr>
@@ -139,7 +149,7 @@
                             <tbody>
                             <tr>
                                 <td>
-                                    <div><span>暂无历史订阅</span></div>
+                                    <div><span>暂无历史推送</span></div>
                                 </td>
                             </tr>
                             </tbody>
@@ -154,4 +164,96 @@
 
     {% endfor %}
 
+
+    <div class="pushadd" id="push">
+        <div class="change-table">
+            <a class="change-table-close" onclick="loadingIn();closechange(this)"><i class="fa fa-times"></i></a>
+            <div class="change-table-header">命令推送</div>
+            <div class="change-table-form">
+                <div>
+                    <form>
+                        <p>命令推送详情</p>
+                        {% csrf_token %}
+                        {% for type,name in type_name.items %}
+                            <div style="margin-bottom: 24px">
+                                <label class="form-item">{{ name }}</label>
+                                {% if type == 'Switch' %}
+                                    <div class="form-input">
+                                        <select class="item-body" name={{ type }} id={{ type }} onclick="reWaring(this)" >
+                                            <option value=0>关闭</option>
+                                            <option value=1>开启</option>
+                                        </select>
+                                    </div>
+                                {% elif type == 'Cycle' %}
+                                    <div class="form-input">
+                                        <input type="text" placeholder="请输入{{ name }}" id={{ type }} name={{ type }}
+                                               onclick="reWaring(this)">
+                                    </div>
+                                {% else %}
+                                    <div class="form-input">
+                                        <input type="text" placeholder="输入无效" id={{ type }} name={{ type }}
+                                               onclick="reWaring(this)"
+                                               value=""
+                                               readonly>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    </form>
+                </div>
+            </div>
+            <div class="change-table-footer">
+                <button class="sent" onclick="loadingIn();dataPush(this)"><span>确定</span></button>
+            </div>
+        </div>
+    </div>
+
+    <div class="pushadd" id="pushall">
+        <div class="change-table">
+            <a class="change-table-close" onclick="loadingIn(),closechange(this)"><i class="fa fa-times"></i></a>
+            <div class="change-table-header">命令推送</div>
+            <div class="change-table-form">
+                <div>
+                    <form>
+                        <p>命令推送详情</p>
+                        {% csrf_token %}
+                        {% for type,name in type_name.items %}
+                            <div style="margin-bottom: 24px">
+                                <label class="form-item">{{ name }}</label>
+                                {% if type == 'Switch' %}
+                                    <div class="form-input">
+                                        <select class="item-body" name={{ type }} id={{ type }} onclick="reWaring(this)" >
+                                            <option value=0>关闭</option>
+                                            <option value=1>开启</option>
+                                        </select>
+                                    </div>
+                                {% elif type == 'Cycle' %}
+                                    <div class="form-input">
+                                        <input type="text" placeholder="请输入{{ name }}" id={{ type }} name={{ type }}
+                                               onclick="reWaring(this)">
+                                    </div>
+                                {% else %}
+                                    <div class="form-input">
+                                        <input type="text" placeholder="输入无效" id={{ type }} name={{ type }}
+                                               onclick="reWaring(this)"
+                                               value=""
+                                               readonly>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    </form>
+                </div>
+            </div>
+            <div class="change-table-footer">
+                <button class="sent" onclick="loadingIn();dataPushAll()"><span>确定</span></button>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <script src="/static/js/system/systemPush.js"></script>
 {% endblock %}

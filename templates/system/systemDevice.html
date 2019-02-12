@@ -1,12 +1,12 @@
 {% extends 'type/controlboard.html' %}
-{% block title %}Jinger设备列表{% endblock %}
+{% block title %}{{ system_obj.platform }}设备列表{% endblock %}
 
 {% block menu %}
-    {% include 'Jinger/jingerType.html' %}
+    {% include 'system/systemType.html' %}
 {% endblock %}
 
 {% block wrapper %}
-    <link href="/static/css/Jinger/jingerDevice.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/css/system/systemDevice.css" rel="stylesheet" type="text/css"/>
     <script src="/static/js/jquery.validate.min.js"></script>
 
     <div class="device-overview-body">
@@ -163,7 +163,7 @@
                         <tbody>
                         <tr>
                             <td>
-                                <div><span>暂无子平台数据</span></div>
+                                <div><span>暂无下属设备</span></div>
                             </td>
                         </tr>
                         </tbody>
@@ -249,7 +249,7 @@
 
 
 
-    <script src="/static/js/Jinger/jingerDevice.js"></script>
+    <script src="/static/js/system/systemDevice.js"></script>
     <script src="/static/plugins/highcharts/highcharts.js"></script>
     <script src="/static/plugins/highcharts/exporting.js"></script>
     <script src="/static/plugins/highcharts/highcharts-zh_CN.js"></script>

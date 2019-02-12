@@ -21,59 +21,6 @@ def waringDevice(user_obj):
 
 # Create your views here.
 
-# 模板函数
-def systemType(request, username, sid):
-    is_login = request.session.get('IS_LOGIN', False)
-    if is_login:
-        if request.session.get('USERNAME') == username:
-            # 判断是否为此用户
-
-            # 拿到用户ORM对象
-            user_obj = Users.objects.filter(username=username, domain_id=request.session.get('DOMAIN_ID'))[0]
-            # 有无异常设备
-            waring_system_list, waring_device_list = waringDevice(user_obj)
-            user_name = user_obj.name
-            first_name = user_name[0]
-            # 确定header选中
-            plat_admin_chose = 'active'
-            # 确定menu选中
-            analy_admin = 'active'
-            # 主体栏显示的部分
-            exhibition_name = '系统分析'
-
-            # 系统对象
-            system_obj = System.objects.filter(id=sid)
-            if system_obj:
-                system_obj = system_obj[0]
-            else:
-                return redirect('/admin/' + request.session.get('USERNAME'))
-
-            # 判断是否有管理权限
-            if user_obj in system_obj.admin.all() and system_obj.platform == 'Jinger':
-                # 设备queryset
-                devices = system_obj.device.all()
-                device_count = len(devices)
-
-                # 该系统的异常设备
-                system_waring_devices = []
-                for device in system_obj.device.all():
-                    for data in device.data.filter(model=0):
-                        if data.waring == 1:
-                            system_waring_devices.append(device)
-
-                # 利用集合的特性去重
-                system_waring_devices = list(set(system_waring_devices))
-                system_waring_device_count = len(system_waring_devices)
-
-                return render(request, 'Jinger/jingerAnaly.html', locals())
-            else:
-                return redirect('/admin/' + request.session.get('USERNAME'))
-        else:
-            return redirect('/admin/' + request.session.get('USERNAME'))
-    else:
-        return redirect('/')
-
-
 def systemMain(request, username, sid):
     is_login = request.session.get('IS_LOGIN', False)
     if is_login:
@@ -182,7 +129,7 @@ def systemMain(request, username, sid):
                     else:
                         new_device_inactive = new_device_inactive + 1
 
-                return render(request, 'Jinger/jingerMain.html', locals())
+                return render(request, 'system/systemMain.html', locals())
             else:
                 return redirect('/admin/' + request.session.get('USERNAME'))
         else:
@@ -263,7 +210,7 @@ def systemAnaly(request, username, sid):
                         if key_data in data_type:
                             waring_device_map[device.name][key_data] = value_data
 
-                return render(request, 'Jinger/jingerAnaly.html', locals())
+                return render(request, 'jiner/jingerAnaly.html', locals())
             else:
                 return redirect('/admin/' + request.session.get('USERNAME'))
         else:
@@ -364,7 +311,7 @@ def systemDevice(request, username, sid):
                 device_inactive_count = len(device_inactive_list)
                 new_devices_count = len(new_devices)
 
-                return render(request, 'Jinger/jingerDevice.html', locals())
+                return render(request, 'system/systemDevice.html', locals())
             else:
                 return redirect('/admin/' + request.session.get('USERNAME'))
         else:
@@ -443,7 +390,7 @@ def deviceDetail(request, username, sid, did):
                 for data in data_had_waring:
                     data_waring_dict[data.id] = eval(str(data.data))
 
-                return render(request, 'Jinger/deviceDetail.html', locals())
+                return render(request, 'system/deviceDetail.html', locals())
             else:
                 return redirect('/admin/' + request.session.get('USERNAME'))
         else:
@@ -486,7 +433,7 @@ def dataType(request, username, sid):
                 data_type = type_name.keys()
                 data_type_count = len(data_type)
 
-                return render(request, 'Jinger/dataType.html', locals())
+                return render(request, 'system/dataType.html', locals())
             else:
                 return redirect('/admin/' + request.session.get('USERNAME'))
         else:
@@ -546,7 +493,7 @@ def systemPush(request, username, sid):
                             device_data_dict[device].insert(0, data)
                             data_dict[data.id] = eval(str(data.data))
 
-                return render(request, 'Jinger/systemPush.html', locals())
+                return render(request, 'system/systemPush.html', locals())
             else:
                 return redirect('/admin/' + request.session.get('USERNAME'))
         else:
@@ -606,7 +553,7 @@ def systemPull(request, username, sid):
                             device_data_dict[device].insert(0, data)
                             data_dict[data.id] = eval(str(data.data))
 
-                return render(request, 'Jinger/systemPull.html', locals())
+                return render(request, 'system/systemPull.html', locals())
             else:
                 return redirect('/admin/' + request.session.get('USERNAME'))
         else:

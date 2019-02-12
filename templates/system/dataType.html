@@ -1,12 +1,12 @@
 {% extends 'type/controlboard.html' %}
-{% block title %}Jinger数据模板{% endblock %}
+{% block title %}{{ system_obj.platform }}数据模板{% endblock %}
 
 {% block menu %}
-    {% include 'Jinger/jingerType.html' %}
+    {% include 'system/systemType.html' %}
 {% endblock %}
 
 {% block wrapper %}
-    <link href="/static/css/Jinger/dataType.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/css/system/dataType.css" rel="stylesheet" type="text/css"/>
     <script src="/static/js/jquery.validate.min.js"></script>
 
     <div class="navigation" style="margin: 30px 20px 0 20px;text-align: center">{{ system_obj.name }}数据模板</div>
@@ -92,5 +92,5 @@
         </div>
     </div>
 
-    <script src="/static/js/Jinger/dataType.js"></script>
+    <script src="/static/js/system/dataType.js"></script>
 {% endblock %}

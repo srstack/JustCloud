@@ -1,12 +1,12 @@
 {% extends 'type/controlboard.html' %}
-{% block title %}Jinger系统分析{% endblock %}
+{% block title %}{{ system_obj.platform }}系统分析{% endblock %}
 
 {% block menu %}
-    {% include 'Jinger/jingerType.html' %}
+    {% include 'system/systemType.html' %}
 {% endblock %}
 
 {% block wrapper %}
-    <link href="/static/css/Jinger/jingerAnaly.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/css/Jinger/systemAnaly.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript"
             src="http://api.map.baidu.com/api?v=3.0&ak=U7SFiLeoxrhVv3M2C8gbU7TzOhKXcDB2"></script>
     <div class="navigation" style="margin: 30px 20px 0 20px;text-align: center">设备LBS位置服务</div>
@@ -141,7 +141,7 @@
     </div>
 
 
-    <script src="/static/js/Jinger/jingerAnaly.js"></script>
+    <script src="/static/js/Jinger/systemAnaly.js"></script>
     <script src="/static/plugins/highcharts/highcharts.js"></script>
     <script src="/static/plugins/highcharts/exporting.js"></script>
     <script src="/static/plugins/highcharts/highcharts-zh_CN.js"></script>

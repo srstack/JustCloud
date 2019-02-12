@@ -1,12 +1,12 @@
 {% extends 'type/controlboard.html' %}
-{% block title %}Jinger系统管理{% endblock %}
+{% block title %}{{ system_obj.platform }}系统管理{% endblock %}
 
 {% block menu %}
-    {% include 'Jinger/jingerType.html' %}
+    {% include 'system/systemType.html' %}
 {% endblock %}
 
 {% block wrapper %}
-    <link href="/static/css/Jinger/jingerMain.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/css/system/systemMain.css" rel="stylesheet" type="text/css"/>
 
     <div class="baseinfo">
         <div class="grid">
@@ -96,7 +96,7 @@
 
     <div class="navigation" style="margin: 30px 20px 0 20px;text-align: center">系统已运行{{ running_days }}天</div>
 
-    <script src="/static/js/Jinger/jingerMain.js"></script>
+    <script src="/static/js/system/systemMain.js"></script>
     <script src="/static/plugins/highcharts/highcharts.js"></script>
     <script src="/static/plugins/highcharts/exporting.js"></script>
     <script src="/static/plugins/highcharts/highcharts-zh_CN.js"></script>

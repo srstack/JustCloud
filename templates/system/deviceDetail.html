@@ -1,13 +1,13 @@
 {% extends 'type/controlboard.html' %}
 {% load base %}
-{% block title %}Jinger设备详情{% endblock %}
+{% block title %}{{ system_obj.platform }}设备详情{% endblock %}
 
 {% block menu %}
-    {% include 'Jinger/jingerType.html' %}
+    {% include 'system/systemType.html' %}
 {% endblock %}
 
 {% block wrapper %}
-    <link href="/static/css/Jinger/deviceDetail.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/css/system/deviceDetail.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript"
             src="http://api.map.baidu.com/api?v=3.0&ak=U7SFiLeoxrhVv3M2C8gbU7TzOhKXcDB2"></script>
 
@@ -215,7 +215,7 @@
         </div>
     </div>
 
-    <script src="/static/js/Jinger/deviceDetail.js"></script>
+    <script src="/static/js/{{ system_obj.platform }}/deviceDetail.js"></script>
     <script src="/static/plugins/highcharts/highcharts.js"></script>
     <script src="/static/plugins/highcharts/exporting.js"></script>
     <script src="/static/plugins/highcharts/highcharts-zh_CN.js"></script>

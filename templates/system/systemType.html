@@ -1,0 +1,28 @@
+<div class="menu">
+    <ul class="menu-ul">
+        <li class={{ main_admin }}>
+            <a onclick="loadingIn()" href='/system/{{ user_obj.username }}/{{ system_obj.platform }}/{{ system_obj.id }}'><i
+                    class="fa fa-connectdevelop"></i>系统概况</a>
+        </li>
+        <li class={{ analy_admin }}>
+            <a onclick="loadingIn()" href='/system/{{ user_obj.username }}/{{ system_obj.platform }}/{{ system_obj.id }}/analy'><i
+                    class="fa fa-google-wallet"></i>系统分析</a>
+        </li>
+        <li class={{ device_admin }}>
+            <a onclick="loadingIn()" href='/system/{{ user_obj.username }}/{{ system_obj.platform }}/{{ system_obj.id }}/device'><i
+                    class="fa fa-codepen"></i>设备列表</a>
+        </li>
+        <li class={{ type_admin }}>
+            <a onclick="loadingIn()" href='/system/{{ user_obj.username }}/{{ system_obj.platform }}/{{ system_obj.id }}/type'><i
+                    class="fa fa-cogs"></i>数据模板</a>
+        </li>
+        <li class={{ push_admin }}>
+            <a onclick="loadingIn()" href='/system/{{ user_obj.username }}/{{ system_obj.platform }}/{{ system_obj.id }}/push'><i
+                    class="fa fa-cloud-upload"></i>命令推送</a>
+        </li>
+        <li class={{ pull_admin }}>
+            <a onclick="loadingIn()" href='/system/{{ user_obj.username }}/{{ system_obj.platform }}/{{ system_obj.id }}/pull'><i
+                    class="fa fa-database"></i>数据订阅</a>
+        </li>
+    </ul>
+</div>
