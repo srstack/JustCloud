@@ -91,11 +91,11 @@ DATABASES = {
 
         'USER': 'root',   #你的数据库用户名
 
-        'PASSWORD': '!QAZ2wsx', #你的数据库密码
+        'PASSWORD':'', #你的数据库密码
 
-        'HOST': '111.231.212.150', #你的数据库主机，留空默认为localhost
+        'HOST': '', #你的数据库主机，留空默认为localhost
 
-        'PORT': '10025', #你的数据库端口
+        'PORT': '', #你的数据库端口
 
     }
 
