@@ -9,6 +9,9 @@
     <link href="/static/css/Jinger/systemAnaly.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript"
             src="http://api.map.baidu.com/api?v=3.0&ak=U7SFiLeoxrhVv3M2C8gbU7TzOhKXcDB2"></script>
+
+    <div class="navigation" style="margin: 30px 20px 0 20px;text-align: center">系统状态</div>
+
     <div class="navigation" style="margin: 30px 20px 0 20px;text-align: center">设备LBS位置服务</div>
 
     <div class="map">
@@ -69,7 +72,8 @@
                                 <td>
                                     {% if data.waring == 1 %}
                                         <div>
-                                            <span class="data-status" style="background-color: #EB3C22;font-weight: 500;">未处理</span>
+                                            <span class="data-status"
+                                                  style="background-color: #EB3C22;font-weight: 500;">未处理</span>
                                         </div>
                                     {% else %}
                                         <div><span class="data-status"
@@ -79,7 +83,7 @@
                                 </td>
                                 <td>
                                     <div>
-                                            <span>{{ data.date|date:"Y-m-d H:i" }}</span>
+                                        <span>{{ data.date|date:"Y-m-d H:i" }}</span>
                                     </div>
                                 </td>
                                 <td>
@@ -89,8 +93,8 @@
                                            onclick="loadingIn()">详情</a>
                                         {% if data.waring == 1 %}
                                             <a class="a-red" onclick="loadingIn();showremove(this)"
-                                               dataid = {{ data.id }}
-                                               did={{ data.device.id }}>处理</a></div>
+                                               dataid={{ data.id }}
+                                                       did={{ data.device.id }}>处理</a></div>
                                         {% endif %}
                                 </td>
                             </tr>
@@ -116,8 +120,6 @@
             </div>
         </div>
     </div>
-
-    <div class="navigation" style="margin: 30px 20px 0 20px;text-align: center">系统分析</div>
 
     <div class="change" id="remove">
         <div class="grid" style="width: 300px; margin: 148px auto">

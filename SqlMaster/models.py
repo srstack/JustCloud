@@ -40,7 +40,7 @@ class System(models.Model):
     devicecode = models.CharField(max_length=20, verbose_name="设备注册码", null=True)
     domain = models.ForeignKey("Domain", verbose_name="所属域", on_delete=models.CASCADE, related_name="system")
     # JSON格式的数据模板，使用元组格式；
-    type = models.CharField(max_length=100, verbose_name="数据模板", null=False)
+    type = models.CharField(max_length=300, verbose_name="数据模板", null=False)
     date = models.DateTimeField(verbose_name="创建时间", auto_now_add=True)
 
     def __str__(self):
@@ -60,7 +60,7 @@ class Device(models.Model):
 class Data(models.Model):
     device = models.ForeignKey("Device", verbose_name="所属设备", on_delete=models.CASCADE, related_name="data")
     # JSON格式数据存储，采用字典（JS中的对象）格式；
-    data = models.CharField(max_length=200, verbose_name="设备数据", null=False)
+    data = models.CharField(max_length=600, verbose_name="设备数据", null=False)
     date = models.DateTimeField(verbose_name="接收时间", auto_now_add=True)
     model = models.BooleanField(verbose_name="订阅/推送", default=0, db_index=True)
     # 0:订阅(pull) 1:推送(push)
