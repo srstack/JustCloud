@@ -8,7 +8,7 @@ function mapGet(list, i, dict) {
         map.centerAndZoom(point, 19);
     }
     //生成坐标对象
-    var myIcon = new BMap.Icon("/static/img/jinger-maker.png", new BMap.Size(30, 30));
+    var myIcon = new BMap.Icon("/static/img/parquer-maker.png", new BMap.Size(35, 15));
     Point[list[i]] = new BMap.Marker(point, {icon: myIcon});
     map.addOverlay(Point[list[i]]);
     //加入标签
@@ -22,7 +22,7 @@ function mapGetWaring(list, i, dict) {
     var point = GpsToBaiduPoint(new BMap.Point(lostion.lat, lostion.lon));
 
     //生成坐标对象
-    var myIcon = new BMap.Icon("/static/img/jinger-maker.png", new BMap.Size(30, 30));
+    var myIcon = new BMap.Icon("/static/img/parquer-maker.png", new BMap.Size(35, 15));
     Point[list[i]] = new BMap.Marker(point, {icon: myIcon});
     map.addOverlay(Point[list[i]]);
     //加入标签

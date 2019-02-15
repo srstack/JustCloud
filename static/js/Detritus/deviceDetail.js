@@ -7,7 +7,7 @@ function mapGet(name,dict) {
     map.centerAndZoom(point, 19);
 
     //生成坐标对象
-    var myIcon = new BMap.Icon("/static/img/jinger-maker.png", new BMap.Size(30, 30));
+    var myIcon = new BMap.Icon("/static/img/detritus-maker.png", new BMap.Size(30, 30));
     marker = new BMap.Marker(point, {icon: myIcon});
     map.addOverlay(marker);
     //加入标签
@@ -24,7 +24,7 @@ function mapGetWaring(name, dict) {
     map.centerAndZoom(point, 19);
 
     //生成坐标对象
-    var myIcon = new BMap.Icon("/static/img/jinger-maker.png", new BMap.Size(30, 30));
+    var myIcon = new BMap.Icon("/static/img/detritus-maker.png", new BMap.Size(30, 30));
     marker = new BMap.Marker(point, {icon: myIcon});
     map.addOverlay(marker);
     //加入标签
