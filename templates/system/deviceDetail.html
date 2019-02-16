@@ -133,19 +133,51 @@
                                         <td>
                                             <div><span>{{ value }}小时</span></div>
                                         </td>
-                                    {% elif type == 'Turn' %}
+                                    {% elif type == 'Turn' or type == 'Park' or type == 'Full' %}
                                         {% if value == 0 %}
                                             <td>
                                                 <div>
                                                     <span class="data-status"
-                                                          style="background-color: #61d16c;font-weight: 500;">正常</span>
+                                                          style="background-color: #61d16c;font-weight: 500;">否</span>
                                                 </div>
                                             </td>
                                         {% elif value == 1 %}
                                             <td>
                                                 <div>
                                                     <span class="data-status"
-                                                          style="background-color: #ea4215;font-weight: 500;">翻转</span>
+                                                          style="background-color: #ea4215;font-weight: 500;">是</span>
+                                                </div>
+                                            </td>
+                                        {% endif %}
+                                    {% elif type == 'Top-Light' or type == 'Bottom-Light' %}
+                                        {% if value == 1 %}
+                                            <td>
+                                                <div>
+                                                    <span class="data-status"
+                                                          style="background-color: #61d16c;font-weight: 500;">良好</span>
+                                                </div>
+                                            </td>
+                                        {% elif value == 0 %}
+                                            <td>
+                                                <div>
+                                                    <span class="data-status"
+                                                          style="background-color: #ea4215;font-weight: 500;">不良</span>
+                                                </div>
+                                            </td>
+                                        {% endif %}
+                                    {% elif type == 'Switch-Light' %}
+                                        {% if value == 1 %}
+                                            <td>
+                                                <div>
+                                                    <span class="data-status"
+                                                          style="background-color: #61d16c;font-weight: 500;">开启</span>
+                                                </div>
+                                            </td>
+                                        {% elif value == 0 %}
+                                            <td>
+                                                <div>
+                                                    <span class="data-status"
+                                                          style="background-color: #ea4215;font-weight: 500;">关闭</span>
                                                 </div>
                                             </td>
                                         {% endif %}

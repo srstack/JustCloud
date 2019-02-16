@@ -194,14 +194,37 @@ def systemAnaly(request, username, sid):
                 print(data_type)
                 device_map = {}
                 waring_device_map = {}
+
+                # 今日时间
+                now_time = datetime.datetime.now().date()
+                # 最近十天
+                time_list = [now_time, ]
+                tmp_time = now_time
+                yes_time = datetime.timedelta(days=-1)
+                for i in range(0, 9):
+                    time_list.append(tmp_time + yes_time)
+                    tmp_time = tmp_time + yes_time
+                time_list.reverse()
+                full_data_dict = {}
+
+                # 活跃设备，非在线设备
+                active_count = 0
+
                 # 地图数据
                 for device in devices:
                     if device.data.filter(model=0).all() and device not in system_waring_devices:
+                        active_count += 1
                         data = eval(str(device.data.filter(model=0).last()))
                         device_map[device.name] = {}
                         for key_data, value_data in data.items():
                             if key_data in data_type:
                                 device_map[device.name][key_data] = value_data
+                        full_data_dict[device.name] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                        for data in device.data.filter(model=0).all():
+                            for i in range(0, 10):
+                                if data.date.date() == time_list[i] and eval(str(data.data))['Full'] == 1:
+                                    full_data_dict[device.name][i] += 1
+
                 # 异常设备地图数据
                 for device in system_waring_devices:
                     data = eval(str(device.data.filter(model=0).last()))
@@ -209,6 +232,11 @@ def systemAnaly(request, username, sid):
                     for key_data, value_data in data.items():
                         if key_data in data_type:
                             waring_device_map[device.name][key_data] = value_data
+                    full_data_dict[device.name] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                    for data in device.data.filter(model=0).all():
+                        for i in range(0, 10):
+                            if data.date.date() == time_list[i] and eval(str(data.data))['Full'] == 1:
+                                full_data_dict[device.name][i] += 1
 
                 return render(request, 'detritus/detritusAnaly.html', locals())
             else:

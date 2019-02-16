@@ -206,7 +206,6 @@
     outline: none;
 }
 
-
 .system-wrap {
     margin: 30px 20px 0 20px;
     display: -webkit-box;
@@ -319,6 +318,22 @@
 }
 
 [stroke="#f2f2f2"] {
-    display: none;
-!important;
+    display: none !important;
 }
+
+.map {
+    margin: 0 20px 0 20px;
+}
+
+.map-body {
+    background: #fff;
+    overflow: hidden;
+    height: 460px;
+    padding-top: 36px;
+}
+
+.highcharts-credits, .highcharts-button-normal, .highcharts-contextbutton {
+    display: none !important;
+}
+
+

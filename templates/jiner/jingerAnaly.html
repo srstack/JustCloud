@@ -15,7 +15,11 @@
     <div class="system-wrap">
         <div class="item">
             <div class="system-left">
-                <i class="fa fa-dot-circle-o"></i>
+                {% if waring_device_map %}
+                    <i class="fa fa-dot-circle-o" style="color: #ea4215"></i>
+                {% else %}
+                    <i class="fa fa-dot-circle-o"></i>
+                {% endif %}
                 <p style="font-weight: 600">{{ system_obj.platform }}</p>
             </div>
             <div class="system-right">

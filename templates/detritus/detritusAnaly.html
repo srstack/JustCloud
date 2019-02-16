@@ -12,6 +12,33 @@
 
     <div class="navigation" style="margin: 30px 20px 0 20px;text-align: center">系统状态</div>
 
+    <div class="system-wrap">
+        <div class="item">
+            <div class="system-left">
+                {% if waring_device_map %}
+                    <i class="fa fa-trash" style="color: #ea4215"></i>
+                {% else %}
+                    <i class="fa fa-trash"></i>
+                {% endif %}
+                <p style="font-weight: 600">{{ system_obj.platform }}</p>
+            </div>
+            <div class="system-right">
+                <div class="system-bottom">
+                    <p style="font-size: 21px;margin-bottom: 20px;">系统状态</p>
+                    {% if waring_device_map %}
+                        <b style="font-weight: 600;color: #ea4215;font-size: 18px;">异常</b>
+                    {% else %}
+                        <b style="font-weight: 600;color: #61d16c;font-size: 18px;">正常</b>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="item item-right" style="margin-left: 20px;">
+            <div id="device-charts"></div>
+        </div>
+    </div>
+
+
     <div class="navigation" style="margin: 30px 20px 0 20px;text-align: center">设备LBS位置服务</div>
 
     <div class="map">
@@ -72,7 +99,8 @@
                                 <td>
                                     {% if data.waring == 1 %}
                                         <div>
-                                            <span class="data-status" style="background-color: #EB3C22;font-weight: 500;">未处理</span>
+                                            <span class="data-status"
+                                                  style="background-color: #EB3C22;font-weight: 500;">未处理</span>
                                         </div>
                                     {% else %}
                                         <div><span class="data-status"
@@ -82,7 +110,7 @@
                                 </td>
                                 <td>
                                     <div>
-                                            <span>{{ data.date|date:"Y-m-d H:i" }}</span>
+                                        <span>{{ data.date|date:"Y-m-d H:i" }}</span>
                                     </div>
                                 </td>
                                 <td>
@@ -92,8 +120,8 @@
                                            onclick="loadingIn()">详情</a>
                                         {% if data.waring == 1 %}
                                             <a class="a-red" onclick="loadingIn();showremove(this)"
-                                               dataid = {{ data.id }}
-                                               did={{ data.device.id }}>处理</a></div>
+                                               dataid={{ data.id }}
+                                                       did={{ data.device.id }}>处理</a></div>
                                         {% endif %}
                                 </td>
                             </tr>
@@ -117,6 +145,14 @@
             <div class="t-footer">
                 <span style="font-size: 12px;color: #999;">共{{ system_waring_data_count }}项数据</span>
             </div>
+        </div>
+    </div>
+
+    <div class="navigation" style="margin: 30px 20px 0 20px;text-align: center">系统分析</div>
+
+    <div class="map">
+        <div class="map-body">
+            <div id="analy"></div>
         </div>
     </div>
 
@@ -148,6 +184,7 @@
     <script src="/static/plugins/highcharts/highcharts-zh_CN.js"></script>
     <script src="/static/plugins/highcharts/grid-light.js"></script>
     <script src="/static/plugins/highcharts/highcharts-more.js"></script>
+    <script src="/static/plugins/highcharts/highcharts-3d.js"></script>
     <script src="/static/js/baiduLBS.js"></script>
     <script type="text/javascript">
         var map = new BMap.Map('allmap');
@@ -187,6 +224,78 @@
         map.setMapStyleV2({styleJson: styleJson});
         //开启地图拖动以及缩放；
         map.enableScrollWheelZoom(true);
+
+        Highcharts.chart('device-charts', {
+            chart: {
+                type: 'pie',
+                options3d: {
+                    enabled: true,
+                    alpha: 64
+                }
+            },
+            title: {
+                text: null
+            },
+            subtitle: {
+                text: null
+            },
+            plotOptions: {
+                pie: {
+                    innerSize: 48,
+                    depth: 24
+                }
+            },
+            series: [{
+                name: '垃圾桶数量',
+                data: [
+                    ['休眠状态垃圾桶', {{ device_count }}-{{ active_count }}-{{ system_waring_device_count }}],
+                    ['需处理垃圾桶！', {{ system_waring_device_count }}],
+                    ['正常工作垃圾桶', {{ active_count }}],
+                ]
+            }]
+        });
+        Highcharts.chart('analy', {
+            chart: {
+                type: 'spline'
+            },
+            title: {
+                text: '智能垃圾桶满载频率'
+            },
+            subtitle: {
+                text: null
+            },
+            xAxis: {
+                gridLineWidth: 0,
+                categories: [getDay(-9), getDay(-8), getDay(-7), getDay(-6), getDay(-5), getDay(-4), getDay(-3), getDay(-2), getDay(-1), getDay(0)],
+            },
+            yAxis: {
+                title: {
+                    text: '满载频率'
+                },
+                labels: {
+                    formatter: function () {
+                        return this.value + '次';
+                    }
+                }
+            },
+            tooltip: {
+                crosshairs: true,
+                shared: true
+            },
+            series: [
+                {% for device_name,data_list in full_data_dict.items %}
+                    {
+                        name: '{{ device_name }}',
+                        data: [
+                            {% for count in data_list %}
+                                {{ count }},
+                            {% endfor %}
+                        ]
+                    },
+                {% endfor %}
+            ]
+        });
+
     </script>
 {% endblock %}
 
