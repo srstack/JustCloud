@@ -191,7 +191,6 @@ def systemAnaly(request, username, sid):
                 data_type = type_name.keys()
                 data_type_count = len(data_type)
 
-                print(data_type)
                 device_map = {}
                 waring_device_map = {}
 

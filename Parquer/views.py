@@ -191,17 +191,30 @@ def systemAnaly(request, username, sid):
                 data_type = type_name.keys()
                 data_type_count = len(data_type)
 
-                print(data_type)
-                device_map = {}
                 waring_device_map = {}
+                free_map = {}
+                used_map = {}
+
+                used_count = 0
+                free_count = 0
+
                 # 地图数据
                 for device in devices:
                     if device.data.filter(model=0).all() and device not in system_waring_devices:
                         data = eval(str(device.data.filter(model=0).last()))
-                        device_map[device.name] = {}
-                        for key_data, value_data in data.items():
-                            if key_data in data_type:
-                                device_map[device.name][key_data] = value_data
+                        if data['Park'] == 0:
+                            free_count += 1
+                            free_map[device.name] = {}
+                            for key_data, value_data in data.items():
+                                if key_data in data_type:
+                                    free_map[device.name][key_data] = value_data
+                        else:
+                            used_count += 1
+                            used_map[device.name] = {}
+                            for key_data, value_data in data.items():
+                                if key_data in data_type:
+                                    used_map[device.name][key_data] = value_data
+
                 # 异常设备地图数据
                 for device in system_waring_devices:
                     data = eval(str(device.data.filter(model=0).last()))
@@ -749,6 +762,42 @@ def pushAddAll(request, username, sid):
                         Data.objects.create(device=device_obj, model=1, data=str(data))
                     Operation.objects.create(code=305, user=user_obj)
                     return HttpResponse('666')
+                else:
+                    return HttpResponse('444')
+            else:
+                return redirect('/admin/' + request.session.get('USERNAME'))
+        else:
+            return redirect('/')
+    else:
+        return redirect('/')
+
+
+def freeCount(request, username, sid):
+    if request.method == 'POST':
+        is_login = request.session.get('IS_LOGIN', False)
+        if is_login:
+            if request.session.get('USERNAME') == username:
+                # 判断是否为此用户
+                # 系统对象
+                system_obj = System.objects.filter(id=sid)
+                if system_obj:
+                    system_obj = system_obj[0]
+                else:
+                    return redirect('/admin/' + request.session.get('USERNAME'))
+                user_obj = Users.objects.filter(username=username, domain_id=request.session.get('DOMAIN_ID'))[0]
+
+                if user_obj in system_obj.admin.all():
+                    # 设备queryset
+                    devices = system_obj.device.all()
+
+                    free_count = 0
+
+                    for device in devices:
+                        if device.data.filter(model=0).all() and not device.data.filter(waring=1).all():
+                            data = eval(str(device.data.filter(model=0).last()))
+                            if data['Park'] == 0:
+                                free_count += 1
+                    return HttpResponse(free_count)
                 else:
                     return HttpResponse('444')
             else:

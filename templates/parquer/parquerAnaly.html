@@ -12,6 +12,32 @@
 
     <div class="navigation" style="margin: 30px 20px 0 20px;text-align: center">系统状态</div>
 
+    <div class="system-wrap">
+        <div class="item">
+            <div class="system-left">
+                {% if waring_device_map %}
+                    <i class="fa fa-car" style="color: #ea4215"></i>
+                {% else %}
+                    <i class="fa fa-car"></i>
+                {% endif %}
+                <p style="font-weight: 600">{{ system_obj.platform }}</p>
+            </div>
+            <div class="system-right">
+                <div class="system-bottom">
+                    <p style="font-size: 21px;margin-bottom: 20px;">系统状态</p>
+                    {% if waring_device_map %}
+                        <b style="font-weight: 600;color: #ea4215;font-size: 18px;">异常</b>
+                    {% else %}
+                        <b style="font-weight: 600;color: #61d16c;font-size: 18px;">正常</b>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="item item-right" style="margin-left: 20px;">
+            <div id="device-charts"></div>
+        </div>
+    </div>
+
     <div class="navigation" style="margin: 30px 20px 0 20px;text-align: center">设备LBS位置服务</div>
 
     <div class="map">
@@ -72,7 +98,8 @@
                                 <td>
                                     {% if data.waring == 1 %}
                                         <div>
-                                            <span class="data-status" style="background-color: #EB3C22;font-weight: 500;">未处理</span>
+                                            <span class="data-status"
+                                                  style="background-color: #EB3C22;font-weight: 500;">未处理</span>
                                         </div>
                                     {% else %}
                                         <div><span class="data-status"
@@ -82,7 +109,7 @@
                                 </td>
                                 <td>
                                     <div>
-                                            <span>{{ data.date|date:"Y-m-d H:i" }}</span>
+                                        <span>{{ data.date|date:"Y-m-d H:i" }}</span>
                                     </div>
                                 </td>
                                 <td>
@@ -92,8 +119,8 @@
                                            onclick="loadingIn()">详情</a>
                                         {% if data.waring == 1 %}
                                             <a class="a-red" onclick="loadingIn();showremove(this)"
-                                               dataid = {{ data.id }}
-                                               did={{ data.device.id }}>处理</a></div>
+                                               dataid={{ data.id }}
+                                                       did={{ data.device.id }}>处理</a></div>
                                         {% endif %}
                                 </td>
                             </tr>
@@ -120,6 +147,14 @@
         </div>
     </div>
 
+    <div class="navigation" style="margin: 30px 20px 0 20px;text-align: center">车位实时空闲状态</div>
+
+    <div class="map">
+        <div class="map-body">
+            <div id="analy" count={{ free_count }} sid={{ system_obj.id }}></div>
+        </div>
+    </div>
+
     <div class="change" id="remove">
         <div class="grid" style="width: 300px; margin: 148px auto">
             <div class="reuser-table">
@@ -141,32 +176,43 @@
         </div>
     </div>
 
-
     <script src="/static/js/Parquer/systemAnaly.js"></script>
     <script src="/static/plugins/highcharts/highcharts.js"></script>
     <script src="/static/plugins/highcharts/exporting.js"></script>
     <script src="/static/plugins/highcharts/highcharts-zh_CN.js"></script>
     <script src="/static/plugins/highcharts/grid-light.js"></script>
     <script src="/static/plugins/highcharts/highcharts-more.js"></script>
+    <script src="/static/plugins/highcharts/highcharts-3d.js"></script>
     <script src="/static/js/baiduLBS.js"></script>
     <script type="text/javascript">
         var map = new BMap.Map('allmap');
 
         //定义设备字典
-        var device_dict = {};
-        var device_list = [];
+        var free_dict = {};
+        var free_list = [];
+        var used_dict = {};
+        var used_list = [];
         //定义警告设备字典
         var waring_device_dict = {};
         var waring_device_list = [];
         //定义坐标对象
         var Point = {};
 
-        {% for device_name,device_value in device_map.items %}
-            device_dict['{{ device_name }}'] = {};
+
+        {% for device_name,device_value in free_map.items %}
+            free_dict['{{ device_name }}'] = {};
             {% for data_type,data_value in device_value.items %}
-                device_dict['{{ device_name }}']['{{ data_type }}'] = {{ data_value }}
+                free_dict['{{ device_name }}']['{{ data_type }}'] = {{ data_value }}
             {% endfor %}
-        device_list.push('{{ device_name }}');
+        free_list.push('{{ device_name }}');
+        {% endfor %}
+
+        {% for device_name,device_value in used_map.items %}
+            used_dict['{{ device_name }}'] = {};
+            {% for data_type,data_value in device_value.items %}
+                used_dict['{{ device_name }}']['{{ data_type }}'] = {{ data_value }}
+            {% endfor %}
+        used_list.push('{{ device_name }}');
         {% endfor %}
 
         {% for device_name,device_value in waring_device_map.items %}
@@ -177,8 +223,11 @@
         waring_device_list.push('{{ device_name }}');
         {% endfor %}
 
-        for (var i = 0; i < device_list.length; i++) {
-            mapGet(device_list, i, device_dict);
+        for (var i = 0; i < free_list.length; i++) {
+            mapGet(free_list, i, free_dict);
+        }
+        for (var i = 0; i < used_list.length; i++) {
+            mapUsedGet(used_list, i, used_dict);
         }
         for (var i = 0; i < waring_device_list.length; i++) {
             mapGetWaring(waring_device_list, i, waring_device_dict);
@@ -187,6 +236,106 @@
         map.setMapStyleV2({styleJson: styleJson});
         //开启地图拖动以及缩放；
         map.enableScrollWheelZoom(true);
+
+        Highcharts.chart('device-charts', {
+            chart: {
+                type: 'pie',
+                options3d: {
+                    enabled: true,
+                    alpha: 64
+                }
+            },
+            title: {
+                text: null
+            },
+            subtitle: {
+                text: null
+            },
+            plotOptions: {
+                pie: {
+                    innerSize: 48,
+                    depth: 24
+                }
+            },
+            series: [{
+                name: '车位数量',
+                data: [
+                    ['休眠车位', {{ device_count }}-{{ used_count }}-{{ free_count }}-{{ system_waring_device_count }}],
+                    ['异常车位', {{ system_waring_device_count }}],
+                    ['空闲车位', {{ free_count }}],
+                    ['已使用车位', {{ used_count }}],
+                ]
+            }]
+        });
+
+        Highcharts.setOptions({
+            global: {
+                useUTC: false
+            }
+        });
+
+        function activeLastPointToolip(chart) {
+            var points = chart.series[0].points;
+            chart.tooltip.refresh(points[points.length - 1]);
+        }
+
+        Highcharts.chart('analy', {
+            chart: {
+                type: 'spline',
+                marginRight: 10,
+                events: {
+                    load: function () {
+                        var series = this.series[0],
+                            chart = this;
+                        activeLastPointToolip(chart);
+                        setInterval(function () {
+                            var x = (new Date()).getTime(), // 当前时间
+                                y = freeCount();
+                            series.addPoint([x, y], true, true);
+                            activeLastPointToolip(chart);
+                        }, 1000);
+                    }
+                }
+            },
+            title: {
+                text: null
+            },
+            xAxis: {
+                gridLineWidth: 0,
+                type: 'datetime',
+                tickPixelInterval: 150
+            },
+            yAxis: {
+                title: {
+                    text: null
+                }
+            },
+            tooltip: {
+                formatter: function () {
+                    return '<b>' + this.series.name + '</b><br/>' +
+                        Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) + '<br/>' +
+                        Highcharts.numberFormat(this.y);
+                }
+            },
+            legend: {
+                enabled: false
+            },
+            series: [{
+                name: '空闲车位',
+                data: (function () {
+                    var data = [],
+                        time = (new Date()).getTime(),
+                        i;
+                    for (i = -20; i <= 0; i += 1) {
+                        data.push({
+                            x: time + i * 1000,
+                            y: freeCount()
+                        });
+                    }
+                    return data;
+                }())
+            }]
+        });
     </script>
 {% endblock %}
 

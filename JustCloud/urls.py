@@ -91,6 +91,7 @@ urlpatterns = [
     path('system/<username>/Parquer/<int:sid>/', parquer.systemMain, name='ParquerMain'),
     path('system/<username>/Parquer/<int:sid>/analy/', parquer.systemAnaly, name='ParquerAnaly'),
     path('system/<username>/Parquer/<int:sid>/analy/waringremove/', parquer.waringRemove, name='waringRemove'),
+    path('system/<username>/Parquer/<int:sid>/analy/getfreecount/', parquer.freeCount, name='freeCount'),
     path('system/<username>/Parquer/<int:sid>/device/', parquer.systemDevice, name='systemDevice'),
     path('system/<username>/Parquer/<int:sid>/device/deviceremove/', parquer.deviceRemove, name='deviceRemove'),
     path('system/<username>/Parquer/<int:sid>/device/deviceadd/', parquer.deviceAdd, name='deviceAdd'),
