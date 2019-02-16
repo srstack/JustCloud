@@ -12,7 +12,27 @@
 
     <div class="navigation" style="margin: 30px 20px 0 20px;text-align: center">系统状态</div>
 
-
+    <div class="system-wrap">
+        <div class="item">
+            <div class="system-left">
+                <i class="fa fa-dot-circle-o"></i>
+                <p style="font-weight: 600">{{ system_obj.platform }}</p>
+            </div>
+            <div class="system-right">
+                <div class="system-bottom">
+                    <p style="font-size: 21px;margin-bottom: 20px;">系统状态</p>
+                    {% if waring_device_map %}
+                        <b style="font-weight: 600;color: #ea4215;font-size: 18px;">异常</b>
+                    {% else %}
+                        <b style="font-weight: 600;color: #61d16c;font-size: 18px;">正常</b>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="item item-right" style="margin-left: 20px;">
+            <div id="device-charts"></div>
+        </div>
+    </div>
 
     <div class="navigation" style="margin: 30px 20px 0 20px;text-align: center">设备LBS位置服务</div>
 
@@ -144,13 +164,13 @@
         </div>
     </div>
 
-
     <script src="/static/js/Jinger/systemAnaly.js"></script>
     <script src="/static/plugins/highcharts/highcharts.js"></script>
     <script src="/static/plugins/highcharts/exporting.js"></script>
     <script src="/static/plugins/highcharts/highcharts-zh_CN.js"></script>
     <script src="/static/plugins/highcharts/grid-light.js"></script>
     <script src="/static/plugins/highcharts/highcharts-more.js"></script>
+    <script src="/static/plugins/highcharts/highcharts-3d.js"></script>
     <script src="/static/js/baiduLBS.js"></script>
     <script type="text/javascript">
         var map = new BMap.Map('allmap');
@@ -190,6 +210,36 @@
         map.setMapStyleV2({styleJson: styleJson});
         //开启地图拖动以及缩放；
         map.enableScrollWheelZoom(true);
+
+        Highcharts.chart('device-charts', {
+            chart: {
+                type: 'pie',
+                options3d: {
+                    enabled: true,
+                    alpha: 45
+                }
+            },
+            title: {
+                text: null
+            },
+            subtitle: {
+                text: null
+            },
+            plotOptions: {
+                pie: {
+                    innerSize: 56,
+                    depth: 36
+                }
+            },
+            series: [{
+                name: '井盖数量',
+                data: [
+                    ['休眠智能井盖', {{ device_count }}-{{ active_count }}-{{ system_waring_device_count }}],
+                    ['异常智能井盖', {{ system_waring_device_count }}],
+                    ['活跃智能井盖', {{ active_count }}],
+                ]
+            }]
+        });
     </script>
 {% endblock %}
 

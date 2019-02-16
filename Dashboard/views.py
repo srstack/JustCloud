@@ -6,8 +6,6 @@ import hashlib
 # Create your views here.
 
 def index(request):
-    user = request.META["OS"]
-    print(request.META["OS"])
     is_login = request.session.get('IS_LOGIN', False)
     if is_login:
         username = request.session.get('USERNAME')

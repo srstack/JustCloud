@@ -205,3 +205,120 @@
     border: 0;
     outline: none;
 }
+
+
+.system-wrap {
+    margin: 30px 20px 0 20px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.system-wrap .item {
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    background: #fff;
+    display: flex;
+    padding: 15px;
+}
+
+.system-wrap .item .system-left {
+    flex-basis: 280px;
+    -webkit-box-flex: 1;
+    flex-grow: 1;
+    text-align: center;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    margin: auto;
+}
+
+.system-wrap .item .system-right {
+    display: flex;
+    -ms-flex-preferred-size: 185px;
+    flex-basis: 185px;
+    -webkit-box-flex: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    border-left: 1px dashed #eee;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.system-wrap .item .system-left > i {
+    color: #57a2ff;
+    line-height: 100%;
+    font-size: 136px;
+}
+
+.system-wrap .item .system-left > i:hover {
+    color: #75baff;
+}
+
+.system-wrap .item .system-left > p {
+    margin-top: 24px;
+    color: #666;
+    font-size: 15px;
+}
+
+.system-wrap .item .system-left > b {
+    display: inline-block;
+    margin-bottom: 18px;
+    font-size: 22px;
+    color: #333;
+}
+
+.system-top > p, .system-bottom > p {
+    line-height: 100%;
+    color: #666;
+    font-size: 16px;
+}
+
+.system-top > b, .system-bottom > b {
+    display: inline-block;
+    margin-top: 18px;
+    line-height: 100%;
+    font-size: 21px;
+    color: #1e2027;
+    font-weight: 600;
+}
+
+.system-bottom {
+    position: relative;
+}
+
+.highcharts-credits, .highcharts-button-normal, .highcharts-contextbutton {
+    display: none !important;
+}
+
+.system-wrap .item .s-header {
+    height: 40px;
+    position: relative;
+    margin-bottom: 28px;
+}
+
+.system-wrap .item .s-header > h1 {
+    display: inline-block;
+    font-size: 14px;
+    color: #333;
+    font-weight: 700;
+}
+
+.system-wrap .item-right {
+    display: grid;
+    margin-left: 20px;
+    text-align: center;
+}
+
+[stroke="#f2f2f2"] {
+    display: none;
+!important;
+}

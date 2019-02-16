@@ -194,9 +194,14 @@ def systemAnaly(request, username, sid):
                 print(data_type)
                 device_map = {}
                 waring_device_map = {}
+
+                # 活跃设备，非在线设备
+                active_count = 0
+
                 # 地图数据
                 for device in devices:
                     if device.data.filter(model=0).all() and device not in system_waring_devices:
+                        active_count += 1
                         data = eval(str(device.data.filter(model=0).last()))
                         device_map[device.name] = {}
                         for key_data, value_data in data.items():
