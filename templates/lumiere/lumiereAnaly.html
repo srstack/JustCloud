@@ -12,11 +12,45 @@
 
     <div class="navigation" style="margin: 30px 20px 0 20px;text-align: center">系统状态</div>
 
+    <div class="system-wrap">
+        <div class="item">
+            <div class="system-left">
+                {% if waring_device_map %}
+                    <i class="fa fa-lightbulb-o" style="color: #ea4215"></i>
+                {% else %}
+                    <i class="fa fa-lightbulb-o"></i>
+                {% endif %}
+                <p style="font-weight: 600">{{ system_obj.platform }}</p>
+            </div>
+            <div class="system-right">
+                <div class="system-bottom">
+                    <p style="font-size: 21px;margin-bottom: 20px;">系统状态</p>
+                    {% if waring_device_map %}
+                        <b style="font-weight: 600;color: #ea4215;font-size: 18px;">异常</b>
+                    {% else %}
+                        <b style="font-weight: 600;color: #61d16c;font-size: 18px;">正常</b>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="item item-right" style="margin-left: 20px;">
+            <div id="device-charts"></div>
+        </div>
+    </div>
+
     <div class="navigation" style="margin: 30px 20px 0 20px;text-align: center">设备LBS位置服务</div>
 
     <div class="map">
         <div class="map-body">
             <div id="allmap"></div>
+        </div>
+    </div>
+
+    <div class="navigation" style="margin: 30px 20px 0 20px;text-align: center">近期日照情况</div>
+
+    <div class="map">
+        <div class="map-body">
+            <div id="analy"></div>
         </div>
     </div>
 
@@ -72,7 +106,8 @@
                                 <td>
                                     {% if data.waring == 1 %}
                                         <div>
-                                            <span class="data-status" style="background-color: #EB3C22;font-weight: 500;">未处理</span>
+                                            <span class="data-status"
+                                                  style="background-color: #EB3C22;font-weight: 500;">未处理</span>
                                         </div>
                                     {% else %}
                                         <div><span class="data-status"
@@ -82,7 +117,7 @@
                                 </td>
                                 <td>
                                     <div>
-                                            <span>{{ data.date|date:"Y-m-d H:i" }}</span>
+                                        <span>{{ data.date|date:"Y-m-d H:i" }}</span>
                                     </div>
                                 </td>
                                 <td>
@@ -92,8 +127,8 @@
                                            onclick="loadingIn()">详情</a>
                                         {% if data.waring == 1 %}
                                             <a class="a-red" onclick="loadingIn();showremove(this)"
-                                               dataid = {{ data.id }}
-                                               did={{ data.device.id }}>处理</a></div>
+                                               dataid={{ data.id }}
+                                                       did={{ data.device.id }}>处理</a></div>
                                         {% endif %}
                                 </td>
                             </tr>
@@ -150,11 +185,19 @@
     <script src="/static/plugins/highcharts/highcharts-more.js"></script>
     <script src="/static/js/baiduLBS.js"></script>
     <script type="text/javascript">
+        Highcharts.setOptions({
+            global: {
+                timezoneOffset: -8 * 60
+            }
+        });
+
         var map = new BMap.Map('allmap');
 
         //定义设备字典
         var device_dict = {};
         var device_list = [];
+        var active_dict = {};
+        var active_list = [];
         //定义警告设备字典
         var waring_device_dict = {};
         var waring_device_list = [];
@@ -169,6 +212,14 @@
         device_list.push('{{ device_name }}');
         {% endfor %}
 
+        {% for device_name,device_value in active_map.items %}
+            active_dict['{{ device_name }}'] = {};
+            {% for data_type,data_value in device_value.items %}
+                active_dict['{{ device_name }}']['{{ data_type }}'] = {{ data_value }}
+            {% endfor %}
+        active_list.push('{{ device_name }}');
+        {% endfor %}
+
         {% for device_name,device_value in waring_device_map.items %}
             waring_device_dict['{{ device_name }}'] = {};
             {% for data_type,data_value in device_value.items %}
@@ -180,6 +231,9 @@
         for (var i = 0; i < device_list.length; i++) {
             mapGet(device_list, i, device_dict);
         }
+        for (var i = 0; i < active_list.length; i++) {
+            mapGetActive(active_list, i, active_dict);
+        }
         for (var i = 0; i < waring_device_list.length; i++) {
             mapGetWaring(waring_device_list, i, waring_device_dict);
         }
@@ -187,6 +241,94 @@
         map.setMapStyleV2({styleJson: styleJson});
         //开启地图拖动以及缩放；
         map.enableScrollWheelZoom(true);
+
+        Highcharts.chart('device-charts', {
+            chart: {
+                type: 'pie',
+                options3d: {
+                    enabled: true,
+                    alpha: 45
+                }
+            },
+            title: {
+                text: null
+            },
+            subtitle: {
+                text: null
+            },
+            plotOptions: {
+                pie: {
+                    innerSize: 36,
+                    depth: 36
+                }
+            },
+            series: [{
+                name: '路灯数量',
+                data: [
+                    ['休眠智能路灯', {{ device_count }}-{{ active_count }}-{{ system_waring_device_count }}],
+                    ['异常智能路灯', {{ system_waring_device_count }}],
+                    ['活跃智能路灯', {{ active_count }}],
+                ]
+            }]
+        });
+
+        var ranges = {{ time_data }};
+
+        Highcharts.chart('analy', {
+            title: {
+                text: null
+            },
+            xAxis: {
+                gridLineWidth: 0,
+                type: 'datetime',
+                dateTimeLabelFormats: {
+                    millisecond: '%m-%d',
+                    second: '%m-%d',
+                    minute: '%m-%d',
+                    hour: '%m-%d',
+                    day: '%m-%d',
+                    month: '%m-%d',
+                    year: '%m-%d',
+                },
+                crosshairs: true
+            },
+            yAxis: {
+                type: 'datetime',
+                dateTimeLabelFormats: {
+                    millisecond: '%H:%M:%S',
+                    second: '%H:%M:%S',
+                    minute: '%H:%M:%S',
+                    hour: '%H:%M:%S',
+                    year: '%H:%M:%S',
+                    month: '%H:%M:%S',
+                    day: '%H:%M:%S',
+                },
+                title: {
+                    text: '光照时间',
+                }
+            },
+            tooltip: {
+                formatter: function () {
+                    console.log(this);
+                    return Highcharts.dateFormat('%m-%d', this.x) + '<br/>' +
+                        '<b>' + this.series.name + '</b><br/>' +
+                        Highcharts.dateFormat('%H:%M:%S', this.y) + '-' +
+                        Highcharts.dateFormat('%H:%M:%S', this.point.high);
+                }
+            },
+            series: [{
+                name: '光照时间',
+                data: ranges,
+                type: 'arearange',
+                lineWidth: 0,
+                linkedTo: ':previous', // 与上一个数据列进行关联，或者直接赋值 0
+                color: Highcharts.getOptions().colors[1],
+                fillOpacity: 0.5,
+                marker: {
+                    enabled: false
+                }
+            }]
+        });
     </script>
 {% endblock %}
 

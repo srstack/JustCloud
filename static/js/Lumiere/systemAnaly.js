@@ -12,7 +12,7 @@ function mapGet(list, i, dict) {
     Point[list[i]] = new BMap.Marker(point, {icon: myIcon});
     map.addOverlay(Point[list[i]]);
     //加入标签
-    var label = new BMap.Label(list[i], {offset: new BMap.Size(36, -10)});
+    var label = new BMap.Label(list[i], {offset: new BMap.Size(21, -10)});
     Point[list[i]].setLabel(label);
 }
 
@@ -26,9 +26,27 @@ function mapGetWaring(list, i, dict) {
     Point[list[i]] = new BMap.Marker(point, {icon: myIcon});
     map.addOverlay(Point[list[i]]);
     //加入标签
-    var label = new BMap.Label(list[i], {offset: new BMap.Size(36, -10)});
+    var label = new BMap.Label(list[i], {offset: new BMap.Size(21, -10)});
     label.setStyle({
         color: '#EB3C22',
+        border: 'none',
+    });
+    Point[list[i]].setLabel(label);
+}
+
+function mapGetActive(list, i, dict) {
+    //获取数据
+    var lostion = {"lat": dict[list[i]]['Lat'], "lon": dict[list[i]]['Lon']};
+    var point = GpsToBaiduPoint(new BMap.Point(lostion.lat, lostion.lon));
+
+    //生成坐标对象
+    var myIcon = new BMap.Icon("/static/img/lumiere-maker.png", new BMap.Size(30, 20));
+    Point[list[i]] = new BMap.Marker(point, {icon: myIcon});
+    map.addOverlay(Point[list[i]]);
+    //加入标签
+    var label = new BMap.Label(list[i], {offset: new BMap.Size(21, -10)});
+    label.setStyle({
+        color: '#DEE458',
         border: 'none',
     });
     Point[list[i]].setLabel(label);

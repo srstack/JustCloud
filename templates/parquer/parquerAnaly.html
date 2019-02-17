@@ -46,6 +46,14 @@
         </div>
     </div>
 
+    <div class="navigation" style="margin: 30px 20px 0 20px;text-align: center">车位实时空闲状态</div>
+
+    <div class="map">
+        <div class="map-body">
+            <div id="analy" count={{ free_count }} sid={{ system_obj.id }}></div>
+        </div>
+    </div>
+
     <div class="navigation" style="margin: 30px 20px 0 20px;text-align: center">异常设备数据</div>
 
     <div class="waring-datalist">
@@ -144,14 +152,6 @@
             <div class="t-footer">
                 <span style="font-size: 12px;color: #999;">共{{ system_waring_data_count }}项数据</span>
             </div>
-        </div>
-    </div>
-
-    <div class="navigation" style="margin: 30px 20px 0 20px;text-align: center">车位实时空闲状态</div>
-
-    <div class="map">
-        <div class="map-body">
-            <div id="analy" count={{ free_count }} sid={{ system_obj.id }}></div>
         </div>
     </div>
 

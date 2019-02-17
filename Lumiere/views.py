@@ -1,7 +1,7 @@
 from django.shortcuts import render, HttpResponse, redirect
 from SqlMaster.models import *
 from django.db.models import F, Q
-import datetime
+import datetime, time
 import json
 
 
@@ -191,17 +191,65 @@ def systemAnaly(request, username, sid):
                 data_type = type_name.keys()
                 data_type_count = len(data_type)
 
-                print(data_type)
+                active_count = 0
+                active_map = {}
                 device_map = {}
                 waring_device_map = {}
                 # 地图数据
                 for device in devices:
                     if device.data.filter(model=0).all() and device not in system_waring_devices:
                         data = eval(str(device.data.filter(model=0).last()))
-                        device_map[device.name] = {}
-                        for key_data, value_data in data.items():
-                            if key_data in data_type:
-                                device_map[device.name][key_data] = value_data
+                        if data['Switch-Light'] == 0:
+                            device_map[device.name] = {}
+                            for key_data, value_data in data.items():
+                                if key_data in data_type:
+                                    device_map[device.name][key_data] = value_data
+                        elif data['Switch-Light'] == 1 and data['Bottom-Light'] == 1:
+                            active_map[device.name] = {}
+                            active_count += 1
+                            for key_data, value_data in data.items():
+                                if key_data in data_type:
+                                    active_map[device.name][key_data] = value_data
+
+                # 今日时间
+                now_time = datetime.datetime.now().date()
+                now_date = str(now_time)
+
+                # 最近十天
+                time_list = [now_time, ]
+                tmp_time = now_time
+                yes_time = datetime.timedelta(days=-1)
+                for i in range(0, 9):
+                    time_list.append(tmp_time + yes_time)
+                    tmp_time = tmp_time + yes_time
+                time_list.reverse()
+
+                # 日照时间统计
+                time_data = [[], [], [], [], [], [], [], [], [], []]
+                for device in devices:
+                    print(1)
+                    if device.data.filter(model=0).all() and device not in system_waring_devices:
+                        for data in device.data.all().reverse():
+                            if data not in system_waring_datas:
+                                for i in range(0, 10):
+                                    if data.date.date() == time_list[i]:
+                                        device_data = eval(str(data.data))
+                                        if device_data['Switch-Light'] == 0 and device_data['Top-Light'] == 1:
+                                            if time_data:
+                                                time_data[i].insert(0, int(time.mktime(data.date.timetuple()))*1000)
+                                                time_data[i].insert(1, int(time.mktime(data.date.timetuple()))*1000)
+                                            else:
+                                                time_data[i].append(int(time.mktime(data.date.timetuple()))*1000)
+                                                time_data[i].append(int(time.mktime(data.date.timetuple()))*1000)
+                                        elif device_data['Switch-Light'] == 1 and device_data['Top-Light'] == 0:
+                                            if time_data[i]:
+                                                time_data[i].append(int(time.mktime(data.date.timetuple()))*1000)
+                                            else:
+                                                time_data[i].insert(2, int(time.mktime(data.date.timetuple()))*1000)
+                    else:
+                        continue
+                    break
+
                 # 异常设备地图数据
                 for device in system_waring_devices:
                     data = eval(str(device.data.filter(model=0).last()))

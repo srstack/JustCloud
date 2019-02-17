@@ -140,7 +140,7 @@ $().ready(function () {
             IMEI: {
                 required: '请输入IMEI序列号',
                 minlength: 'IMEI长度不能小于15位，请重新输入',
-                maxlength: 'IMEI长度不能小于15位，请重新输入',
+                maxlength: 'IMEI长度不能大于15位，请重新输入',
                 digits: 'IMEI格式错误，请重新输入',
                 number: 'IMEI格式错误，请重新输入',
             },

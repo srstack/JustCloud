@@ -11,7 +11,7 @@ function mapGet(name,dict) {
     marker = new BMap.Marker(point, {icon: myIcon});
     map.addOverlay(marker);
     //加入标签
-    var label = new BMap.Label(name, {offset: new BMap.Size(36, -10)});
+    var label = new BMap.Label(name, {offset: new BMap.Size(21, -10)});
     marker.setLabel(label);
 }
 
@@ -28,7 +28,7 @@ function mapGetWaring(name, dict) {
     marker = new BMap.Marker(point, {icon: myIcon});
     map.addOverlay(marker);
     //加入标签
-    var label = new BMap.Label(name, {offset: new BMap.Size(36, -10)});
+    var label = new BMap.Label(name, {offset: new BMap.Size(21, -10)});
     label.setStyle({
         color: '#EB3C22',
         border: 'none',
