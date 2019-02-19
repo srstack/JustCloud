@@ -254,9 +254,18 @@
                 ]
             }]
         });
+        Highcharts.setOptions({
+            global: {
+                timezoneOffset: -8 * 60
+            }
+        });
         Highcharts.chart('analy', {
+            colors: ['rgba(223, 83, 83, .7)', 'rgba(223, 228, 88, .7)',
+                'rgba(109, 190, 254, .7)', 'rgba(234, 85, 27, .7)',
+                'rgba(104, 223, 115, .7)', 'rgba(90, 93, 228, .7)',],
             chart: {
-                type: 'spline'
+                type: 'scatter',
+                zoomType: 'xy'
             },
             title: {
                 text: '智能垃圾桶满载频率'
@@ -266,31 +275,81 @@
             },
             xAxis: {
                 gridLineWidth: 0,
-                categories: [getDay(-9), getDay(-8), getDay(-7), getDay(-6), getDay(-5), getDay(-4), getDay(-3), getDay(-2), getDay(-1), getDay(0)],
+                type: 'datetime',
+                dateTimeLabelFormats: {
+                    millisecond: '%m-%d',
+                    second: '%m-%d',
+                    minute: '%m-%d',
+                    hour: '%m-%d',
+                    day: '%m-%d',
+                    month: '%m-%d',
+                    year: '%m-%d',
+                },
+                title: {
+                    enabled: true,
+                    text: '日期'
+                },
+                startOnTick: true,
+                endOnTick: true,
+                showLastLabel: true
             },
             yAxis: {
-                title: {
-                    text: '满载频率'
+                type: 'datetime',
+                dateTimeLabelFormats: {
+                    millisecond: '%H:%M:%S',
+                    second: '%H:%M:%S',
+                    minute: '%H:%M:%S',
+                    hour: '%H:%M:%S',
+                    year: '%H:%M:%S',
+                    month: '%H:%M:%S',
+                    day: '%H:%M:%S',
                 },
-                labels: {
-                    formatter: function () {
-                        return this.value + '次';
-                    }
+                title: {
+                    text: '时间'
+                }
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'left',
+                verticalAlign: 'top',
+                x: 100,
+                y: 70,
+                floating: true,
+                backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF',
+                borderWidth: 1
+            },
+            plotOptions: {
+                scatter: {
+                    marker: {
+                        radius: 5,
+                        states: {
+                            hover: {
+                                enabled: true,
+                                lineColor: 'rgb(100,100,100)'
+                            }
+                        }
+                    },
+                    states: {
+                        hover: {
+                            marker: {
+                                enabled: false
+                            }
+                        }
+                    },
                 }
             },
             tooltip: {
-                crosshairs: true,
-                shared: true
+                formatter: function () {
+                    return '<b>' + this.series.name + '</b><br/>' +
+                        '<b>' + Highcharts.dateFormat('%m-%d', this.x) + '</b><br/>' +
+                        Highcharts.dateFormat('%H:%M:%S', this.y);
+                }
             },
             series: [
-                {% for device_name,data_list in full_data_dict.items %}
+                {% for device_name , date in full_map.items %}
                     {
                         name: '{{ device_name }}',
-                        data: [
-                            {% for count in data_list %}
-                                {{ count }},
-                            {% endfor %}
-                        ]
+                        data: {{ date }}
                     },
                 {% endfor %}
             ]

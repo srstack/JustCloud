@@ -216,10 +216,10 @@ def systemAnaly(request, username, sid):
                 now_date = str(now_time)
 
                 # 最近十天
-                time_list = [now_time, ]
+                time_list = []
                 tmp_time = now_time
                 yes_time = datetime.timedelta(days=-1)
-                for i in range(0, 9):
+                for i in range(0, 10):
                     time_list.append(tmp_time + yes_time)
                     tmp_time = tmp_time + yes_time
                 time_list.reverse()
@@ -227,7 +227,6 @@ def systemAnaly(request, username, sid):
                 # 日照时间统计
                 time_data = [[], [], [], [], [], [], [], [], [], []]
                 for device in devices:
-                    print(1)
                     if device.data.filter(model=0).all() and device not in system_waring_devices:
                         for data in device.data.all().reverse():
                             if data not in system_waring_datas:
@@ -236,16 +235,22 @@ def systemAnaly(request, username, sid):
                                         device_data = eval(str(data.data))
                                         if device_data['Switch-Light'] == 0 and device_data['Top-Light'] == 1:
                                             if time_data:
-                                                time_data[i].insert(0, int(time.mktime(data.date.timetuple()))*1000)
-                                                time_data[i].insert(1, int(time.mktime(data.date.timetuple()))*1000)
+                                                time_data[i].insert(0, int(
+                                                    time.mktime(data.date.date().timetuple())) * 1000)
+                                                time_data[i].insert(1, (int(time.mktime(data.date.timetuple())) - int(
+                                                    time.mktime(data.date.date().timetuple())) - (8 * 3600)) * 1000)
                                             else:
-                                                time_data[i].append(int(time.mktime(data.date.timetuple()))*1000)
-                                                time_data[i].append(int(time.mktime(data.date.timetuple()))*1000)
+                                                time_data[i].append(
+                                                    int(time.mktime(data.date.date().timetuple())) * 1000)
+                                                time_data[i].append((int(time.mktime(data.date.timetuple())) - int(
+                                                    time.mktime(data.date.date().timetuple())) - (8 * 3600)) * 1000)
                                         elif device_data['Switch-Light'] == 1 and device_data['Top-Light'] == 0:
                                             if time_data[i]:
-                                                time_data[i].append(int(time.mktime(data.date.timetuple()))*1000)
+                                                time_data[i].append((int(time.mktime(data.date.timetuple())) - int(
+                                                    time.mktime(data.date.date().timetuple())) - (8 * 3600)) * 1000)
                                             else:
-                                                time_data[i].insert(2, int(time.mktime(data.date.timetuple()))*1000)
+                                                time_data[i].insert(2, (int(time.mktime(data.date.timetuple())) - int(
+                                                    time.mktime(data.date.date().timetuple())) - (8 * 3600)) * 1000)
                     else:
                         continue
                     break

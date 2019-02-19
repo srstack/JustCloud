@@ -309,7 +309,6 @@
             },
             tooltip: {
                 formatter: function () {
-                    console.log(this);
                     return Highcharts.dateFormat('%m-%d', this.x) + '<br/>' +
                         '<b>' + this.series.name + '</b><br/>' +
                         Highcharts.dateFormat('%H:%M:%S', this.y) + '-' +
