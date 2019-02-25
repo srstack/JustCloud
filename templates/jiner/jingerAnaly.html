@@ -88,42 +88,46 @@
                     <table style="width: 100%;table-layout: fixed;">
                         <tbody>
                         {% for data in system_waring_datas %}
-                            <tr>
-                                <td style="width: 11%">
-                                    <div><span>{{ data.device.id }}</span></div>
-                                </td>
-                                <td>
-                                    <div><span>{{ data.device.name }}</span></div>
-                                </td>
-                                <td>
-                                    {% if data.waring == 1 %}
-                                        <div>
+                            {% if forloop.counter > 10 %}
+                                <tr style="display: none" id={{ forloop.counter }}>
+                                    {% else %}
+                                <tr id={{ forloop.counter }}>
+                            {% endif %}
+                        <td style="width: 11%">
+                            <div><span>{{ data.device.id }}</span></div>
+                        </td>
+                        <td>
+                            <div><span>{{ data.device.name }}</span></div>
+                        </td>
+                        <td>
+                            {% if data.waring == 1 %}
+                                <div>
                                             <span class="data-status"
                                                   style="background-color: #EB3C22;font-weight: 500;">未处理</span>
-                                        </div>
-                                    {% else %}
-                                        <div><span class="data-status"
-                                                   style="background-color: #61d16c;font-weight: 500;">已处理</span>
-                                        </div>
-                                    {% endif %}
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>{{ data.date|date:"Y-m-d H:i" }}</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <a class="a-green"
-                                           href="/system/{{ user_obj.username }}/{{ data.device.system.platform }}/{{ data.device.system.id }}/device/{{ data.device.id }}/"
-                                           onclick="loadingIn()">详情</a>
-                                        {% if data.waring == 1 %}
-                                            <a class="a-red" onclick="loadingIn();showremove(this)"
-                                               dataid={{ data.id }}
-                                                       did={{ data.device.id }}>处理</a></div>
-                                        {% endif %}
-                                </td>
-                            </tr>
+                                </div>
+                            {% else %}
+                                <div><span class="data-status"
+                                           style="background-color: #61d16c;font-weight: 500;">已处理</span>
+                                </div>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <div>
+                                <span>{{ data.date|date:"Y-m-d H:i" }}</span>
+                            </div>
+                        </td>
+                        <td>
+                            <div>
+                                <a class="a-green"
+                                   href="/system/{{ user_obj.username }}/{{ data.device.system.platform }}/{{ data.device.system.id }}/device/{{ data.device.id }}/"
+                                   onclick="loadingIn()">详情</a>
+                                {% if data.waring == 1 %}
+                                    <a class="a-red" onclick="loadingIn();showremove(this)"
+                                       dataid={{ data.id }}
+                                               did={{ data.device.id }}>处理</a></div>
+                                {% endif %}
+                        </td>
+                        </tr>
                         {% endfor %}
                         </tbody>
                     </table>
@@ -143,6 +147,16 @@
             {% endif %}
             <div class="t-footer">
                 <span style="font-size: 12px;color: #999;">共{{ system_waring_data_count }}项数据</span>
+                {% if device_count > 10 %}
+                    <span class="device-status" id="show-more"
+                          style="background-color: #57a2ff;margin-left: 128px;width: 66px;"
+                          onclick="loadingIn();showmore(this)"
+                          nowlen="10"
+                          len={{ system_waring_data_count }}>
+                        <i class="fa fa-plus" aria-hidden="true"></i>
+                        更多
+                    </span>
+                {% endif %}
             </div>
         </div>
     </div>

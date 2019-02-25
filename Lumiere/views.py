@@ -263,6 +263,13 @@ def systemAnaly(request, username, sid):
                         if key_data in data_type:
                             waring_device_map[device.name][key_data] = value_data
 
+                for time_data_data in time_data:
+                    if not time_data_data:
+                        i = time_data.index(time_data_data)
+                        time_data_data.append(int(time.mktime((now_time + (10 - i) * yes_time).timetuple())) * 1000)
+                        time_data_data.append(0)
+                        time_data_data.append(0)
+
                 return render(request, 'lumiere/lumiereAnaly.html', locals())
             else:
                 return redirect('/admin/' + request.session.get('USERNAME'))

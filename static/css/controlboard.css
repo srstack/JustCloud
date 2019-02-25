@@ -277,7 +277,7 @@ ul {
     cursor: pointer;
 }
 
-.header .header-body .header-menu > ul > li > a.active,.header .header-body .header-menu > ul > li > a.active:hover {
+.header .header-body .header-menu > ul > li > a.active, .header .header-body .header-menu > ul > li > a.active:hover {
     color: #19bbff;
 }
 
@@ -567,6 +567,16 @@ ul {
     outline: none;
 }
 
-.header .header-body .header-menu > ul > li > a:hover{
+.header .header-body .header-menu > ul > li > a:hover {
+    color: white;
+}
+
+.create-device, .device-status {
+    cursor: default;
+}
+
+#show-more:hover {
+    background-color: #24bdfd;
+    border-color: #24bdfd;
     color: white;
 }

@@ -75,91 +75,95 @@
                         <table style="width: 100%;table-layout: fixed;">
                             <tbody>
                             {% for data in data %}
-                                <tr>
-                                    <td style="width: 11%">
-                                        <div><span>{{ data.id }}</span></div>
-                                    </td>
-                                    {% for type,value in data_dict|key:data.id %}
-                                        {% if type == 'Switch' %}
-                                            {% if value == 1 %}
-                                                <td>
-                                                    <div>
+                                {% if forloop.counter > 10 %}
+                                    <tr style="display: none" id={{ device.id }}{{ forloop.counter }}>
+                                        {% else %}
+                                    <tr id={{ device.id }}{{ forloop.counter }}>
+                                {% endif %}
+                            <td style="width: 11%">
+                                <div><span>{{ data.id }}</span></div>
+                            </td>
+                            {% for type,value in data_dict|key:data.id %}
+                                {% if type == 'Switch' %}
+                                    {% if value == 1 %}
+                                        <td>
+                                            <div>
                                                     <span class="data-status"
                                                           style="background-color: #61d16c;font-weight: 500;">开启</span>
-                                                    </div>
-                                                </td>
-                                            {% elif value == 0 %}
-                                                <td>
-                                                    <div>
+                                            </div>
+                                        </td>
+                                    {% elif value == 0 %}
+                                        <td>
+                                            <div>
                                                     <span class="data-status"
                                                           style="background-color: #61d16c;font-weight: 500;">关闭</span>
-                                                    </div>
-                                                </td>
-                                            {% endif %}
-                                        {% elif type == 'Cycle' %}
-                                            <td>
-                                                <div><span>{{ value }}小时</span></div>
-                                            </td>
-                                        {% elif type == 'Turn' or type == 'Park' or type == 'Full' %}
-                                            {% if value == 0 %}
-                                                <td>
-                                                    <div>
+                                            </div>
+                                        </td>
+                                    {% endif %}
+                                {% elif type == 'Cycle' %}
+                                    <td>
+                                        <div><span>{{ value }}小时</span></div>
+                                    </td>
+                                {% elif type == 'Turn' or type == 'Park' or type == 'Full' %}
+                                    {% if value == 0 %}
+                                        <td>
+                                            <div>
                                                     <span class="data-status"
                                                           style="background-color: #61d16c;font-weight: 500;">否</span>
-                                                    </div>
-                                                </td>
-                                            {% elif value == 1 %}
-                                                <td>
-                                                    <div>
+                                            </div>
+                                        </td>
+                                    {% elif value == 1 %}
+                                        <td>
+                                            <div>
                                                     <span class="data-status"
                                                           style="background-color: #ea4215;font-weight: 500;">是</span>
-                                                    </div>
-                                                </td>
-                                            {% endif %}
-                                        {% elif type == 'Top-Light' or type == 'Bottom-Light' %}
-                                            {% if value == 1 %}
-                                                <td>
-                                                    <div>
+                                            </div>
+                                        </td>
+                                    {% endif %}
+                                {% elif type == 'Top-Light' or type == 'Bottom-Light' %}
+                                    {% if value == 1 %}
+                                        <td>
+                                            <div>
                                                     <span class="data-status"
                                                           style="background-color: #61d16c;font-weight: 500;">良好</span>
-                                                    </div>
-                                                </td>
-                                            {% elif value == 0 %}
-                                                <td>
-                                                    <div>
+                                            </div>
+                                        </td>
+                                    {% elif value == 0 %}
+                                        <td>
+                                            <div>
                                                     <span class="data-status"
                                                           style="background-color: #ea4215;font-weight: 500;">不良</span>
-                                                    </div>
-                                                </td>
-                                            {% endif %}
-                                        {% elif type == 'Switch-Light' %}
-                                            {% if value == 1 %}
-                                                <td>
-                                                    <div>
+                                            </div>
+                                        </td>
+                                    {% endif %}
+                                {% elif type == 'Switch-Light' %}
+                                    {% if value == 1 %}
+                                        <td>
+                                            <div>
                                                     <span class="data-status"
                                                           style="background-color: #61d16c;font-weight: 500;">开启</span>
-                                                    </div>
-                                                </td>
-                                            {% elif value == 0 %}
-                                                <td>
-                                                    <div>
+                                            </div>
+                                        </td>
+                                    {% elif value == 0 %}
+                                        <td>
+                                            <div>
                                                     <span class="data-status"
                                                           style="background-color: #ea4215;font-weight: 500;">关闭</span>
-                                                    </div>
-                                                </td>
-                                            {% endif %}
-                                        {% else %}
-                                            <td>
-                                                <div><span>{{ value }}</span></div>
-                                            </td>
-                                        {% endif %}
-                                    {% endfor %}
+                                            </div>
+                                        </td>
+                                    {% endif %}
+                                {% else %}
                                     <td>
-                                        <div>
-                                            <span>{{ data.date|date:"Y-m-d H:i" }}</span>
-                                        </div>
+                                        <div><span>{{ value }}</span></div>
                                     </td>
-                                </tr>
+                                {% endif %}
+                            {% endfor %}
+                            <td>
+                                <div>
+                                    <span>{{ data.date|date:"Y-m-d H:i" }}</span>
+                                </div>
+                            </td>
+                            </tr>
                             {% endfor %}
                             </tbody>
                         </table>
@@ -179,6 +183,16 @@
                 {% endif %}
                 <div class="t-footer">
                     <span style="font-size: 12px;color: #999;">共{{ data|length }}项数据</span>
+                    {% if device_count > 10 %}
+                        <span class="device-status" id="show-more"
+                              style="background-color: #57a2ff;margin-left: 128px;width: 66px;"
+                              onclick="loadingIn();showmore(this)"
+                              nowlen="10"
+                              len={{ data|length }}>
+                        <i class="fa fa-plus" aria-hidden="true"></i>
+                        更多
+                    </span>
+                    {% endif %}
                 </div>
             </div>
         </div>

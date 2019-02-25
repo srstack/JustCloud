@@ -20,7 +20,8 @@ function showReposBtn() {
         $('.suspension').show();
     } else {
         $('.suspension').hide();
-    };
+    }
+    ;
 };
 window.onload = function () {
     showReposBtn();
@@ -38,5 +39,22 @@ function chosed(that) {
 // 关闭警告页面
 function waringClose() {
     loadingOut();
-    $('#device_waring').css('display','none')
+    $('#device_waring').css('display', 'none')
+}
+
+function showmore(that) {
+    now = $(that).attr('nowlen');
+    len = $(that).attr('len');
+    for (var i = 1; i < 6; i++) {
+        var id = Number(now) + i;
+        if (id === Number(len)) {
+            $(that).css('display','none');
+            break
+        }
+        else {
+            $('#' + id).css('display', '');
+            $(that).attr('nowlen',id);
+        }
+    }
+    loadingOut();
 }
