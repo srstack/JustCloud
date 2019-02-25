@@ -334,7 +334,7 @@ ol, ul {
 
 .w-function ul li {
     display: inline-block;
-    width: 398px;
+    width: 28%;
     border-left: 1px solid #e8ebef;
     padding: 30px 0;
     margin-top: 3px;
@@ -342,7 +342,7 @@ ol, ul {
 
 .w-function ul li img {
     width: 60px;
-    left: 50px;
+    left: 36px;
     top: 10px;
     position: relative;
     display: block;
@@ -418,14 +418,17 @@ ol, ul {
     margin-bottom: 96px;
 }
 
+.w-product-bottom .bottom-product ul {
+    text-align: center;
+}
+
 .w-product-bottom .bottom-product ul li {
     display: inline-block;
-    margin: 0 9px 0 9px;
-    width: 382px;
-    height: 146px;
+    width: 28%;
+    height: 148px;
     border-bottom: 1px solid #e8ebef;
     position: relative;
-    padding: 0 0 0 10px;
+    text-align: initial;
 }
 
 .w-product-bottom .bottom-product ul li a {
@@ -467,7 +470,7 @@ ol, ul {
 
 .w-product-bottom .bottom-product ul li a img {
     position: absolute;
-    left: 36px;
+    left: 28px;
     width: 62px;
     height: 62px;
     top: 36px;
@@ -624,7 +627,7 @@ ol, ul {
 
 .project .tab-content .value .value-ul .item {
     float: left;
-    width: 350px;
+    width: 33%;
     height: 144px;
     padding-left: 35px;
     padding-right: 35px;
@@ -659,7 +662,7 @@ ol, ul {
 .project .tab-content .value .value-ul {
     display: inline-block;
     margin: 0 auto;
-    width: 1050px;
+    width: 100%;
 }
 
 .suspension {
