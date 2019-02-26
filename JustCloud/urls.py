@@ -21,6 +21,7 @@ from Keystone import views as keystone
 from Lumiere import views as lumiere
 from Parquer import views as parquer
 from Jinger import views as jinger
+from Others import views as other
 
 urlpatterns = [
     path('databaseadmin/', admin.site.urls),
@@ -103,5 +104,18 @@ urlpatterns = [
     path('system/<username>/Parquer/<int:sid>/push/pushadd/', parquer.pushAdd, name='pushAdd'),
     path('system/<username>/Parquer/<int:sid>/push/pushaddall/', parquer.pushAddAll, name='pushAddAll'),
     path('system/<username>/Parquer/<int:sid>/pull/', parquer.systemPull, name='systemPull'),
+    path('system/<username>/Others/<int:sid>/', other.systemMain, name='JingerMain'),
+    path('system/<username>/Others/<int:sid>/analy/', other.systemAnaly, name='JingerAnaly'),
+    path('system/<username>/Others/<int:sid>/analy/waringremove/', other.waringRemove, name='waringRemove'),
+    path('system/<username>/Others/<int:sid>/device/', other.systemDevice, name='systemDevice'),
+    path('system/<username>/Others/<int:sid>/device/deviceremove/', other.deviceRemove, name='deviceRemove'),
+    path('system/<username>/Others/<int:sid>/device/deviceadd/', other.deviceAdd, name='deviceAdd'),
+    path('system/<username>/Others/<int:sid>/device/<int:did>/', other.deviceDetail, name='deviceDetail'),
+    path('system/<username>/Others/<int:sid>/device/<int:did>/waringremove/', other.waringRemove, name='waringRemove'),
+    path('system/<username>/Others/<int:sid>/type/', other.dataType, name='dataType'),
+    path('system/<username>/Others/<int:sid>/push/', other.systemPush, name='systemPush'),
+    path('system/<username>/Others/<int:sid>/push/pushadd/', other.pushAdd, name='pushAdd'),
+    path('system/<username>/Others/<int:sid>/push/pushaddall/', other.pushAddAll, name='pushAddAll'),
+    path('system/<username>/Others/<int:sid>/pull/', other.systemPull, name='systemPull'),
 
 ]

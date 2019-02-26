@@ -1,0 +1,263 @@
+{% extends 'type/controlboard.html' %}
+{% block title %}{{ system_obj.platform }}系统分析{% endblock %}
+
+{% block menu %}
+    {% include 'system/systemType.html' %}
+{% endblock %}
+
+{% block wrapper %}
+    <link href="/static/css/Jinger/systemAnaly.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript"
+            src="http://api.map.baidu.com/api?v=3.0&ak=U7SFiLeoxrhVv3M2C8gbU7TzOhKXcDB2"></script>
+
+    <div class="navigation" style="margin: 30px 20px 0 20px;text-align: center">系统状态</div>
+
+    <div class="system-wrap">
+        <div class="item">
+            <div class="system-left">
+                {% if waring_device_map %}
+                    <i class="fa fa-dot-circle-o" style="color: #ea4215"></i>
+                {% else %}
+                    <i class="fa fa-dot-circle-o"></i>
+                {% endif %}
+                <p style="font-weight: 600">{{ system_obj.platform }}</p>
+            </div>
+            <div class="system-right">
+                <div class="system-bottom">
+                    <p style="font-size: 21px;margin-bottom: 20px;">系统状态</p>
+                    {% if waring_device_map %}
+                        <b style="font-weight: 600;color: #ea4215;font-size: 18px;">异常</b>
+                    {% else %}
+                        <b style="font-weight: 600;color: #61d16c;font-size: 18px;">正常</b>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="item item-right" style="margin-left: 20px;">
+            <div id="device-charts"></div>
+        </div>
+    </div>
+
+    <div class="navigation" style="margin: 30px 20px 0 20px;text-align: center">设备LBS位置服务</div>
+
+    <div class="map">
+        <div class="map-body">
+            <div id="allmap"></div>
+        </div>
+    </div>
+
+    <div class="navigation" style="margin: 30px 20px 0 20px;text-align: center">异常设备数据</div>
+
+    <div class="waring-datalist">
+        <div class="data-table">
+            <div class="t-header">
+                <table style="width: 100%;table-layout: fixed;">
+                    <thead>
+                    <tr>
+                        <th style="width: 11%">
+                            <div>
+                                <span>设备ID</span>
+                            </div>
+                        </th>
+                        <th>
+                            <div>
+                                <span>设备名称</span>
+                            </div>
+                        </th>
+                        <th>
+                            <div>
+                                <span>异常状态</span>
+                            </div>
+                        </th>
+                        <th>
+                            <div>
+                                <span>异常时间</span>
+                            </div>
+                        </th>
+                        <th>
+                            <div>
+                                <span>操作</span>
+                            </div>
+                        </th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+            {% if system_waring_data_count > 0 %}
+                <div class="t-body">
+                    <table style="width: 100%;table-layout: fixed;">
+                        <tbody>
+                        {% for data in system_waring_datas %}
+                            {% if forloop.counter > 10 %}
+                                <tr style="display: none" id={{ forloop.counter }}>
+                                    {% else %}
+                                <tr id={{ forloop.counter }}>
+                            {% endif %}
+                        <td style="width: 11%">
+                            <div><span>{{ data.device.id }}</span></div>
+                        </td>
+                        <td>
+                            <div><span>{{ data.device.name }}</span></div>
+                        </td>
+                        <td>
+                            {% if data.waring == 1 %}
+                                <div>
+                                            <span class="data-status"
+                                                  style="background-color: #EB3C22;font-weight: 500;">未处理</span>
+                                </div>
+                            {% else %}
+                                <div><span class="data-status"
+                                           style="background-color: #61d16c;font-weight: 500;">已处理</span>
+                                </div>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <div>
+                                <span>{{ data.date|date:"Y-m-d H:i" }}</span>
+                            </div>
+                        </td>
+                        <td>
+                            <div>
+                                <a class="a-green"
+                                   href="/system/{{ user_obj.username }}/{{ data.device.system.platform }}/{{ data.device.system.id }}/device/{{ data.device.id }}/"
+                                   onclick="loadingIn()">详情</a>
+                                {% if data.waring == 1 %}
+                                    <a class="a-red" onclick="loadingIn();showremove(this)"
+                                       dataid={{ data.id }}
+                                               did={{ data.device.id }}>处理</a></div>
+                                {% endif %}
+                        </td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <div class="t-body">
+                    <table style="width: 100%;table-layout: fixed;height: 145px;">
+                        <tbody>
+                        <tr>
+                            <td>
+                                <div><span>暂无异常数据</span></div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            {% endif %}
+            <div class="t-footer">
+                <span style="font-size: 12px;color: #999;">共{{ system_waring_data_count }}项数据</span>
+                {% if device_count > 10 %}
+                    <span class="device-status" id="show-more"
+                          style="background-color: #57a2ff;margin-left: 128px;width: 66px;"
+                          onclick="loadingIn();showmore(this)"
+                          nowlen="10"
+                          len={{ system_waring_data_count }}>
+                        <i class="fa fa-plus" aria-hidden="true"></i>
+                        更多
+                    </span>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="change" id="remove">
+        <div class="grid" style="width: 300px; margin: 148px auto">
+            <div class="reuser-table">
+                <div class="re-header">
+                    <a class="change-table-close" style="float: right;color: #b0b0b0" onclick="loadingIn();reClose()"><i
+                            class="fa fa-times"></i></a>
+                    <div class="re-title ">提示</div>
+                </div>
+                <div class="re-body" style="position: relative;padding: 36px;">
+                    {% csrf_token %}
+                    <div>确定已处理ID为<span class="id"></span><span>的设备异常了吗？</span></div>
+                </div>
+                <div class="re-footer">
+                    <button type="button" onclick="loadingIn();WaringRemove()" style="background-color: #eb3c22">确定
+                    </button>
+                    <button type="button" onclick="loadingIn();reClose()">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/js/Jinger/systemAnaly.js"></script>
+    <script src="/static/plugins/highcharts/highcharts.js"></script>
+    <script src="/static/plugins/highcharts/exporting.js"></script>
+    <script src="/static/plugins/highcharts/highcharts-zh_CN.js"></script>
+    <script src="/static/plugins/highcharts/grid-light.js"></script>
+    <script src="/static/plugins/highcharts/highcharts-more.js"></script>
+    <script src="/static/plugins/highcharts/highcharts-3d.js"></script>
+    <script src="/static/js/baiduLBS.js"></script>
+    <script type="text/javascript">
+        var map = new BMap.Map('allmap');
+
+        //定义设备字典
+        var device_dict = {};
+        var device_list = [];
+        //定义警告设备字典
+        var waring_device_dict = {};
+        var waring_device_list = [];
+        //定义坐标对象
+        var Point = {};
+
+        {% for device_name,device_value in device_map.items %}
+            device_dict['{{ device_name }}'] = {};
+            {% for data_type,data_value in device_value.items %}
+                device_dict['{{ device_name }}']['{{ data_type }}'] = {{ data_value }}
+            {% endfor %}
+        device_list.push('{{ device_name }}');
+        {% endfor %}
+
+        {% for device_name,device_value in waring_device_map.items %}
+            waring_device_dict['{{ device_name }}'] = {};
+            {% for data_type,data_value in device_value.items %}
+                waring_device_dict['{{ device_name }}']['{{ data_type }}'] = {{ data_value }}
+            {% endfor %}
+        waring_device_list.push('{{ device_name }}');
+        {% endfor %}
+
+        for (var i = 0; i < device_list.length; i++) {
+            mapGet(device_list, i, device_dict);
+        }
+        for (var i = 0; i < waring_device_list.length; i++) {
+            mapGetWaring(waring_device_list, i, waring_device_dict);
+        }
+
+        map.setMapStyleV2({styleJson: styleJson});
+        //开启地图拖动以及缩放；
+        map.enableScrollWheelZoom(true);
+
+        Highcharts.chart('device-charts', {
+            chart: {
+                type: 'pie',
+                options3d: {
+                    enabled: true,
+                    alpha: 45
+                }
+            },
+            title: {
+                text: null
+            },
+            subtitle: {
+                text: null
+            },
+            plotOptions: {
+                pie: {
+                    innerSize: 56,
+                    depth: 36
+                }
+            },
+            series: [{
+                name: '设备数量',
+                data: [
+                    ['休眠智能设备', {{ device_count }}-{{ active_count }}-{{ system_waring_device_count }}],
+                    ['异常智能设备', {{ system_waring_device_count }}],
+                    ['活跃智能设备', {{ active_count }}],
+                ]
+            }]
+        });
+    </script>
+{% endblock %}
+
