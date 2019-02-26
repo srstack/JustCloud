@@ -99,44 +99,48 @@
         <div class="authadmin">
             <ul>
                 {% for sub in sub_user %}
-                    <li class="item">
-
-                        <div class="i-header">
-                            <i class="fa fa-bars" aria-hidden="true"
-                               style="margin-right: 8px;color: #49a6fd"></i>{{ sub.name }}
-                        </div>
-                        {% if sub.system.all %}
-                            <div class="i-body">
-                                <ul>
-                                    {% for system in sub.system.all %}
-                                        <li><i class="fa fa-viacoin"
-                                               aria-hidden="true"></i><a class="system-detail" onclick="loadingIn()" href="/system/{{ username }}/{{ system.platform }}/{{ system.id }}">{{ system.name }}</a>
-                                            <a onclick="loadingIn(),showRemove(this)"
-                                               sid={{ system.id }}  uid={{ sub.id }}>删除</a>
-                                        </li>
-                                    {% endfor %}
-                                </ul>
-                            </div>
-                        {% else %}
-                            <div class="i-body">
-                                <ul>
-                                    <li><i class="fa fa-stumbleupon" aria-hidden="true"></i>无任何子系统管理权限</li>
-                                </ul>
-                            </div>
-                        {% endif %}
-                        <div class="i-footer">
-                            {% if system_count > 0 %}
-                                <button onclick="loadingIn(),showAdd(this)" id={{ sub.id }} uid={{ sub.id }}
-                                        uname={{ sub.name }} uuname="{{ sub.username }}"><i class="fa fa-openid"
-                                                                                            aria-hidden="true"></i><span>添加</span>
-                                </button>
+                    {% if not forloop.counter|divisibleby:2 %}
+                        <li class="item" style="clear: both">
                             {% else %}
-                                <button style="background-color: #eb3c22" uid={{ sub.id }} uname={{ sub.name }}
-                                        uuname="{{ sub.username }}"><i class="fa fa-openid" aria-hidden="true"></i>无可选择的子系统
-                                </button>
-                            {% endif %}
-                        </div>
-                    </li>
+                        <li class="item">
+                    {% endif %}
+                <div class="i-header">
+                    <i class="fa fa-bars" aria-hidden="true"
+                       style="margin-right: 8px;color: #49a6fd"></i>{{ sub.name }}
+                </div>
+                {% if sub.system.all %}
+                    <div class="i-body">
+                        <ul>
+                            {% for system in sub.system.all %}
+                                <li><i class="fa fa-viacoin"
+                                       aria-hidden="true"></i><a class="system-detail" onclick="loadingIn()"
+                                                                 href="/system/{{ username }}/{{ system.platform }}/{{ system.id }}">{{ system.name }}</a>
+                                    <a onclick="loadingIn(),showRemove(this)"
+                                       sid={{ system.id }}  uid={{ sub.id }}>删除</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% else %}
+                    <div class="i-body">
+                        <ul>
+                            <li><i class="fa fa-stumbleupon" aria-hidden="true"></i>无任何子系统管理权限</li>
+                        </ul>
+                    </div>
+                {% endif %}
+                <div class="i-footer">
+                    {% if system_count > 0 %}
+                        <button onclick="loadingIn(),showAdd(this)" id={{ sub.id }} uid={{ sub.id }}
+                                uname={{ sub.name }} uuname="{{ sub.username }}"><i class="fa fa-openid"
+                                                                                    aria-hidden="true"></i><span>添加</span>
+                        </button>
+                    {% else %}
+                        <button style="background-color: #eb3c22" uid={{ sub.id }} uname={{ sub.name }}
+                                uuname="{{ sub.username }}"><i class="fa fa-openid" aria-hidden="true"></i>无可选择的子系统
+                        </button>
+                    {% endif %}
+                </div>
+                </li>
                 {% endfor %}
             </ul>
         </div>
