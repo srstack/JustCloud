@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'Detritus',
     'Keystone',
     'Lumiere',
-    'Parquer'
+    'Parquer',
+    'Others',
 ]
 
 MIDDLEWARE = [
