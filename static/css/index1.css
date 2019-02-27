@@ -424,7 +424,7 @@ ol, ul {
 
 .w-product-bottom .bottom-product ul li {
     display: inline-block;
-    width: 28%;
+    width: 25%;
     height: 148px;
     border-bottom: 1px solid #e8ebef;
     position: relative;
@@ -470,7 +470,7 @@ ol, ul {
 
 .w-product-bottom .bottom-product ul li a img {
     position: absolute;
-    left: 28px;
+    left: 46px;
     width: 62px;
     height: 62px;
     top: 36px;
