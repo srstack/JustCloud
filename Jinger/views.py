@@ -174,12 +174,17 @@ def systemAnaly(request, username, sid):
                 # 该系统的异常设备
                 system_waring_devices = []
                 system_waring_datas = []
+                analy_dict = {}
                 for device in system_obj.device.all():
                     for data in device.data.filter(model=0).all():
                         if data.waring == 1:
                             system_waring_devices.append(device)
                         if data.waring == 1 or data.waring == 0:
                             system_waring_datas.append(data)
+                            if device.name in analy_dict.keys():
+                                analy_dict[device.name] += 1
+                            else:
+                                analy_dict[device.name] = 1
 
                 # 利用集合的特性去重
                 system_waring_devices = list(set(system_waring_devices))

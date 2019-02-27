@@ -70,7 +70,7 @@
                         <span>{{ system.platform }}</span>
                         <a onclick="loadingIn()"
                            href="/system/{{ username }}/{{ system.platform }}/{{ system.id }}">详情</a>
-                        <a onclick="loadingIn(),showreSys(this)" id="{{ system.id }}">删除</a>
+                        <a onclick="loadingIn();showreSys(this)" id="{{ system.id }}">删除</a>
                     </div>
                     <div class="baseinfo-aid">
                         <h3>创建者</h3>
@@ -137,7 +137,7 @@
                                     <option value="Detritus">Detritus智能垃圾处理系统</option>
                                     <option value="Lumiere">Lumiere智能路灯系统</option>
                                     <option value="Parquer">Parquer智能停车系统</option>
-                                    <option value="Other">自定义系统</option>
+                                    <option value="Others">自定义系统</option>
                                 </select>
                             </div>
                         </div>

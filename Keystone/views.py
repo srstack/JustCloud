@@ -101,12 +101,12 @@ def mainAdmin(request, username):
             today_pull_data_count = len(today_pull_data)
 
             # 子系统饼状图
-            system_type_dict = {'Jinger': 0, 'Detritus': 0, 'Lumiere': 0, 'Parquer': 0, 'Other': 0, }
+            system_type_dict = {'Jinger': 0, 'Detritus': 0, 'Lumiere': 0, 'Parquer': 0, 'Others': 0, }
             for system_obj in system_list:
                 system_type_dict[str(system_obj.platform)] = system_type_dict[str(system_obj.platform)] + 1
 
             # 设备数柱状图
-            device_count_dict = {'Jinger': 0, 'Detritus': 0, 'Lumiere': 0, 'Parquer': 0, 'Other': 0, }
+            device_count_dict = {'Jinger': 0, 'Detritus': 0, 'Lumiere': 0, 'Parquer': 0, 'Others': 0, }
             for system_obj in system_list:
                 device_count_dict[str(system_obj.platform)] = device_count_dict[str(system_obj.platform)] + len(
                     system_obj.device.all())
