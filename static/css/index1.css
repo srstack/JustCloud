@@ -342,7 +342,7 @@ ol, ul {
 
 .w-function ul li img {
     width: 60px;
-    left: 36px;
+    left: 56px;
     top: 10px;
     position: relative;
     display: block;
@@ -351,8 +351,7 @@ ol, ul {
 .w-function .w-function-right {
     width: 210px;
     position: relative;
-    margin-left: 130px;
-    margin-top: -55px;
+    margin: -55px auto 0 auto;
 }
 
 .w-function .w-function-right em {
