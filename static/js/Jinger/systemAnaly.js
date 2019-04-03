@@ -4,7 +4,7 @@ function mapGet(list, i, dict) {
     var point = GpsToBaiduPoint(new BMap.Point(lostion.lat, lostion.lon));
 
     //第一个设备的位置作为地图初始化地点
-    if (i === 0) {
+    if (map.getCenter()["lng"] == 0 && map.getCenter()["lat"] == 0) {
         map.centerAndZoom(point, 19);
     }
     //生成坐标对象
@@ -20,6 +20,11 @@ function mapGetWaring(list, i, dict) {
     //获取数据
     var lostion = {"lat": dict[list[i]]['Lat'], "lon": dict[list[i]]['Lon']};
     var point = GpsToBaiduPoint(new BMap.Point(lostion.lat, lostion.lon));
+
+    //第一个设备的位置作为地图初始化地点
+    if (map.getCenter()["lng"] == 0 && map.getCenter()["lat"] == 0) {
+        map.centerAndZoom(point, 19);
+    }
 
     //生成坐标对象
     var myIcon = new BMap.Icon("/static/img/jinger-maker.png", new BMap.Size(30, 30));

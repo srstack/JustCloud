@@ -3,7 +3,8 @@ from SqlMaster.models import *
 import hashlib
 import datetime
 import random
-
+from django.views.decorators.csrf import csrf_exempt
+import json
 
 # 生成设备注册码
 def createCode():
@@ -38,6 +39,21 @@ def home_no(request):
         return redirect(url)
     else:
         return render(request, 'waring_login.html')
+
+
+@csrf_exempt
+def onenet(request):
+    if request.method == 'GET':
+        return HttpResponse(request.GET['msg'])
+    
+    else:
+        print(json.loads(request.body))
+        return HttpResponse("123")
+        
+@csrf_exempt
+def tlink(request):
+    if request.method == 'POST':
+        print(request.POST)
 
 
 def admin_no(request):

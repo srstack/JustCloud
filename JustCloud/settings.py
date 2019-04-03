@@ -23,12 +23,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '3t1x0+%+2y^e*__!onuvmv_e!55_a$)9t5@x&7^g#^#xiv^kj('
 
 # SECURITY WARNING: don't run with debug turned on in production!
+
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
-
-# Application definition
+ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -43,8 +41,7 @@ INSTALLED_APPS = [
     'Detritus',
     'Keystone',
     'Lumiere',
-    'Parquer',
-    'Others',
+    'Parquer'
 ]
 
 MIDDLEWARE = [
@@ -92,11 +89,11 @@ DATABASES = {
 
         'USER': 'root',   #你的数据库用户名
 
-        'PASSWORD':'', #你的数据库密码
+        'PASSWORD':'!QAZ2wsx', #你的数据库密码
 
-        'HOST': '', #你的数据库主机，留空默认为localhost
+        'HOST': '172.27.16.16', #你的数据库主机，留空默认为localhost
 
-        'PORT': '', #你的数据库端口
+        'PORT': '3308', #你的数据库端口
 
     }
 

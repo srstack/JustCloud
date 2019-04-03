@@ -48,6 +48,7 @@ function showmore(that) {
     for (var i = 1; i < 6; i++) {
         var id = Number(now) + i;
         if (id === Number(len)) {
+            $('#' + id).css('display', '');
             $(that).css('display','none');
             break
         }

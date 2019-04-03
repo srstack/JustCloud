@@ -111,18 +111,16 @@
                         </td>
                         <td>
                             {% if waring_device_list %}
-                                {% for waring_device in waring_device_list %}
-                                    {% if  device == waring_device %}
+                                {% if device in waring_device_list %}
                                         <div>
-                                        <span class="device-status" style="background-color: #EB3C22">异常</span>
-                                    {% elif device.data.all %}
-                                        <div><span class="device-status"
-                                                   style="background-color: #61d16c">在线</span>
-                                        </div>
-                                    {% else %}
-                                        <div><span class="device-status">离线</span></div>
-                                    {% endif %}
-                                {% endfor %}
+                                        <span class="device-status" style="background-color: #EB3C22">异常</span></div>
+                                {% elif device.data.all %}
+                                    <div><span class="device-status"
+                                               style="background-color: #61d16c">在线</span>
+                                    </div>
+                                {% else %}
+                                    <div><span class="device-status">离线</span></div>
+                                {% endif %}
                             {% else %}
                                 {% if device.data.all %}
                                     <div><span class="device-status"

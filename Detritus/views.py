@@ -178,7 +178,6 @@ def systemAnaly(request, username, sid):
                     for data in device.data.filter(model=0).all():
                         if data.waring == 1:
                             system_waring_devices.append(device)
-                        if data.waring == 1 or data.waring == 0:
                             system_waring_datas.append(data)
 
                 # 利用集合的特性去重
@@ -320,8 +319,7 @@ def systemDevice(request, username, sid):
                         if data_exist:
                             for data in data_lits:
                                 if device.data.filter(Q(waring=1, model=0) | Q(waring=0, model=0)):
-                                    if device.data.filter(Q(waring=1, model=0) | Q(waring=0, model=0))[0].date.date() == \
-                                            time_list[i]:
+                                    if device.data.filter(Q(waring=1, model=0) | Q(waring=0, model=0))[0].date.date() ==  time_list[i]:
                                         device_waring_change_list[i] = device_waring_change_list[i] + 1
                                         break
 
@@ -404,7 +402,8 @@ def deviceDetail(request, username, sid, did):
                 if device_obj.data.filter(waring=1, model=0):
                     waring_data = device_obj.data.filter(waring=1, model=0).last()
 
-                data_had_waring = device_obj.data.filter(Q(waring=1, model=0) | Q(waring=0, model=0)).reverse()
+                data_had_waring = device_obj.data.filter(Q(waring=1, model=0) | Q(waring=0, model=0))
+                data_had_waring = data_had_waring.reverse()
                 data_had_waring_count = len(data_had_waring)
 
                 # 历史异常数据

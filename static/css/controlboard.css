@@ -15,6 +15,18 @@ ul {
     list-style: none;
 }
 
+.device-status { 
+   display: inline-block;
+    width: 80px;
+    height: 26px;
+    background: rgb(196, 201, 205);
+    font-size: 12px;
+    color: rgb(255, 255, 255);
+    line-height: 26px;
+    text-align: center;
+    border-radius: 3px;
+}
+
 .suspension {
     position: fixed;
     bottom: 30px;

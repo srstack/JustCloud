@@ -179,8 +179,8 @@ def systemAnaly(request, username, sid):
                     for data in device.data.filter(model=0).all():
                         if data.waring == 1:
                             system_waring_devices.append(device)
-                        if data.waring == 1 or data.waring == 0:
                             system_waring_datas.append(data)
+                        if data.waring == 1 or data.waring == 0:
                             if device.name in analy_dict.keys():
                                 analy_dict[device.name] += 1
                             else:
@@ -297,7 +297,7 @@ def systemDevice(request, username, sid):
                     if device.date.date() == now_time:
                         new_devices.append(device)
                     for data in device.data.filter(model=0).all():
-                        if data.waring == 1:
+                        if data.waring == 1 :
                             system_waring_devices.append(device)
                     for i in range(0, 10):
                         if device.date.date() == time_list[i]:
@@ -307,8 +307,7 @@ def systemDevice(request, username, sid):
                         if data_exist:
                             for data in data_lits:
                                 if device.data.filter(Q(waring=1, model=0) | Q(waring=0, model=0)):
-                                    if device.data.filter(Q(waring=1, model=0) | Q(waring=0, model=0))[0].date.date() == \
-                                            time_list[i]:
+                                    if device.data.filter(Q(waring=1, model=0) | Q(waring=0, model=0))[0].date.date() ==  time_list[i]:
                                         device_waring_change_list[i] = device_waring_change_list[i] + 1
                                         break
 
