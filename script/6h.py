@@ -33,55 +33,55 @@ def waring():
 
 # jinger1
 if waring():
-    data = "{'Lon':'32.1945','Lat':'119.467','Switch':1,'Cycle':'6','Turn':0}"
-    Data.objects.create(device_id=2, model=0, data=data)
+    data = "{'Lon':'119.467','Lat':'32.1945','Switch':1,'Cycle':'6','Turn':0}"
+    Data.objects.create(device_id=35, model=0, data=data)
 else:
-    data = "{'Lon':'32.1945','Lat':'119.467','Switch':1,'Cycle':'6','Turn':1}"
-    Data.objects.create(device_id=2, model=0, data=data, waring=1)
+    data = "{'Lon':'119.467','Lat':'32.1945','Switch':1,'Cycle':'6','Turn':1}"
+    Data.objects.create(device_id=35, model=0, data=data, waring=1)
 
 # jinger3
 if waring():
-    data = "{'Lon':'32.195','Lat':'119.467','Switch':1,'Cycle':'6','Turn':0}"
-    Data.objects.create(device_id=4, model=0, data=data)
+    data = "{'Lon':'119.460','Lat':'32.195','Switch':1,'Cycle':'6','Turn':0}"
+    Data.objects.create(device_id=36, model=0, data=data)
 else:
-    data = "{'Lon':'32.195','Lat':'119.460','Switch':1,'Cycle':'6','Turn':0}"
-    Data.objects.create(device_id=4, model=0, data=data, waring=1)
+    data = "{'Lon':'119.460','Lat':'32.195','Switch':1,'Cycle':'6','Turn':0}"
+    Data.objects.create(device_id=36, model=0, data=data, waring=1)
 
 # jinger6
 if waring():
-    data = "{'Lon':'32.196','Lat':'119.467','Switch':1,'Cycle':'6','Turn':0}"
+    data = "{'Lon':'119.467','Lat':'32.196','Switch':1,'Cycle':'6','Turn':0}"
     Data.objects.create(device_id=8, model=0, data=data)
 else:
-    data = "{'Lon':'32.196','Lat':'119.467','Switch':1,'Cycle':'6','Turn':1}"
+    data = "{'Lon':'119.467','Lat':'32.196','Switch':1,'Cycle':'6','Turn':1}"
     Data.objects.create(device_id=8, model=0, data=data, waring=1)
 
 # jinger7
 if waring():
-    data = "{'Lon':'32.194','Lat':'119.468','Switch':1,'Cycle':'6','Turn':0}"
+    data = "{'Lon':'119.465','Lat':'32.196','Switch':1,'Cycle':'6','Turn':0}"
     Data.objects.create(device_id=9, model=0, data=data)
 else:
-    data = "{'Lon':'32.196','Lat':'119.465','Switch':1,'Cycle':'6','Turn':0}"
+    data = "{'Lon':'119.465','Lat':'32.196','Switch':1,'Cycle':'6','Turn':0}"
     Data.objects.create(device_id=9, model=0, data=data, waring=1)
 
 # detritus
 
 if waring():
-    data = "{'Lon':'32.1945','Lat':'119.4675','Switch':1,'Cycle':'6','Full':0}"
+    data = "{'Lon':'119.4675','Lat':'32.1945','Switch':1,'Cycle':'6','Full':0}"
     Data.objects.create(device_id=12, model=0, data=data)
 else:
-    data = "{'Lon':'32.1945','Lat':'119.4675','Switch':1,'Cycle':'6','Full':1}"
+    data = "{'Lon':'119.4675','Lat':'32.1945','Switch':1,'Cycle':'6','Full':1}"
     Data.objects.create(device_id=12, model=0, data=data, waring=1)
 
 if waring():
-    data = "{'Lon':'32.19605','Lat':'119.4655','Switch':1,'Cycle':'6','Full':0}"
+    data = "{'Lon':'119.4655','Lat':'32.19605','Switch':1,'Cycle':'6','Full':0}"
     Data.objects.create(device_id=33, model=0, data=data)
 else:
-    data = "{'Lon':'32.19605','Lat':'119.4655','Switch':1,'Cycle':'6','Full':1}"
+    data = "{'Lon':'119.4655','Lat':'32.19605','Switch':1,'Cycle':'6','Full':1}"
     Data.objects.create(device_id=33, model=0, data=data, waring=1)
 
 if waring():
-    data = "{'Lon':'32.1952','Lat':'119.4658','Switch':1,'Cycle':'6','Full':0}"
+    data = "{'Lon':'119.4658','Lat':'32.1952','Switch':1,'Cycle':'6','Full':0}"
     Data.objects.create(device_id=14, model=0, data=data)
 else:
-    data = "{'Lon':'32.1952','Lat':'119.4658','Switch':1,'Cycle':'6','Full':1}"
+    data = "{'Lon':'119.4658','Lat':'32.1952','Switch':1,'Cycle':'6','Full':1}"
     Data.objects.create(device_id=14, model=0, data=data, waring=1)

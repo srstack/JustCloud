@@ -1,7 +1,7 @@
 function mapGet(name,dict) {
     //获取数据
     var lostion = {"lat": dict['Lat'], "lon": dict['Lon']};
-    var point = GpsToBaiduPoint(new BMap.Point(lostion.lat, lostion.lon));
+    var point = GpsToBaiduPoint(new BMap.Point(lostion.lon, lostion.lat));
 
     //第一个设备的位置作为地图初始化地点
     map.centerAndZoom(point, 19);
@@ -18,7 +18,7 @@ function mapGet(name,dict) {
 function mapGetWaring(name, dict) {
     //获取数据
     var lostion = {"lat": dict['Lat'], "lon": dict['Lon']};
-    var point = GpsToBaiduPoint(new BMap.Point(lostion.lat, lostion.lon));
+    var point = GpsToBaiduPoint(new BMap.Point(lostion.lon, lostion.lat));
 
     //第一个设备的位置作为地图初始化地点
     map.centerAndZoom(point, 19);

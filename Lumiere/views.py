@@ -63,16 +63,16 @@ def systemMain(request, username, sid):
                 pull_count = 0
                 new_data_count = 0
                 # 今日时间
-                now_time = datetime.datetime.now().date()
-                now_date = str(now_time)
+                now_time = datetime.datetime.now()
+                now_day = now_time.date()
                 # 运行天数
-                running_days = (now_time - system_obj.date.date()).days
+                running_days = (now_day - system_obj.date.date()).days
                 # 最近五天
-                time_list = [now_date, ]
-                tmp_time = now_time
+                time_list = [now_day, ]
+                tmp_time = now_day
                 yes_time = datetime.timedelta(days=-1)
                 for i in range(0, 4):
-                    time_list.append(str(tmp_time + yes_time))
+                    time_list.append(tmp_time + yes_time)
                     tmp_time = tmp_time + yes_time
                 time_list.reverse()
 
@@ -88,20 +88,21 @@ def systemMain(request, username, sid):
                         device_active_list.append(device)
                     else:
                         device_inactive_list.append(device)
-                    if str(device.date).split()[0] == now_date:
+                    if device.date.date() == now_day:
                         new_devices.append(device)
                     data_count = data_count + len(device.data.all())
-                    for data in device.data.all():
+                    data_list = device.data.filter(date__gte=time_list[0])
+                    for data in data_list:
                         if data.waring == 1 and data.model == 0:
                             system_waring_devices.append(device)
                         if data.model:
                             push_count = push_count + 1
                         else:
                             pull_count = pull_count + 1
-                        if str(data.date).split()[0] == now_date:
+                        if data.date.date() == now_day:
                             new_data_count = new_data_count + 1
                         for i in range(0, 5):
-                            if str(data.date).split()[0] == time_list[i]:
+                            if data.date.date() == time_list[i]:
                                 if data.model:
                                     data_push_list[i] = data_push_list[i] + 1
                                 else:
@@ -212,44 +213,44 @@ def systemAnaly(request, username, sid):
 
                 # 今日时间
                 now_time = datetime.datetime.now().date()
-                now_date = str(now_time)
 
-                # 最近十天
+                # 最近三十天
                 time_list = []
                 tmp_time = now_time
                 yes_time = datetime.timedelta(days=-1)
-                for i in range(0, 10):
+                for i in range(0, 30):
                     time_list.append(tmp_time + yes_time)
                     tmp_time = tmp_time + yes_time
                 time_list.reverse()
 
                 # 日照时间统计
-                time_data = [[], [], [], [], [], [], [], [], [], []]
+                time_data = [[], [], [], [], [], [], [], [], [], [],
+                             [], [], [], [], [], [], [], [], [], [],
+                             [], [], [], [], [], [], [], [], [], [],]
                 for device in devices:
-                    if device.data.filter(model=0).all() and device not in system_waring_devices:
-                        for data in device.data.all().reverse():
-                            if data not in system_waring_datas:
-                                for i in range(0, 10):
-                                    if data.date.date() == time_list[i]:
-                                        device_data = eval(str(data.data))
-                                        if device_data['Switch-Light'] == 0 and device_data['Top-Light'] == 1:
-                                            if time_data:
-                                                time_data[i].insert(0, int(
-                                                    time.mktime(data.date.date().timetuple())) * 1000)
-                                                time_data[i].insert(1, (int(time.mktime(data.date.timetuple())) - int(
-                                                    time.mktime(data.date.date().timetuple())) - (8 * 3600)) * 1000)
-                                            else:
-                                                time_data[i].append(
-                                                    int(time.mktime(data.date.date().timetuple())) * 1000)
-                                                time_data[i].append((int(time.mktime(data.date.timetuple())) - int(
-                                                    time.mktime(data.date.date().timetuple())) - (8 * 3600)) * 1000)
-                                        elif device_data['Switch-Light'] == 1 and device_data['Top-Light'] == 0:
-                                            if time_data[i]:
-                                                time_data[i].append((int(time.mktime(data.date.timetuple())) - int(
-                                                    time.mktime(data.date.date().timetuple())) - (8 * 3600)) * 1000)
-                                            else:
-                                                time_data[i].insert(2, (int(time.mktime(data.date.timetuple())) - int(
-                                                    time.mktime(data.date.date().timetuple())) - (8 * 3600)) * 1000)
+                    if Data.objects.filter(model=0,device=device) and device not in system_waring_devices:
+                        for data in Data.objects.filter(~Q(waring=0) & ~Q(waring=1) ,model=0,device=device,date__gte=time_list[0]):
+                            for i in range(0, 30):
+                                if data.date.date() == time_list[i]:
+                                    device_data = eval(str(data.data))
+                                    if device_data['Switch-Light'] == 0 and device_data['Top-Light'] == 1:
+                                        if time_data:
+                                            time_data[i].insert(0, int(
+                                                time.mktime(data.date.date().timetuple())) * 1000)
+                                            time_data[i].insert(1, (int(time.mktime(data.date.timetuple())) - int(
+                                                time.mktime(data.date.date().timetuple())) - (8 * 3600)) * 1000)
+                                        else:
+                                            time_data[i].append(
+                                                int(time.mktime(data.date.date().timetuple())) * 1000)
+                                            time_data[i].append((int(time.mktime(data.date.timetuple())) - int(
+                                                time.mktime(data.date.date().timetuple())) - (8 * 3600)) * 1000)
+                                    elif device_data['Switch-Light'] == 1 and device_data['Top-Light'] == 0:
+                                        if time_data[i]:
+                                            time_data[i].append((int(time.mktime(data.date.timetuple())) - int(
+                                                time.mktime(data.date.date().timetuple())) - (8 * 3600)) * 1000)
+                                        else:
+                                            time_data[i].insert(2, (int(time.mktime(data.date.timetuple())) - int(
+                                                time.mktime(data.date.date().timetuple())) - (8 * 3600)) * 1000)
                     else:
                         continue
                     break
@@ -315,12 +316,12 @@ def systemDevice(request, username, sid):
                 device_inactive_list = []
 
                 # 今日时间
-                now_time = datetime.datetime.now().date()
-                now_date = str(now_time)
+                now_time = datetime.datetime.now()
+                now_day = now_time.date()
 
                 # 最近十天
-                time_list = [now_time, ]
-                tmp_time = now_time
+                time_list = [now_day, ]
+                tmp_time = now_day
                 yes_time = datetime.timedelta(days=-1)
                 for i in range(0, 9):
                     time_list.append(tmp_time + yes_time)
@@ -336,30 +337,28 @@ def systemDevice(request, username, sid):
 
                 system_waring_devices = []
                 for device in devices:
-                    data_lits = []
-                    data_exist = False
+                    data_list = []
                     if device.data.all():
-                        data_exist = True
-                        data_lits = device.data.all()
                         device_active_list.append(device)
                     else:
                         device_inactive_list.append(device)
                     if device.date.date() == now_time:
                         new_devices.append(device)
-                    for data in device.data.filter(model=0).all():
-                        if data.waring == 1:
-                            system_waring_devices.append(device)
+                    if Data.objects.filter(model=0, date__gte=time_list[0], device=device):
+                        system_waring_devices.append(device)
+                    data_list = Data.objects.filter(Q(waring=1) | Q(waring=0), model=0, date__gte=time_list[0],device=device)
+                    print(data_list)
                     for i in range(0, 10):
                         if device.date.date() == time_list[i]:
                             device_new_change_list[i] = device_new_change_list[i] + 1
                         if device.date.date() <= time_list[i]:
                             device_count_list[i] = device_count_list[i] + 1
-                        if data_exist:
-                            for data in data_lits:
-                                if device.data.filter(Q(waring=1, model=0) | Q(waring=0, model=0)):
-                                    if device.data.filter(Q(waring=1, model=0) | Q(waring=0, model=0))[0].date.date() ==  time_list[i]:
-                                        device_waring_change_list[i] = device_waring_change_list[i] + 1
-                                        break
+                        if data_list:
+                            for data in data_list:
+                                if data.date.date() == time_list[i]:
+                                    device_waring_change_list[i] = device_waring_change_list[i] + 1
+                                    print(device_waring_change_list)
+                                    break
 
                 # 利用集合的特性去重
                 system_waring_devices = list(set(system_waring_devices))

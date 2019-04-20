@@ -15,8 +15,8 @@ ul {
     list-style: none;
 }
 
-.device-status { 
-   display: inline-block;
+.device-status {
+    display: inline-block;
     width: 80px;
     height: 26px;
     background: rgb(196, 201, 205);
@@ -523,18 +523,18 @@ ul {
     font-size: 12px;
 }
 
-#device_waring .grid .reuser-table {
+#device_waring .grid .reuser-table, #new_waring .grid .reuser-table {
     position: relative;
     background-color: #fff;
     border-radius: 18px;
     border: 1px solid #fff;
 }
 
-#device_waring .grid .reuser-table .re-header {
+#device_waring .grid .reuser-table .re-header, #new_waring .grid .reuser-table .re-header {
     padding: 10px;
 }
 
-#device_waring .grid .reuser-table .re-header .re-title {
+#device_waring .grid .reuser-table .re-header .re-title, #new_waring .grid .reuser-table .re-header .re-title {
     text-align: center;
     margin-top: 8px;
     color: black;
@@ -542,20 +542,20 @@ ul {
     font-weight: 600;
 }
 
-#device_waring .grid .reuser-table .re-body {
+#device_waring .grid .reuser-table .re-body, #new_waring .grid .reuser-table .re-body {
     text-align: center;
     font-size: 15px;
     color: #585858;
 }
 
-#device_waring .grid .reuser-table .re-footer {
+#device_waring .grid .reuser-table .re-footer, #new_waring .grid .reuser-table .re-footer {
     padding-top: 10px;
     padding-bottom: 24px;
     position: relative;
     text-align: center;
 }
 
-#device_waring .grid .reuser-table .re-footer > button {
+#device_waring .grid .reuser-table .re-footer > button, #new_waring .grid .reuser-table .re-footer > button {
     font-size: 14px;
     width: 72px;
     height: 32px;
@@ -573,7 +573,7 @@ ul {
     margin: 0 12px;
 }
 
-#device_waring .grid .reuser-table .re-footer > button:hover, #remove .grid .reuser-table .re-footer > button:focus {
+#device_waring .grid .reuser-table .re-footer > button:hover, #remove .grid .reuser-table .re-footer > button:focus,#new_waring .grid .reuser-table .re-footer > button:hover, #remove .grid .reuser-table .re-footer > button:focus {
     background-color: #24bdfd;
     border: 0;
     outline: none;

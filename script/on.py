@@ -39,12 +39,12 @@ def sleep():
 
 sleep()
 if waring():
-    data1 = "{'Lon':'32.20029','Lat':'119.4621','Switch':1,'Cycle':'5','Switch-Light':1,'Top-Light':0,'Bottom-Light':1}"
+    data1 = "{'Lon':'119.4621','Lat':'32.20029','Switch':1,'Cycle':'5','Switch-Light':1,'Top-Light':0,'Bottom-Light':1}"
     Data.objects.create(device_id=22, model=0, data=data1)
-    data2 = "{'Lon':'32.20000','Lat':'119.4621','Switch':1,'Cycle':'5','Switch-Light':1,'Top-Light':0,'Bottom-Light':1}"
+    data2 = "{'Lon':'119.4621','Lat':'32.20000','Switch':1,'Cycle':'5','Switch-Light':1,'Top-Light':0,'Bottom-Light':1}"
     Data.objects.create(device_id=23, model=0, data=data2)
 else:
-    data1 = "{'Lon':'32.20029','Lat':'119.4621','Switch':1,'Cycle':'5','Switch-Light':1,'Top-Light':0,'Bottom-Light':0}"
+    data1 = "{'Lon':'119.4621','Lat':'32.20029','Switch':1,'Cycle':'5','Switch-Light':1,'Top-Light':0,'Bottom-Light':0}"
     Data.objects.create(device_id=22, model=0, data=data1, waring=1)
-    data2 = "{'Lon':'32.20000','Lat':'119.4621','Switch':1,'Cycle':'5','Switch-Light':1,'Top-Light':0,'Bottom-Light':0}"
+    data2 = "{'Lon':'119.4621','Lat':'32.20000','Switch':1,'Cycle':'5','Switch-Light':1,'Top-Light':0,'Bottom-Light':0}"
     Data.objects.create(device_id=23, model=0, data=data2)

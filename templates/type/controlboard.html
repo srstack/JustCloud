@@ -107,6 +107,29 @@
     </div>
 {% endif %}
 
+<div class="waringchange" id="new_waring" style="display: none">
+    <div class="grid" style="width: 300px; margin: 148px auto">
+        <div class="reuser-table">
+            <div class="re-header">
+                <a class="change-table-close" style="float: right;color: #b0b0b0"
+                   onclick="loadingIn(),waringClose()"><i
+                        class="fa fa-times"></i></a>
+                <div class="re-title " style="color: #eb3c22">警告</div>
+            </div>
+            <div class="re-body" style="position: relative;padding: 32px;">
+                <div style="margin-bottom: 12px;">存在设备需要处理！</div>
+                <div>请及时联系相关人员查看！</div>
+            </div>
+            <div class="re-footer">
+                <button type="button" onclick="loadingIn();newWaring()" style="background-color: #eb3c22">确定
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    window.setInterval("getWaring()", 10000);
+</script>
 <script src="/static/js/controlboard.js"></script>
 </body>
 </html>

@@ -1,3 +1,19 @@
+// 查询是否存在异常
+function getWaring() {
+    $.ajax({
+        url: '/getwaring/',
+        type: 'GET',
+        success: function (data) {
+            if (data === 'yes') {
+                $('#new_waring').css('display', 'block');
+            }
+            else {
+                $('#new_waring').css('display', 'none');
+            }
+        }
+    })
+}
+
 // 用户管理下拉框
 function adminList() {
     if (!$('.header .header-body .header-user .login-ul .h-u-h-c-b').hasClass('show')) {
@@ -42,6 +58,13 @@ function waringClose() {
     $('#device_waring').css('display', 'none')
 }
 
+
+// 新警告事件刷新
+function newWaring() {
+    loadingOut();
+    $('#new_waring').css('display', 'none')
+}
+
 function showmore(that) {
     now = $(that).attr('nowlen');
     len = $(that).attr('len');
@@ -49,12 +72,12 @@ function showmore(that) {
         var id = Number(now) + i;
         if (id === Number(len)) {
             $('#' + id).css('display', '');
-            $(that).css('display','none');
+            $(that).css('display', 'none');
             break
         }
         else {
             $('#' + id).css('display', '');
-            $(that).attr('nowlen',id);
+            $(that).attr('nowlen', id);
         }
     }
     loadingOut();

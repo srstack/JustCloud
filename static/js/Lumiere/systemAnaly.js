@@ -1,7 +1,7 @@
 function mapGet(list, i, dict) {
     //获取数据
     var lostion = {"lat": dict[list[i]]['Lat'], "lon": dict[list[i]]['Lon']};
-    var point = GpsToBaiduPoint(new BMap.Point(lostion.lat, lostion.lon));
+    var point = GpsToBaiduPoint(new BMap.Point(lostion.lon, lostion.lat));
 
     //第一个设备的位置作为地图初始化地点
     if (map.getCenter()["lng"] == 0 && map.getCenter()["lat"] == 0) {
@@ -20,7 +20,7 @@ function mapGet(list, i, dict) {
 function mapGetWaring(list, i, dict) {
     //获取数据
     var lostion = {"lat": dict[list[i]]['Lat'], "lon": dict[list[i]]['Lon']};
-    var point = GpsToBaiduPoint(new BMap.Point(lostion.lat, lostion.lon));
+    var point = GpsToBaiduPoint(new BMap.Point(lostion.lon, lostion.lat));
 
     //第一个设备的位置作为地图初始化地点
     if (map.getCenter()["lng"] == 0 && map.getCenter()["lat"] == 0) {
@@ -43,7 +43,7 @@ function mapGetWaring(list, i, dict) {
 function mapGetActive(list, i, dict) {
     //获取数据
     var lostion = {"lat": dict[list[i]]['Lat'], "lon": dict[list[i]]['Lon']};
-    var point = GpsToBaiduPoint(new BMap.Point(lostion.lat, lostion.lon));
+    var point = GpsToBaiduPoint(new BMap.Point(lostion.lon, lostion.lat));
 
     //第一个设备的位置作为地图初始化地点
     if (map.getCenter()["lng"] == 0 && map.getCenter()["lat"] == 0) {

@@ -6,6 +6,7 @@ import random
 from django.views.decorators.csrf import csrf_exempt
 import json
 
+
 # 生成设备注册码
 def createCode():
     code = ''.join(random.sample(
@@ -45,11 +46,24 @@ def home_no(request):
 def onenet(request):
     if request.method == 'GET':
         return HttpResponse(request.GET['msg'])
-    
+
     else:
-        print(json.loads(request.body))
-        return HttpResponse("123")
-        
+        msg = json.loads(request.body)['msg']
+        imei = msg['imei']
+        data = eval(msg['value'])
+        print(msg, imei, data, data['Lat'])
+        if Device.objects.filter(IMEI=imei):
+            device_obj = Device.objects.filter(IMEI=imei)[0]
+            if data['Full'] == 1:
+                Data.objects.create(device=device_obj, model=0, data=msg['value'], waring=1)
+                return HttpResponse("123")
+            else:
+                Data.objects.create(device=device_obj, model=0, data=msg['value'])
+                return HttpResponse("123")
+        else:
+            return HttpResponse("123")
+
+
 @csrf_exempt
 def tlink(request):
     if request.method == 'POST':
@@ -691,5 +705,38 @@ def passwordChange(request, username):
                 return redirect('/home/' + request.session.get('USERNAME') + '/center')
         else:
             return redirect('/home/' + request.session.get('USERNAME') + '/center')
+    else:
+        return redirect('/')
+
+
+def waringDevice(user_obj):
+    devices = []
+    system = []
+    waring_devices = []
+    for system_obj in user_obj.system.all():
+        for device_obj in system_obj.device.all():
+            devices.append(device_obj)
+    for device_obj in devices:
+        if device_obj.data.filter(waring=1):
+            system.append(device_obj.system)
+            waring_devices.append(device_obj)
+    return system, waring_devices
+
+
+def getwaring(request):
+    if request.method == 'GET':
+        is_login = request.session.get('IS_LOGIN', False)
+        if is_login:
+            # 获取系统对象
+            user_obj = \
+            Users.objects.filter(username=request.session.get('USERNAME'), domain_id=request.session.get('DOMAIN_ID'))[
+                0]
+            waring_system_list, waring_device_list = waringDevice(user_obj)
+            if waring_device_list or waring_device_list:
+                return HttpResponse('yes')
+            else:
+                return HttpResponse('no')
+        else:
+            return redirect('/')
     else:
         return redirect('/')

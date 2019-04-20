@@ -57,7 +57,7 @@ def sleep():
 def jin1():
     sleep()
     if jwaring():
-        data = "{'Lon':'32.1945','Lat':'119.467','Switch':1,'Cycle':'6','Turn':1}"
+        data = "{'Lon':'119.467','Lat':'32.1945','Switch':1,'Cycle':'6','Turn':1}"
         Data.objects.create(device_id=2, model=0, data=data, waring=1)
 
 
@@ -65,7 +65,7 @@ def jin1():
 def jin3():
     sleep()
     if jwaring():
-        data = "{'Lon':'32.195','Lat':'119.460','Switch':1,'Cycle':'6','Turn':0}"
+        data = "{'Lon':'119.460','Lat':'32.195','Switch':1,'Cycle':'6','Turn':0}"
         Data.objects.create(device_id=4, model=0, data=data, waring=1)
 
 
@@ -73,7 +73,7 @@ def jin3():
 def jin6():
     sleep()
     if jwaring():
-        data = "{'Lon':'32.196','Lat':'119.467','Switch':1,'Cycle':'6','Turn':1}"
+        data = "{'Lon':'119.467','Lat':'32.196','Switch':1,'Cycle':'6','Turn':1}"
         Data.objects.create(device_id=8, model=0, data=data, waring=1)
 
 
@@ -81,7 +81,7 @@ def jin6():
 def jin7():
     sleep()
     if jwaring():
-        data = "{'Lon':'32.196','Lat':'119.465','Switch':1,'Cycle':'6','Turn':0}"
+        data = "{'Lon':'119.465','Lat':'32.196','Switch':1,'Cycle':'6','Turn':0}"
         Data.objects.create(device_id=9, model=0, data=data, waring=1)
 
 
@@ -89,21 +89,21 @@ def jin7():
 def det1():
     sleep()
     if waring():
-        data = "{'Lon':'32.1945','Lat':'119.4675','Switch':1,'Cycle':'6','Full':1}"
+        data = "{'Lon':'119.4675','Lat':'32.1945','Switch':1,'Cycle':'6','Full':1}"
         Data.objects.create(device_id=12, model=0, data=data, waring=1)
 
 
 def det2():
     sleep()
     if waring():
-        data = "{'Lon':'32.19605','Lat':'119.4655','Switch':1,'Cycle':'6','Full':1}"
+        data = "{'Lon':'119.4655','Lat':'32.19605','Switch':1,'Cycle':'6','Full':1}"
         Data.objects.create(device_id=33, model=0, data=data, waring=1)
 
 
 def det3():
     sleep()
     if waring():
-        data = "{'Lon':'32.1952','Lat':'119.4658','Switch':1,'Cycle':'6','Full':1}"
+        data = "{'Lon':'119.4658','Lat':'32.1952','Switch':1,'Cycle':'6','Full':1}"
         Data.objects.create(device_id=14, model=0, data=data, waring=1)
 
 
