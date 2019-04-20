@@ -5,7 +5,10 @@ import datetime
 import random
 from django.views.decorators.csrf import csrf_exempt
 import json
-
+import time
+import os
+from threading import Thread
+from queue import Queue
 
 # 生成设备注册码
 def createCode():
@@ -740,3 +743,19 @@ def getwaring(request):
             return redirect('/')
     else:
         return redirect('/')
+
+def func(queue):
+    while True:
+        data = queue.get()
+        data = eval(data)
+        print(data)
+
+
+queue = Queue()
+data = '''{'Lon':'324','DATA':{'Lat':'32425'}}'''
+threads = [Thread(target=func, args=(queue,)) for i in range(4)]
+for i in range(len(threads)):
+    threads[i].start()
+def into(request):
+    queue.put(data)
+    return HttpResponse("this is into")

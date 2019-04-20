@@ -35,6 +35,7 @@ urlpatterns = [
     path('onenet/', keystone.onenet, name="onenet"),
     path('tlink/', keystone.tlink, name="tlink"),
     path('getwaring/', keystone.getwaring, name="getwaring"),
+    path('into/', keystone.into, name="into"),
     path('admin/<username>/', keystone.mainAdmin, name='mainAdmin'),
     path('admin/<username>/systemcreate/', keystone.systemCreate, name='systemCreate'),
     path('admin/<username>/systemremove/', keystone.systemRemove, name='systemRemove'),
