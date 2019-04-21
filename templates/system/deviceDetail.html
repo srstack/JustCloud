@@ -16,9 +16,9 @@
             <div class="baseinfo-user">
                 <h2>{{ device_obj.name }}</h2>
                 {% if waring_data %}
-                    <span style="color: #fa2e19;background-color: #ffbdac">{{ system_obj.platform }}</span>
+                    <span style="color: #fa2e19;background-color: #ffbdac">{{ device_obj.IMEI }}</span>
                 {% else %}
-                    <span>{{ system_obj.platform }}</span>
+                    <span>{{ device_obj.IMEI }}</span>
                 {% endif %}
             </div>
             <div class="baseinfo-uid" style="width: 15%">

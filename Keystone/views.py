@@ -5,10 +5,9 @@ import datetime
 import random
 from django.views.decorators.csrf import csrf_exempt
 import json
-import time
-import os
 from threading import Thread
 from queue import Queue
+
 
 # 生成设备注册码
 def createCode():
@@ -45,6 +44,8 @@ def home_no(request):
         return render(request, 'waring_login.html')
 
 
+# 用于测试oneNET http推送
+# huyunjiang 专用
 @csrf_exempt
 def onenet(request):
     if request.method == 'GET':
@@ -65,12 +66,6 @@ def onenet(request):
                 return HttpResponse("123")
         else:
             return HttpResponse("123")
-
-
-@csrf_exempt
-def tlink(request):
-    if request.method == 'POST':
-        print(request.POST)
 
 
 def admin_no(request):
@@ -732,8 +727,9 @@ def getwaring(request):
         if is_login:
             # 获取系统对象
             user_obj = \
-            Users.objects.filter(username=request.session.get('USERNAME'), domain_id=request.session.get('DOMAIN_ID'))[
-                0]
+                Users.objects.filter(username=request.session.get('USERNAME'),
+                                     domain_id=request.session.get('DOMAIN_ID'))[
+                    0]
             waring_system_list, waring_device_list = waringDevice(user_obj)
             if waring_device_list or waring_device_list:
                 return HttpResponse('yes')
@@ -744,18 +740,140 @@ def getwaring(request):
     else:
         return redirect('/')
 
-def func(queue):
-    while True:
-        data = queue.get()
-        data = eval(data)
-        print(data)
+
+# auth_data 函数
+def jinger(device, data):
+    if data['Turn']:
+        return True
+    else:
+        data_list = device.date.filter(waring=0)
+        if data_list:
+            pre_data = eval(data_list[-1].data)
+            if (abs(float(pre_data['Lon']) - float(data['Lon'])) > 0.001) or (
+                    abs(float(pre_data['Lat']) - float(data['Lat'])) > 0.001):
+                return True
+            else:
+                return False
+        else:
+            return False
 
 
+def detritus(device, data):
+    if data['Full']:
+        return True
+    else:
+        data_list = device.date.filter(waring=0)
+        if data_list:
+            pre_data = eval(data_list[-1].data)
+            if (abs(float(pre_data['Lon']) - float(data['Lon'])) > 0.001) or (
+                    abs(float(pre_data['Lat']) - float(data['Lat'])) > 0.001):
+                return True
+            else:
+                return False
+        else:
+            return False
+
+
+def parquer(device, data):
+    data_list = device.date.filter(waring=0)
+    if data_list:
+        pre_data = eval(data_list[-1].data)
+        if (abs(float(pre_data['Lon']) - float(data['Lon'])) > 0.001) or (
+                abs(float(pre_data['Lat']) - float(data['Lat'])) > 0.001):
+            return True
+        else:
+            return False
+
+
+def lumiere(device, data):
+    if not (data['Top-Light'] == 1 and data['Bottom-light'] == 1 and data['Switch-Light'] == 0) or not (
+            data['Top-Light'] == 0 and data['Bottom-light'] == 1 and data['Switch-Light'] == 1):
+        return True
+    else:
+        if data['Top-Light'] == 1 and data['Bottom-light'] == 1 and data['Switch-Light'] == 0:
+            start_time = datetime.datetime.strptime(str(datetime.datetime.now().date()) + '5:30', '%Y-%m-%d%H:%M')
+            end_time = datetime.datetime.strptime(str(datetime.datetime.now().date()) + '7:20', '%Y-%m-%d%H:%M')
+            now_time = datetime.datetime.now()
+            if (now_time > start_time) and (now_time < end_time):
+                return True
+        else:
+            start_time = datetime.datetime.strptime(str(datetime.datetime.now().date()) + '17:45', '%Y-%m-%d%H:%M')
+            end_time = datetime.datetime.strptime(str(datetime.datetime.now().date()) + '19:15', '%Y-%m-%d%H:%M')
+            now_time = datetime.datetime.now()
+            if (now_time > start_time) and (now_time < end_time):
+                return True
+
+        data_list = device.date.filter(waring=0)
+        if data_list:
+            pre_data = eval(data_list[-1].data)
+            if (abs(float(pre_data['Lon']) - float(data['Lon'])) > 0.001) or (
+                    abs(float(pre_data['Lat']) - float(data['Lat'])) > 0.001):
+                return True
+            else:
+                return False
+        else:
+            return False
+
+
+# 数据消息队列
 queue = Queue()
-data = '''{'Lon':'324','DATA':{'Lat':'32425'}}'''
-threads = [Thread(target=func, args=(queue,)) for i in range(4)]
+
+
+def onenetHandle(queue):
+    while True:
+        msg = queue.get()
+        # 获得数据
+        data = eval(msg['value'])
+
+        system_platform, device_obj = authDevice(data['sys_code'], data['IMEI'])
+        if system_platform:
+            auth_data = system_platform.lower() + '''(device_obj,data['data'])'''
+            if eval(auth_data):
+                Data.objects.create(device=device_obj, model=0, data=data['data'], waring=1)
+            else:
+                Data.objects.create(device=device_obj, model=0, data=data['data'], waring=0)
+        else:
+            pass
+
+
+def authDevice(sys_code, IMEI):
+    if Device.objects.filter(IMEI=IMEI):
+        device_obj = Device.objects.filter(IMEI=imei)[0]
+        if device_obj.system.devicecode == sys_code:
+            return device_obj.system.platform, device_obj
+        else:
+            return False
+    else:
+        return False
+
+
+# 多线程处理数据
+threads = [Thread(target=onenetHandle, args=(queue,)) for i in range(4)]
 for i in range(len(threads)):
     threads[i].start()
-def into(request):
-    queue.put(data)
-    return HttpResponse("this is into")
+
+
+# 通过队列堵塞完成异步操作
+@csrf_exempt
+def onenetDataIn(request):
+    if request.method == 'GET':
+        return HttpResponse(request.GET['msg'])
+
+    else:
+        msg = json.loads(request.body)['msg']
+        queue.put(msg)
+        return HttpResponse("123")
+
+
+# 测试oneNET
+@csrf_exempt
+def onenetDataTest(request):
+    if request.method == 'GET':
+        return HttpResponse(request.GET['msg'])
+
+    else:
+        msg = json.loads(request.body)['msg']
+        print(type(msg), msg)
+        data = eval(msg['value'])
+        print(type(data), data)
+        return HttpResponse("123")
