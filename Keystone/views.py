@@ -746,9 +746,9 @@ def jinger(device, data):
     if data['Turn']:
         return True
     else:
-        data_list = device.date.filter(waring=0)
+        data_list = device.data.filter(waring=0).reverse()
         if data_list:
-            pre_data = eval(data_list[-1].data)
+            pre_data = eval(data_list[0].data)
             if (abs(float(pre_data['Lon']) - float(data['Lon'])) > 0.001) or (
                     abs(float(pre_data['Lat']) - float(data['Lat'])) > 0.001):
                 return True
@@ -762,9 +762,9 @@ def detritus(device, data):
     if data['Full']:
         return True
     else:
-        data_list = device.date.filter(waring=0)
+        data_list = device.data.filter(waring=0).reverse()
         if data_list:
-            pre_data = eval(data_list[-1].data)
+            pre_data = eval(data_list[0].data)
             if (abs(float(pre_data['Lon']) - float(data['Lon'])) > 0.001) or (
                     abs(float(pre_data['Lat']) - float(data['Lat'])) > 0.001):
                 return True
@@ -775,9 +775,9 @@ def detritus(device, data):
 
 
 def parquer(device, data):
-    data_list = device.date.filter(waring=0)
+    data_list = device.data.filter(waring=0).reverse()
     if data_list:
-        pre_data = eval(data_list[-1].data)
+        pre_data = eval(data_list[0].data)
         if (abs(float(pre_data['Lon']) - float(data['Lon'])) > 0.001) or (
                 abs(float(pre_data['Lat']) - float(data['Lat'])) > 0.001):
             return True
@@ -803,9 +803,9 @@ def lumiere(device, data):
             if (now_time > start_time) and (now_time < end_time):
                 return True
 
-        data_list = device.date.filter(waring=0)
+        data_list = device.data.filter(waring=0).reverse()
         if data_list:
-            pre_data = eval(data_list[-1].data)
+            pre_data = eval(data_list[0].data)
             if (abs(float(pre_data['Lon']) - float(data['Lon'])) > 0.001) or (
                     abs(float(pre_data['Lat']) - float(data['Lat'])) > 0.001):
                 return True
@@ -838,7 +838,7 @@ def onenetHandle(queue):
 
 def authDevice(sys_code, IMEI):
     if Device.objects.filter(IMEI=IMEI):
-        device_obj = Device.objects.filter(IMEI=imei)[0]
+        device_obj = Device.objects.filter(IMEI=IMEI)[0]
         if device_obj.system.devicecode == sys_code:
             return device_obj.system.platform, device_obj
         else:
