@@ -821,10 +821,8 @@ queue = Queue()
 
 def onenetHandle(queue):
     while True:
-        msg = queue.get()
+        data = queue.get()
         # 获得数据
-        data = eval(msg['value'])
-
         system_platform, device_obj = authDevice(data['sys_code'], data['IMEI'])
         if system_platform:
             auth_data = system_platform.lower() + '''(device_obj,data['data'])'''
@@ -874,6 +872,9 @@ def onenetDataTest(request):
     else:
         msg = json.loads(request.body)['msg']
         print(type(msg), msg)
-        data = eval(msg['value'])
-        print(type(data), data)
-        return HttpResponse("123")
+        if 'value' in msg.keys():
+            data = msg['value']
+            print(type(data), data)
+            return HttpResponse("123")
+        else:
+            return HttpResponse("123")
