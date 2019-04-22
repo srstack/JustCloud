@@ -818,20 +818,42 @@ def lumiere(device, data):
 # 数据消息队列
 queue = Queue()
 
+# oneNET数据排序函数
+def dataSort(platform,data):
+    if platform == "jinger":
+        new_data = {'Lon':data['Lon'],'Lat':data['Lat'],'Switch':data['Switch'],'Cycle':data['Cycle'],'Turn':data['Turn'],}
+        return str(new_data)
+    elif platform == "detritus":
+        new_data = {'Lon':data['Lon'],'Lat':data['Lat'],'Switch':data['Switch'],'Cycle':data['Cycle'],'Full':data['Full'],}
+        return str(new_data)
+    elif platform == "parquer":
+        new_data = {'Lon':data['Lon'],'Lat':data['Lat'],'Switch':data['Switch'],'Cycle':data['Cycle'],'Park':data['Park'],}
+        return str(new_data)
+    elif platform == "lumiere":
+        new_data = {
+            'Lon':data['Lon'],'Lat':data['Lat'],'Switch':data['Switch'],
+            'Cycle':data['Cycle'],'Switch-Light':data['Switch-Light'],
+            'Top-Light':data['Top-Light'],
+            'Bottom-Light':data['Bottom-Light'],
+            }
+        return str(new_data)
+    else:
+        pass
 
+# oneNET数据处理函数
 def onenetHandle(queue):
     while True:
-        msg = queue.get()
+        data = queue.get()
         # 获得数据
-        data = eval(msg['value'])
-
         system_platform, device_obj = authDevice(data['sys_code'], data['IMEI'])
         if system_platform:
             auth_data = system_platform.lower() + '''(device_obj,data['data'])'''
             if eval(auth_data):
-                Data.objects.create(device=device_obj, model=0, data=data['data'], waring=1)
+                new_data = dataSort(system_platform.lower(), data['data'])
+                Data.objects.create(device=device_obj, model=0, data=new_data, waring=1)
             else:
-                Data.objects.create(device=device_obj, model=0, data=data['data'], waring=0)
+                new_data = dataSort(system_platform.lower(), data['data'])
+                Data.objects.create(device=device_obj, model=0, data=new_data, waring=0)
         else:
             pass
 
@@ -861,7 +883,8 @@ def onenetDataIn(request):
 
     else:
         msg = json.loads(request.body)['msg']
-        queue.put(msg)
+        if 'value' in msg.keys():
+            queue.put(msg['value'])
         return HttpResponse("123")
 
 
@@ -874,6 +897,9 @@ def onenetDataTest(request):
     else:
         msg = json.loads(request.body)['msg']
         print(type(msg), msg)
-        data = eval(msg['value'])
-        print(type(data), data)
-        return HttpResponse("123")
+        if 'value' in msg.keys():
+            data = msg['value']
+            print(type(data), data)
+            return HttpResponse("123")
+        else:
+            return HttpResponse("123")
