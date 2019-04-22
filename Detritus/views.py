@@ -308,7 +308,8 @@ def systemDevice(request, username, sid):
                         new_devices.append(device)
                     if Data.objects.filter(model=0, date__gte=time_list[0], device=device):
                         system_waring_devices.append(device)
-                    data_list = Data.objects.filter(Q(waring=1) | Q(waring=0), model=0, date__gte=time_list[0],device=device)
+                    data_list = Data.objects.filter(Q(waring=1) | Q(waring=0), model=0, date__gte=time_list[0],
+                                                    device=device)
                     print(data_list)
                     for i in range(0, 10):
                         if device.date.date() == time_list[i]:
@@ -391,7 +392,7 @@ def deviceDetail(request, username, sid, did):
                 if data:
                     pass
                 else:
-                    return redirect('/admin/' + request.session.get('USERNAME'))
+                    return render(request, 'system/noDataDetail.html', locals())
 
                 for key_data, value_data in data.items():
                     if key_data in data_type:
@@ -399,9 +400,9 @@ def deviceDetail(request, username, sid, did):
 
                 if device_obj.data.filter(waring=1, model=0):
                     waring_data = device_obj.data.filter(waring=1, model=0).last()
+                    waring_device_map = True
 
-                data_had_waring = device_obj.data.filter(Q(waring=1, model=0) | Q(waring=0, model=0))
-                data_had_waring = data_had_waring.reverse()
+                data_had_waring = device_obj.data.filter(Q(waring=1, model=0) | Q(waring=0, model=0)).order_by('-id')
                 data_had_waring_count = len(data_had_waring)
 
                 # 历史异常数据
@@ -776,3 +777,76 @@ def pushAddAll(request, username, sid):
             return redirect('/')
     else:
         return redirect('/')
+
+
+def newDeviceMap(request, username, sid, did):
+    if request.method == 'POST':
+        is_login = request.session.get('IS_LOGIN', False)
+        if is_login:
+            if request.session.get('USERNAME') == username:
+                # 判断是否为此用户
+
+                # 拿到用户ORM对象
+                user_obj = Users.objects.filter(username=username, domain_id=request.session.get('DOMAIN_ID'))[0]
+                # 有无异常设备
+                waring_system_list, waring_device_list = waringDevice(user_obj)
+                user_name = user_obj.name
+                # 系统对象
+                system_obj = System.objects.filter(id=sid)
+                if system_obj:
+                    system_obj = system_obj[0]
+                else:
+                    return HttpResponse('error')
+
+                # 设备对象
+                device_obj = Device.objects.filter(id=did)
+                if device_obj:
+                    device_obj = device_obj[0]
+                else:
+                    return redirect('/admin/' + request.session.get('USERNAME'))
+
+                # 判断是否有管理权限
+
+                if device_obj.system == system_obj:
+                    pass
+                else:
+                    return redirect('/admin/' + request.session.get('USERNAME'))
+
+                if user_obj in device_obj.system.admin.all() and system_obj.platform == 'Detritus':
+
+                    # 数据模板
+                    type_name = eval(str(system_obj.type))
+                    data_type = type_name.keys()
+
+                    device_map = {}
+
+                    # 地图数据
+                    data = eval(str(device_obj.data.filter(model=0).all().last()))
+
+                    if data:
+                        pass
+                    else:
+                        return render(request, 'system/noDataDetail.html', locals())
+
+                    new_map_data = {}
+
+                    for key_data, value_data in data.items():
+                        if key_data in data_type:
+                            device_map[key_data] = value_data
+
+                    new_map_data['data'] = device_map
+                    new_map_data['name'] = device_obj.name
+
+                    if device_obj.data.filter(waring=1, model=0):
+                        waring_data = device_obj.data.filter(waring=1, model=0).last()
+                        new_map_data['status'] = 'waring'
+                    else:
+                        new_map_data['status'] = 'running'
+
+                    return HttpResponse(json.dumps(new_map_data))
+                else:
+                    return redirect('/admin/' + request.session.get('USERNAME'))
+            else:
+                return redirect('/admin/' + request.session.get('USERNAME'))
+        else:
+            return redirect('/')

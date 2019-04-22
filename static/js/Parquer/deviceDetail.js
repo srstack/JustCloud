@@ -1,4 +1,4 @@
-function mapGet(name,dict) {
+function mapFreeGet(name, dict) {
     //获取数据
     var lostion = {"lat": dict['Lat'], "lon": dict['Lon']};
     var point = GpsToBaiduPoint(new BMap.Point(lostion.lon, lostion.lat));
@@ -8,11 +8,15 @@ function mapGet(name,dict) {
 
     //生成坐标对象
     var myIcon = new BMap.Icon("/static/img/parquer-maker.png", new BMap.Size(35, 15));
-    marker = new BMap.Marker(point, {icon: myIcon});
-    map.addOverlay(marker);
+    Point = new BMap.Marker(point, {icon: myIcon});
+    map.addOverlay(Point);
     //加入标签
     var label = new BMap.Label(name, {offset: new BMap.Size(36, -10)});
-    marker.setLabel(label);
+    label.setStyle({
+        color: '#61D16C',
+        border: 'none',
+    });
+    Point.setLabel(label);
 }
 
 function mapGetWaring(name, dict) {
@@ -25,17 +29,37 @@ function mapGetWaring(name, dict) {
 
     //生成坐标对象
     var myIcon = new BMap.Icon("/static/img/parquer-maker.png", new BMap.Size(35, 15));
-    marker = new BMap.Marker(point, {icon: myIcon});
-    map.addOverlay(marker);
+    Point = new BMap.Marker(point, {icon: myIcon});
+    map.addOverlay(Point);
     //加入标签
     var label = new BMap.Label(name, {offset: new BMap.Size(36, -10)});
     label.setStyle({
         color: '#EB3C22',
         border: 'none',
     });
-    marker.setLabel(label);
+    Point.setLabel(label);
 }
 
+function mapUsedGet(name, dict) {
+    //获取数据
+    var lostion = {"lat": dict['Lat'], "lon": dict['Lon']};
+    var point = GpsToBaiduPoint(new BMap.Point(lostion.lon, lostion.lat));
+
+    //第一个设备的位置作为地图初始化地点
+    map.centerAndZoom(point, 19);
+
+    //生成坐标对象
+    var myIcon = new BMap.Icon("/static/img/parquer-maker.png", new BMap.Size(35, 15));
+    Point = new BMap.Marker(point, {icon: myIcon});
+    map.addOverlay(Point);
+    //加入标签
+    var label = new BMap.Label(name, {offset: new BMap.Size(36, -10)});
+    label.setStyle({
+        color: '#8f959b',
+        border: 'none',
+    });
+    Point.setLabel(label);
+}
 
 function showremove(that) {
     loadingOut();
@@ -72,6 +96,31 @@ function WaringRemove() {
                 setTimeout(function () {
                     window.location.reload();
                 }, 1000);
+            }
+        }
+    })
+}
+
+function mapGetNew() {
+    $.ajax({
+        url: 'getnewdevicemap/',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            "csrfmiddlewaretoken": $("[name = \'csrfmiddlewaretoken\']").val()
+        },
+        success: function (data) {
+            if (data.status === 'waring') {
+                map.removeOverlay(Point);
+                mapGetWaring(data.name, data.data);
+            }
+            else if (data.status === 'free') {
+                map.removeOverlay(Point);
+                mapFreeGet(data.name, data.data);
+            }
+            else if (data.status === 'used') {
+                map.removeOverlay(Point);
+                mapUsedGet(data.name, data.data);
             }
         }
     })

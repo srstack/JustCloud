@@ -746,7 +746,7 @@ def jinger(device, data):
     if data['Turn']:
         return True
     else:
-        data_list = device.data.filter(waring=0).reverse()
+        data_list = device.data.filter(waring=0).order_by('-id')
         if data_list:
             pre_data = eval(data_list[0].data)
             if (abs(float(pre_data['Lon']) - float(data['Lon'])) > 0.001) or (
@@ -762,7 +762,7 @@ def detritus(device, data):
     if data['Full']:
         return True
     else:
-        data_list = device.data.filter(waring=0).reverse()
+        data_list = device.data.filter(waring=0).order_by('-id')
         if data_list:
             pre_data = eval(data_list[0].data)
             if (abs(float(pre_data['Lon']) - float(data['Lon'])) > 0.001) or (
@@ -775,7 +775,7 @@ def detritus(device, data):
 
 
 def parquer(device, data):
-    data_list = device.data.filter(waring=0).reverse()
+    data_list = device.data.filter(waring=0).order_by('-id')
     if data_list:
         pre_data = eval(data_list[0].data)
         if (abs(float(pre_data['Lon']) - float(data['Lon'])) > 0.001) or (
@@ -803,7 +803,7 @@ def lumiere(device, data):
             if (now_time > start_time) and (now_time < end_time):
                 return True
 
-        data_list = device.data.filter(waring=0).reverse()
+        data_list = device.data.filter(waring=0).order_by('-id')
         if data_list:
             pre_data = eval(data_list[0].data)
             if (abs(float(pre_data['Lon']) - float(data['Lon'])) > 0.001) or (

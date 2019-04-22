@@ -270,6 +270,8 @@
     <script src="/static/js/baiduLBS.js"></script>
     <script type="text/javascript">
         var map = new BMap.Map('allmap');
+        //定义坐标对象
+        var Point = [];
 
         //定义设备字典
         var data_dict = {};
@@ -278,8 +280,14 @@
             data_dict['{{ data_name }}'] = {{ data_value }};
         {% endfor %}
 
-        {% if waring_data %}
+        {% if waring_device_map %}
             mapGetWaring('{{ device_obj.name }}', data_dict);
+        {% elif light_active %}
+            mapGetActive('{{ device_obj.name }}', data_dict);
+        {% elif device_free %}
+            mapFreeGet('{{ device_obj.name }}', data_dict);
+        {% elif device_used %}
+            mapUsedGet('{{ device_obj.name }}', data_dict);
         {% else %}
             mapGet('{{ device_obj.name }}', data_dict);
         {% endif %}
@@ -287,5 +295,7 @@
         map.setMapStyleV2({styleJson: styleJson});
         //开启地图拖动以及缩放；
         map.enableScrollWheelZoom(true);
+
+        window.setInterval("mapGetNew()", 10000);
     </script>
 {% endblock %}

@@ -374,7 +374,7 @@ def deviceDetail(request, username, sid, did):
                 if data:
                     pass
                 else:
-                    return redirect('/admin/' + request.session.get('USERNAME'))
+                    return render(request, 'system/noDataDetail.html', locals())
 
                 for key_data, value_data in data.items():
                     if key_data in data_type:
@@ -383,7 +383,7 @@ def deviceDetail(request, username, sid, did):
                 if device_obj.data.filter(waring=1, model=0):
                     waring_data = device_obj.data.filter(waring=1, model=0).last()
 
-                data_had_waring = device_obj.data.filter(Q(waring=1, model=0) | Q(waring=0, model=0)).reverse()
+                data_had_waring = device_obj.data.filter(Q(waring=1, model=0) | Q(waring=0, model=0)).order_by('-id')
                 data_had_waring_count = len(data_had_waring)
 
                 # 历史异常数据
@@ -758,3 +758,6 @@ def pushAddAll(request, username, sid):
             return redirect('/')
     else:
         return redirect('/')
+
+def newDeviceMap(request, username, sid, did):
+    pass

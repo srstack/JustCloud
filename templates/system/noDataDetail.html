@@ -1,0 +1,45 @@
+{% extends 'type/controlboard.html' %}
+{% load base %}
+{% block title %}{{ system_obj.platform }}设备详情{% endblock %}
+
+{% block menu %}
+    {% include 'system/systemType.html' %}
+{% endblock %}
+
+{% block wrapper %}
+    <link href="/static/css/system/deviceDetail.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript"
+            src="//api.map.baidu.com/api?v=3.0&ak=U7SFiLeoxrhVv3M2C8gbU7TzOhKXcDB2"></script>
+
+    <div class="baseinfo">
+        <div class="grid">
+            <div class="baseinfo-user">
+                <h2>{{ device_obj.name }}</h2>
+                <span style="color: white;background-color: gray">{{ device_obj.IMEI }}</span>
+            </div>
+            <div class="baseinfo-uid" style="width: 15%">
+                <h3>设备ID</h3>
+                <span>{{ device_obj.id }}</span>
+            </div>
+            <div class="baseinfo-aid">
+                <h3>所属域</h3>
+                <span>{{ system_obj.domain.name }}</span>
+            </div>
+            <div class="baseinfo-uid">
+                <h3>所属系统</h3>
+                <span>{{ system_obj.name }}</span>
+            </div>
+            <div class="baseinfo-subuser">
+                <h3>创建时间</h3>
+                <span>{{ device_obj.date|date:"Y-m-d H:i" }}</span>
+            </div>
+            <div class="baseinfo-system">
+                <h3>设备接入协议</h3>
+                <span>{{ system_obj.protocol }}</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="navigation" style="margin: 30px 20px 0 20px;text-align: center">设备未激活</div>
+
+{% endblock %}

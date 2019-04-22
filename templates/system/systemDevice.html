@@ -1,4 +1,5 @@
 {% extends 'type/controlboard.html' %}
+{% load base %}
 {% block title %}{{ system_obj.platform }}设备列表{% endblock %}
 
 {% block menu %}
@@ -114,7 +115,7 @@
                                 {% if device in waring_device_list %}
                                         <div>
                                         <span class="device-status" style="background-color: #EB3C22">异常</span></div>
-                                {% elif device.data.all %}
+                                {% elif device|data %}
                                     <div><span class="device-status"
                                                style="background-color: #61d16c">在线</span>
                                     </div>

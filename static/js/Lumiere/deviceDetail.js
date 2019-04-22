@@ -8,11 +8,11 @@ function mapGet(name,dict) {
 
     //生成坐标对象
     var myIcon = new BMap.Icon("/static/img/lumiere-maker.png", new BMap.Size(30, 20));
-    marker = new BMap.Marker(point, {icon: myIcon});
-    map.addOverlay(marker);
+    Point = new BMap.Marker(point, {icon: myIcon});
+    map.addOverlay(Point);
     //加入标签
     var label = new BMap.Label(name, {offset: new BMap.Size(21, -10)});
-    marker.setLabel(label);
+    Point.setLabel(label);
 }
 
 function mapGetWaring(name, dict) {
@@ -25,15 +25,36 @@ function mapGetWaring(name, dict) {
 
     //生成坐标对象
     var myIcon = new BMap.Icon("/static/img/lumiere-maker.png", new BMap.Size(30, 20));
-    marker = new BMap.Marker(point, {icon: myIcon});
-    map.addOverlay(marker);
+    Point = new BMap.Marker(point, {icon: myIcon});
+    map.addOverlay(Point);
     //加入标签
     var label = new BMap.Label(name, {offset: new BMap.Size(21, -10)});
     label.setStyle({
         color: '#EB3C22',
         border: 'none',
     });
-    marker.setLabel(label);
+    Point.setLabel(label);
+}
+
+function mapGetActive(name, dict) {
+    //获取数据
+    var lostion = {"lat": dict['Lat'], "lon": dict['Lon']};
+    var point = GpsToBaiduPoint(new BMap.Point(lostion.lon, lostion.lat));
+
+    //第一个设备的位置作为地图初始化地点
+    map.centerAndZoom(point, 19);
+
+    //生成坐标对象
+    var myIcon = new BMap.Icon("/static/img/lumiere-maker.png", new BMap.Size(30, 20));
+    Point = new BMap.Marker(point, {icon: myIcon});
+    map.addOverlay(Point);
+    //加入标签
+    var label = new BMap.Label(name, {offset: new BMap.Size(21, -10)});
+    label.setStyle({
+        color: '#DEE458',
+        border: 'none',
+    });
+    Point.setLabel(label);
 }
 
 
@@ -72,6 +93,31 @@ function WaringRemove() {
                 setTimeout(function () {
                     window.location.reload();
                 }, 1000);
+            }
+        }
+    })
+}
+
+function mapGetNew() {
+    $.ajax({
+        url: 'getnewdevicemap/',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            "csrfmiddlewaretoken": $("[name = \'csrfmiddlewaretoken\']").val()
+        },
+        success: function (data) {
+            if (data.status === 'waring') {
+                map.removeOverlay(Point);
+                mapGetWaring(data.name, data.data);
+            }
+            else if (data.status === 'light'){
+                map.removeOverlay(Point);
+                mapGetActive(data.name, data.data);
+            }
+            else {
+                map.removeOverlay(Point);
+                mapGet(data.name, data.data);
             }
         }
     })
