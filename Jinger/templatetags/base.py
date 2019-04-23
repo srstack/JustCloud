@@ -10,7 +10,15 @@ def key(data_dict, type):
 
 @register.filter
 def data(device):
-    if device.date.fiter(model=0):
+    if device.data.fitler(model=0):
+        return True
+    else:
+        return False
+
+
+@register.filter
+def active(system):
+    if system.device.filter(data__model=0):
         return True
     else:
         return False

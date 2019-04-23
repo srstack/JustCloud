@@ -1,0 +1,33 @@
+{% extends 'type/controlboard.html' %}
+{% block title %}{{ system_obj.platform }}系统分析{% endblock %}
+
+{% block menu %}
+    {% include 'system/systemType.html' %}
+{% endblock %}
+
+{% block wrapper %}
+    <link href="/static/css/Parquer/systemAnaly.css" rel="stylesheet" type="text/css"/>
+
+    <div class="navigation" style="margin: 30px 20px 0 20px;text-align: center">系统状态</div>
+
+    <div class="system-wrap">
+        <div class="item">
+            <div class="system-left">
+                <i class="fa fa-car" style="color: grey"></i>
+                <p style="font-weight: 600">{{ system_obj.platform }}</p>
+            </div>
+            <div class="system-right">
+                <div class="system-bottom">
+                    <p style="font-size: 21px;margin-bottom: 20px;">系统状态</p>
+                    <b style="font-weight: 600;color: grey;font-size: 18px;">未激活</b>
+                </div>
+            </div>
+        </div>
+        <div class="item item-right" style="margin-left: 20px;">
+            <div id="device-charts"></div>
+        </div>
+    </div>
+
+    <div class="navigation" style="margin: 30px 20px 0 20px;text-align: center">该系统无激活设备</div>
+
+{% endblock %}

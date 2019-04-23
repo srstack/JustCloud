@@ -26,7 +26,13 @@
             <div class="grid">
                 <div class="baseinfo-user">
                     <h2>{{ device.name }}</h2>
-                    <span>{{ system_obj.platform }}</span>
+                    {% if device in waring_device_list %}
+                        <span style="color: #fa2e19;background-color: #ffbdac">{{ device.IMEI }}</span>
+                    {% elif device|data %}
+                        <span>{{ device.IMEI }}</span>
+                    {% else %}
+                        <span style="color: white;background-color:rgb(196, 201, 205)">{{ device.IMEI }}</span>
+                    {% endif %}
                 </div>
                 <div class="baseinfo-uid" style="width: 25%;">
                     <h3>设备ID</h3>

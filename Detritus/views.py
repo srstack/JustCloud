@@ -172,10 +172,13 @@ def systemAnaly(request, username, sid):
                 devices = system_obj.device.all()
                 device_count = len(devices)
 
+                if not system_obj.device.filter(data__model=0):
+                    return render(request,'system/noDataAnaly.html',locals())
+
                 # 该系统的异常设备
                 system_waring_devices = []
                 system_waring_datas = []
-                for device in system_obj.device.all():
+                for device in devices:
                     for data in device.data.filter(model=0).all():
                         if data.waring == 1:
                             system_waring_devices.append(device)

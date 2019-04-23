@@ -1,4 +1,5 @@
 {% extends 'type/controlboard.html' %}
+{% load base %}
 {% block title %}JustCloud-平台概况{% endblock %}
 
 {% block menu %}
@@ -64,10 +65,14 @@
                     <div class="baseinfo-user">
                         {% if system in waring_system_list %}
                             <h2 style="color: #eb3c22">{{ system.name }}</h2>
-                        {% else %}
+                            <span style="color: #fa2e19;background-color: #ffbdac">{{ system.platform }}</span>
+                        {% elif system|active %}
                             <h2>{{ system.name }}</h2>
+                            <span>{{ system.platform }}</span>
+                        {% else %}
+                            <h2 style="color: grey">{{ system.name }}</h2>
+                            <span style="color: white;background-color:rgb(196, 201, 205)">{{ system.platform }}</span>
                         {% endif %}
-                        <span>{{ system.platform }}</span>
                         <a onclick="loadingIn()"
                            href="/system/{{ username }}/{{ system.platform }}/{{ system.id }}">详情</a>
                         <a onclick="loadingIn();showreSys(this)" id="{{ system.id }}">删除</a>

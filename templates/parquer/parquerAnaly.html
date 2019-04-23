@@ -17,10 +17,11 @@
             <div class="system-left">
                 {% if waring_device_map %}
                     <i class="fa fa-car" style="color: #ea4215"></i>
+                    <p style="font-weight: 600;color: #ea4215">{{ system_obj.platform }}</p>
                 {% else %}
                     <i class="fa fa-car"></i>
+                    <p style="font-weight: 600">{{ system_obj.platform }}</p>
                 {% endif %}
-                <p style="font-weight: 600">{{ system_obj.platform }}</p>
             </div>
             <div class="system-right">
                 <div class="system-bottom">
