@@ -853,7 +853,7 @@ def onenetHandle(queue):
                 Data.objects.create(device=device_obj, model=0, data=new_data, waring=1)
             else:
                 new_data = dataSort(system_platform.lower(), data['data'])
-                Data.objects.create(device=device_obj, model=0, data=new_data, waring=0)
+                Data.objects.create(device=device_obj, model=0, data=new_data)
         else:
             pass
 
