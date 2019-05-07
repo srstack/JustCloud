@@ -9,7 +9,6 @@ def index(request):
     is_login = request.session.get('IS_LOGIN', False)
     if is_login:
         username = request.session.get('USERNAME')
-        print(username)
         user_name = Users.objects.filter(username=username).values('name')[0].get('name')
         first_name = user_name[0]
         return render(request, 'index_login.html', locals())

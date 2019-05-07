@@ -7,6 +7,8 @@ from django.views.decorators.csrf import csrf_exempt
 import json
 from threading import Thread
 from queue import Queue
+from django.db.models import F, Q
+
 
 
 # 生成设备注册码
@@ -743,49 +745,96 @@ def getwaring(request):
 
 # auth_data 函数
 def jinger(device, data):
-    if data['Turn']:
-        return True
-    else:
-        data_list = device.data.filter(waring=0).order_by('-id')
-        if data_list:
-            pre_data = eval(data_list[0].data)
-            if (abs(float(pre_data['Lon']) - float(data['Lon'])) > 0.001) or (
-                    abs(float(pre_data['Lat']) - float(data['Lat'])) > 0.001):
-                return True
-            else:
-                return False
-        else:
-            return False
-
-
-def detritus(device, data):
-    if data['Full']:
-        return True
-    else:
-        data_list = device.data.filter(waring=0).order_by('-id')
-        if data_list:
-            pre_data = eval(data_list[0].data)
-            if (abs(float(pre_data['Lon']) - float(data['Lon'])) > 0.001) or (
-                    abs(float(pre_data['Lat']) - float(data['Lat'])) > 0.001):
-                return True
-            else:
-                return False
-        else:
-            return False
-
-
-def parquer(device, data):
-    data_list = device.data.filter(waring=0).order_by('-id')
+    data_list = device.data.filter(~Q(waring=0) & ~Q(waring=1), model=0).order_by('-id')
     if data_list:
         pre_data = eval(data_list[0].data)
-        if (abs(float(pre_data['Lon']) - float(data['Lon'])) > 0.001) or (
+        if (int(data['Lon']) == 0 and int(data['Lat']) == 0):
+            data['Lon'] = pre_data['Lon']
+            data['Lat'] = pre_data['Lat']
+            if data['Turn']:
+                return True
+            return False
+        elif (abs(float(pre_data['Lon']) - float(data['Lon'])) > 0.001) or (
                 abs(float(pre_data['Lat']) - float(data['Lat'])) > 0.001):
             return True
         else:
             return False
+    elif (int(data['Lon']) == 0 and int(data['Lat']) == 0):
+        data['Lon'] = '119.4655'
+        data['Lat'] = '32.19605'
+        if data['Turn']:
+            return True
+        return False
+    else:
+        if data['Turn']:
+            return True
+        return False
+
+
+def detritus(device, data):
+    data_list = device.data.filter(~Q(waring=0) & ~Q(waring=1), model=0).order_by('-id')
+    if data_list:
+        pre_data = eval(data_list[0].data)
+        if (int(data['Lon']) == 0 and int(data['Lat']) == 0):
+            data['Lon'] = pre_data['Lon']
+            data['Lat'] = pre_data['Lat']
+            if data['Full']:
+                return True
+            return False
+        elif (abs(float(pre_data['Lon']) - float(data['Lon'])) > 0.001) or (
+                abs(float(pre_data['Lat']) - float(data['Lat'])) > 0.001):
+            return True
+        else:
+            return False
+    elif (int(data['Lon']) == 0 and int(data['Lat']) == 0):
+        data['Lon'] = '119.4655'
+        data['Lat'] = '32.19605'
+        if data['Full']:
+            return True
+        return False
+    else:
+        if data['Full']:
+            return True
+        return False
+
+
+
+def parquer(device, data):
+    data_list = device.data.filter(~Q(waring=0) & ~Q(waring=1), model=0).order_by('-id')
+    if data_list:
+        pre_data = eval(data_list[0].data)
+        if (int(data['Lon']) == 0 and int(data['Lat']) == 0):
+                data['Lon'] = pre_data['Lon']
+                data['Lat'] = pre_data['Lat']
+                return False
+        elif (abs(float(pre_data['Lon']) - float(data['Lon'])) > 0.001) or (
+                abs(float(pre_data['Lat']) - float(data['Lat'])) > 0.001):
+            return True
+        else:
+            return False
+    else:     
+        if (int(data['Lon']) == 0 and int(data['Lat']) == 0):
+            data['Lon'] = '119.4655'
+            data['Lat'] = '32.19605'
+            return False
 
 
 def lumiere(device, data):
+    data_list = device.data.filter(~Q(waring=0) & ~Q(waring=1), model=0).order_by('-id')
+    if data_list:
+        pre_data = eval(data_list[0].data)
+        if (int(data['Lon']) == 0 and int(data['Lat']) == 0):
+            data['Lon'] = pre_data['Lon']
+            data['Lat'] = pre_data['Lat']
+
+        elif (abs(float(pre_data['Lon']) - float(data['Lon'])) > 0.001) or (
+                abs(float(pre_data['Lat']) - float(data['Lat'])) > 0.001):
+            return True
+
+    elif (int(data['Lon']) == 0 and int(data['Lat']) == 0):
+        data['Lon'] = '119.4655'
+        data['Lat'] = '32.19605'
+
     if not (data['Top-Light'] == 1 and data['Bottom-light'] == 1 and data['Switch-Light'] == 0) or not (
             data['Top-Light'] == 0 and data['Bottom-light'] == 1 and data['Switch-Light'] == 1):
         return True
@@ -802,44 +851,44 @@ def lumiere(device, data):
             now_time = datetime.datetime.now()
             if (now_time > start_time) and (now_time < end_time):
                 return True
+    return False
 
-        data_list = device.data.filter(waring=0).order_by('-id')
-        if data_list:
-            pre_data = eval(data_list[0].data)
-            if (abs(float(pre_data['Lon']) - float(data['Lon'])) > 0.001) or (
-                    abs(float(pre_data['Lat']) - float(data['Lat'])) > 0.001):
-                return True
-            else:
-                return False
+
+def others(device, data):
+    data_list = device.data.filter(~Q(waring=0) & ~Q(waring=1), model=0).order_by('-id')
+    if data_list:
+        pre_data = eval(data_list[0].data)
+        if (int(data['Lon']) == 0 and int(data['Lat']) == 0):
+            data['Lon'] = pre_data['Lon']
+            data['Lat'] = pre_data['Lat']
+            return False
+        elif (abs(float(pre_data['Lon']) - float(data['Lon'])) > 0.001) or (
+                abs(float(pre_data['Lat']) - float(data['Lat'])) > 0.001):
+            return True
         else:
             return False
-
+    elif (int(data['Lon']) == 0 and int(data['Lat']) == 0):
+        data['Lon'] = '119.4655'
+        data['Lat'] = '32.19605'
+        return False
+    else:
+        return False
 
 # 数据消息队列
 queue = Queue()
 
 # oneNET数据排序函数
-def dataSort(platform,data):
-    if platform == "jinger":
-        new_data = {'Lon':data['Lon'],'Lat':data['Lat'],'Switch':data['Switch'],'Cycle':data['Cycle'],'Turn':data['Turn'],}
-        return str(new_data)
-    elif platform == "detritus":
-        new_data = {'Lon':data['Lon'],'Lat':data['Lat'],'Switch':data['Switch'],'Cycle':data['Cycle'],'Full':data['Full'],}
-        return str(new_data)
-    elif platform == "parquer":
-        new_data = {'Lon':data['Lon'],'Lat':data['Lat'],'Switch':data['Switch'],'Cycle':data['Cycle'],'Park':data['Park'],}
-        return str(new_data)
-    elif platform == "lumiere":
-        new_data = {
-            'Lon':data['Lon'],'Lat':data['Lat'],'Switch':data['Switch'],
-            'Cycle':data['Cycle'],'Switch-Light':data['Switch-Light'],
-            'Top-Light':data['Top-Light'],
-            'Bottom-Light':data['Bottom-Light'],
-            }
-        return str(new_data)
-    else:
-        pass
+# {'Lon':'经度','Lat':'纬度','Switch':'设备状态','Cycle':'订阅周期','Switch-Light':'路灯状态','Top-Light':'光照状态','Bottom-Light':'照明状态',}
+def dataSort(device,data):
+    type_list = eval(device.system.type).keys()
 
+    # 定义数据字典
+    new_data = {}
+    # 按照数据模板对数据进行格式化
+    for type_obj in type_list:
+        new_data[type_obj] = data[type_obj]
+    return str(new_data)
+ 
 # oneNET数据处理函数
 def onenetHandle(queue):
     while True:
@@ -849,10 +898,10 @@ def onenetHandle(queue):
         if system_platform:
             auth_data = system_platform.lower() + '''(device_obj,data['data'])'''
             if eval(auth_data):
-                new_data = dataSort(system_platform.lower(), data['data'])
+                new_data = dataSort(device_obj, data['data'])
                 Data.objects.create(device=device_obj, model=0, data=new_data, waring=1)
             else:
-                new_data = dataSort(system_platform.lower(), data['data'])
+                new_data = dataSort(device_obj, data['data'])
                 Data.objects.create(device=device_obj, model=0, data=new_data)
         else:
             pass
